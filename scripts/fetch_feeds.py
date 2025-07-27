@@ -164,7 +164,7 @@ class RSSHub:
         # Sort entries by publication date (newest first)
         sorted_entries = sorted(
             self.all_entries,
-            key=lambda x: x.get('published_parsed', (0,)),
+            key=lambda x: x.get('published_parsed') or (0,),
             reverse=True
         )
         
@@ -218,7 +218,7 @@ class RSSHub:
         # Sort feeds by last update time
         sorted_feeds = sorted(
             self.feeds_with_updates,
-            key=lambda x: x.get('updated_parsed', (0,)),
+            key=lambda x: x.get('updated_parsed') or (0,),
             reverse=True
         )
         
@@ -249,7 +249,7 @@ class RSSHub:
         # Sort entries by publication date (newest first)
         sorted_entries = sorted(
             self.all_entries,
-            key=lambda x: x.get('published_parsed', (0,)),
+            key=lambda x: x.get('published_parsed') or (0,),
             reverse=True
         )
         
@@ -290,7 +290,7 @@ class RSSHub:
         # Sort entries by date
         sorted_entries = sorted(
             self.all_entries,
-            key=lambda x: x.get('published_parsed', (0,)),
+            key=lambda x: x.get('published_parsed') or (0,),
             reverse=True
         )
         latest_entries = sorted_entries[:30]  # Show latest 30 on homepage
@@ -298,7 +298,7 @@ class RSSHub:
         # Sort feeds by update time
         sorted_feeds = sorted(
             self.feeds_with_updates,
-            key=lambda x: x.get('updated_parsed', (0,)),
+            key=lambda x: x.get('updated_parsed') or (0,),
             reverse=True
         )
         
