@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <meta name="description" content="{{ description }}">
+    <link rel="icon" href="static/favicon.ico">
+    <link rel="alternate" type="application/rss+xml" title="Latest Posts" href="latest_rss.xml">
+    <link rel="alternate" type="application/json" title="Latest Posts (JSON)" href="latest_posts.json">
+    
+    <style>
+        :root {
+            --bg-color: #fefefe;
+            --text-color: #333;
+            --link-color: #0066cc;
+            --border-color: #e1e1e1;
+            --card-bg: #f9f9f9;
+            --accent-color: #ff6b6b;
+            --secondary-color: #4ecdc4;
+            --muted-color: #666;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #1a1a1a;
+                --text-color: #e1e1e1;
+                --link-color: #66b3ff;
+                --border-color: #333;
+                --card-bg: #2d2d2d;
+                --accent-color: #ff8a8a;
+                --secondary-color: #6ee7dd;
+                --muted-color: #aaa;
+            }
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 0;
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+        
+        .header p {
+            color: var(--muted-color);
+            font-size: 1.1rem;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--muted-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+        }
+        
+        .section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--accent-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        
+        .entry-list {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .entry-item {
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background: var(--card-bg);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .entry-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .entry-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .entry-title a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+        
+        .entry-title a:hover {
+            text-decoration: underline;
+        }
+        
+        .entry-meta {
+            font-size: 0.9rem;
+            color: var(--muted-color);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .entry-source {
+            background: var(--secondary-color);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .entry-summary {
+            color: var(--text-color);
+            line-height: 1.5;
+        }
+        
+        .feed-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .category-section {
+            margin-bottom: 30px;
+        }
+        
+        .category-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .feed-item {
+            padding: 18px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background: var(--card-bg);
+            transition: all 0.2s ease;
+        }
+        
+        .feed-item:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feed-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        
+        .feed-title a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+        
+        .feed-title a:hover {
+            text-decoration: underline;
+        }
+        
+        .feed-description {
+            font-size: 0.9rem;
+            color: var(--muted-color);
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .feed-meta {
+            font-size: 0.85rem;
+            color: var(--muted-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .feed-count {
+            background: var(--accent-color);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px 0;
+            border-top: 1px solid var(--border-color);
+            color: var(--muted-color);
+        }
+        
+        .footer a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .feeds-toggle {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .toggle-button {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.2s ease;
+        }
+        
+        .toggle-button:hover {
+            opacity: 0.9;
+        }
+        
+        .feeds-content {
+            display: none;
+        }
+        
+        .feeds-content.show {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .stats {
+                gap: 20px;
+            }
+            
+            .entry-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .feed-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>📰 {{ title.split(' - ')[1] if ' - ' in title else title }}</h1>
+        <p>{{ description }}</p>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number">{{ total_feeds }}</div>
+                <div class="stat-label">Feeds</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">{{ total_entries }}</div>
+                <div class="stat-label">Total Posts</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">{{ latest_entries|length }}</div>
+                <div class="stat-label">Latest Posts</div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="section">
+            <h2>🔥 Latest Posts</h2>
+            <div class="entry-list">
+                {% for entry in latest_entries %}
+                <article class="entry-item">
+                    <div class="entry-title">
+                        <a href="{{ entry.link or '#' }}" target="_blank" rel="noopener noreferrer">
+                            {{ entry.title or 'No Title' }}
+                        </a>
+                    </div>
+                    <div class="entry-meta">
+                        <span class="entry-source">{{ entry.feed_title or 'Unknown Feed' }}</span>
+                        <span>{{ format_date(entry.published) }}</span>
+                    </div>
+                    {% if entry.summary %}
+                    <div class="entry-summary">
+                        {{ truncate_text(clean_html(entry.summary), 250) }}
+                    </div>
+                    {% endif %}
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>📡 Subscribed Feeds</h2>
+            
+            <div class="feeds-toggle">
+                <button class="toggle-button" onclick="toggleFeeds()">
+                    <span id="toggle-text">Show All Feeds</span>
+                </button>
+            </div>
+            
+            <div class="feeds-content" id="feeds-content">
+                {% for category, category_feeds in categories.items() %}
+                <div class="category-section">
+                    <h3 class="category-title">
+                        {{ '📂 ' + category if category != 'Uncategorized' else '📄 ' + category }}
+                        ({{ category_feeds|length }})
+                    </h3>
+                    
+                    <div class="feed-grid">
+                        {% for feed in category_feeds %}
+                        <div class="feed-item">
+                            <div class="feed-title">
+                                <a href="{{ feed.link or '#' }}" target="_blank" rel="noopener noreferrer">
+                                    {{ feed.title or 'Unknown Feed' }}
+                                </a>
+                            </div>
+                            {% if feed.description %}
+                            <div class="feed-description">
+                                {{ truncate_text(clean_html(feed.description), 100) }}
+                            </div>
+                            {% endif %}
+                            <div class="feed-meta">
+                                <span>Updated: {{ format_date(feed.updated) }}</span>
+                                <span class="feed-count">{{ feed.entry_count }} posts</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>
+            📰 RSS Hub - Updated {{ updated_time }}<br>
+            <a href="latest_rss.xml">RSS Feed</a> • 
+            <a href="latest_posts.json">JSON Feed</a> • 
+            <a href="latest_feeds.xml">Feed List</a>
+        </p>
+        <p>
+            <small>
+                Built with ❤️ using 
+                <a href="https://github.com/your-username/lovely-rss" target="_blank">lovelyRSS</a>
+            </small>
+        </p>
+    </footer>
+
+    <script>
+        function toggleFeeds() {
+            const content = document.getElementById('feeds-content');
+            const text = document.getElementById('toggle-text');
+            
+            if (content.classList.contains('show')) {
+                content.classList.remove('show');
+                text.textContent = 'Show All Feeds';
+            } else {
+                content.classList.add('show');
+                text.textContent = 'Hide Feeds';
+            }
+        }
+        
+        // Auto-hide feeds section on mobile
+        if (window.innerWidth <= 768) {
+            document.getElementById('feeds-content').classList.remove('show');
+        }
+    </script>
+</body>
+</html>

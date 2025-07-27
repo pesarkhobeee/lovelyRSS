@@ -1,0 +1,51 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "lovely-rss"
+version = "1.0.0"
+description = "A personal GitHub-based RSS hub for transparent, decentralized reading habits"
+readme = "README.md"
+license = "MIT"
+authors = [
+    { name = "RSS Hub User", email = "user@example.com" }
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "feedparser>=6.0.10",
+    "requests>=2.31.0",
+    "jinja2>=3.1.0",
+    "beautifulsoup4>=4.12.0",
+    "python-dateutil>=2.8.0",
+]
+
+[project.optional-dependencies]
+dev = [
+]
+
+[tool.uv]
+dev-dependencies = [
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+
+[tool.hatch.build.targets.wheel]
+packages = ["scripts"]
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
