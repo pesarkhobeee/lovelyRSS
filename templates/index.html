@@ -11,6 +11,7 @@
     
     <style>
         :root {
+            /* Light theme (default) */
             --bg-color: #fefefe;
             --text-color: #333;
             --link-color: #0066cc;
@@ -19,10 +20,64 @@
             --accent-color: #ff6b6b;
             --secondary-color: #4ecdc4;
             --muted-color: #666;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --header-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --text-color: #e1e1e1;
+            --link-color: #66b3ff;
+            --border-color: #333;
+            --card-bg: #2d2d2d;
+            --accent-color: #ff8a8a;
+            --secondary-color: #6ee7dd;
+            --muted-color: #aaa;
+            --shadow-color: rgba(255, 255, 255, 0.1);
+            --header-bg: linear-gradient(135deg, #434343 0%, #000000 100%);
+        }
+        
+        [data-theme="blue"] {
+            --bg-color: #f0f4f8;
+            --text-color: #2d3748;
+            --link-color: #3182ce;
+            --border-color: #cbd5e0;
+            --card-bg: #ffffff;
+            --accent-color: #3182ce;
+            --secondary-color: #4299e1;
+            --muted-color: #718096;
+            --shadow-color: rgba(49, 130, 206, 0.1);
+            --header-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        [data-theme="green"] {
+            --bg-color: #f7fafc;
+            --text-color: #2d3748;
+            --link-color: #38a169;
+            --border-color: #e2e8f0;
+            --card-bg: #ffffff;
+            --accent-color: #38a169;
+            --secondary-color: #48bb78;
+            --muted-color: #718096;
+            --shadow-color: rgba(56, 161, 105, 0.1);
+            --header-bg: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+        }
+        
+        [data-theme="purple"] {
+            --bg-color: #faf5ff;
+            --text-color: #2d3748;
+            --link-color: #805ad5;
+            --border-color: #e9d8fd;
+            --card-bg: #ffffff;
+            --accent-color: #805ad5;
+            --secondary-color: #9f7aea;
+            --muted-color: #718096;
+            --shadow-color: rgba(128, 90, 213, 0.1);
+            --header-bg: linear-gradient(135deg, #805ad5 0%, #553c9a 100%);
         }
         
         @media (prefers-color-scheme: dark) {
-            :root {
+            :root:not([data-theme]) {
                 --bg-color: #1a1a1a;
                 --text-color: #e1e1e1;
                 --link-color: #66b3ff;
@@ -31,6 +86,8 @@
                 --accent-color: #ff8a8a;
                 --secondary-color: #6ee7dd;
                 --muted-color: #aaa;
+                --shadow-color: rgba(255, 255, 255, 0.1);
+                --header-bg: linear-gradient(135deg, #434343 0%, #000000 100%);
             }
         }
         
@@ -40,37 +97,212 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
             line-height: 1.6;
             color: var(--text-color);
             background-color: var(--bg-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .settings-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 2px 10px var(--shadow-color);
+            transition: transform 0.2s ease;
+        }
+        
+        .settings-toggle:hover {
+            transform: scale(1.1);
+        }
+        
+        .settings-panel {
+            position: fixed;
+            top: 0;
+            right: -350px;
+            width: 350px;
+            height: 100vh;
+            background: var(--card-bg);
+            border-left: 1px solid var(--border-color);
+            z-index: 999;
+            padding: 20px;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+            box-shadow: -5px 0 15px var(--shadow-color);
+        }
+        
+        .settings-panel.open {
+            right: 0;
+        }
+        
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .settings-header h3 {
+            margin: 0;
+            color: var(--accent-color);
+        }
+        
+        .close-settings {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--muted-color);
+        }
+        
+        .setting-group {
+            margin-bottom: 25px;
+        }
+        
+        .setting-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        
+        .theme-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .theme-option {
+            padding: 10px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s ease;
+            background: var(--card-bg);
+        }
+        
+        .theme-option.active {
+            border-color: var(--accent-color);
+            background: var(--accent-color);
+            color: white;
+        }
+        
+        .theme-option:hover {
+            transform: translateY(-1px);
+        }
+        
+        .number-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--card-bg);
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--border-color);
+            transition: 0.4s;
+            border-radius: 24px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: var(--accent-color);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
         }
         
         .header {
             text-align: center;
             margin-bottom: 40px;
-            padding: 30px 0;
-            border-bottom: 2px solid var(--border-color);
+            padding: 40px 20px;
+            background: var(--header-bg);
+            border-radius: 20px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header > * {
+            position: relative;
+            z-index: 1;
         }
         
         .header h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
-            color: var(--accent-color);
+            font-weight: 700;
         }
         
         .header p {
-            color: var(--muted-color);
             font-size: 1.1rem;
+            opacity: 0.9;
         }
         
         .stats {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            margin-top: 20px;
+            gap: 40px;
+            margin-top: 30px;
             flex-wrap: wrap;
         }
         
@@ -79,28 +311,62 @@
         }
         
         .stat-number {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: bold;
-            color: var(--secondary-color);
+            display: block;
         }
         
         .stat-label {
             font-size: 0.9rem;
-            color: var(--muted-color);
+            opacity: 0.8;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
         
         .section {
             margin-bottom: 50px;
         }
         
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        
         .section h2 {
             font-size: 1.8rem;
-            margin-bottom: 25px;
+            margin: 0;
             color: var(--accent-color);
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .section-toggle {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .section-toggle:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px var(--shadow-color);
+        }
+        
+        .section-content {
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .section-content.hidden {
+            display: none;
         }
         
         .entry-list {
@@ -109,37 +375,57 @@
         }
         
         .entry-item {
-            padding: 20px;
+            padding: 25px;
             border: 1px solid var(--border-color);
-            border-radius: 12px;
+            border-radius: 16px;
             background: var(--card-bg);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .entry-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent-color);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
         }
         
         .entry-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px var(--shadow-color);
+        }
+        
+        .entry-item:hover::before {
+            transform: scaleY(1);
         }
         
         .entry-title {
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-size: 1.1rem;
+            line-height: 1.4;
         }
         
         .entry-title a {
             color: var(--link-color);
             text-decoration: none;
+            transition: color 0.2s ease;
         }
         
         .entry-title a:hover {
-            text-decoration: underline;
+            color: var(--accent-color);
         }
         
         .entry-meta {
             font-size: 0.9rem;
             color: var(--muted-color);
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 15px;
@@ -149,69 +435,74 @@
         .entry-source {
             background: var(--secondary-color);
             color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
+            padding: 4px 10px;
+            border-radius: 12px;
             font-size: 0.8rem;
             font-weight: 500;
         }
         
         .entry-summary {
             color: var(--text-color);
-            line-height: 1.5;
+            line-height: 1.6;
+            margin-top: 12px;
         }
         
         .feed-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 20px;
         }
         
         .category-section {
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
         
         .category-title {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 600;
             color: var(--secondary-color);
-            margin-bottom: 15px;
-            padding: 8px 0;
-            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+            padding: 12px 0;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .feed-item {
-            padding: 18px;
+            padding: 20px;
             border: 1px solid var(--border-color);
-            border-radius: 10px;
+            border-radius: 12px;
             background: var(--card-bg);
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
         }
         
         .feed-item:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--shadow-color);
         }
         
         .feed-title {
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-size: 1rem;
         }
         
         .feed-title a {
             color: var(--link-color);
             text-decoration: none;
+            transition: color 0.2s ease;
         }
         
         .feed-title a:hover {
-            text-decoration: underline;
+            color: var(--accent-color);
         }
         
         .feed-description {
             font-size: 0.9rem;
             color: var(--muted-color);
-            margin-bottom: 10px;
-            line-height: 1.4;
+            margin-bottom: 12px;
+            line-height: 1.5;
         }
         
         .feed-meta {
@@ -225,54 +516,30 @@
         .feed-count {
             background: var(--accent-color);
             color: white;
-            padding: 2px 6px;
-            border-radius: 3px;
+            padding: 3px 8px;
+            border-radius: 8px;
             font-weight: 500;
+            font-size: 0.8rem;
         }
         
         .footer {
             text-align: center;
             margin-top: 60px;
-            padding: 30px 0;
-            border-top: 1px solid var(--border-color);
+            padding: 40px 20px;
+            border-top: 2px solid var(--border-color);
             color: var(--muted-color);
+            background: var(--card-bg);
+            border-radius: 16px;
         }
         
         .footer a {
             color: var(--link-color);
             text-decoration: none;
+            transition: color 0.2s ease;
         }
         
         .footer a:hover {
-            text-decoration: underline;
-        }
-        
-        .feeds-toggle {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .toggle-button {
-            background: var(--secondary-color);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: background-color 0.2s ease;
-        }
-        
-        .toggle-button:hover {
-            opacity: 0.9;
-        }
-        
-        .feeds-content {
-            display: none;
-        }
-        
-        .feeds-content.show {
-            display: block;
+            color: var(--accent-color);
         }
         
         @media (max-width: 768px) {
@@ -280,12 +547,27 @@
                 padding: 15px;
             }
             
+            .settings-panel {
+                width: 100vw;
+                right: -100vw;
+            }
+            
+            .header {
+                padding: 30px 15px;
+            }
+            
             .header h1 {
                 font-size: 2rem;
             }
             
             .stats {
-                gap: 20px;
+                gap: 25px;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
             }
             
             .entry-meta {
@@ -297,70 +579,143 @@
             .feed-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .theme-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
-    <header class="header">
+    <!-- Settings Toggle Button -->
+    <button class="settings-toggle" onclick="toggleSettings()" title="Settings">
+        ⚙️
+    </button>
+    
+    <!-- Settings Panel -->
+    <div class="settings-panel" id="settings-panel">
+        <div class="settings-header">
+            <h3>⚙️ Settings</h3>
+            <button class="close-settings" onclick="toggleSettings()">×</button>
+        </div>
+        
+        <div class="setting-group">
+            <label class="setting-label">🎨 Theme</label>
+            <div class="theme-grid">
+                <div class="theme-option" data-theme="auto">🌓 Auto</div>
+                <div class="theme-option" data-theme="light">☀️ Light</div>
+                <div class="theme-option" data-theme="dark">🌙 Dark</div>
+                <div class="theme-option" data-theme="blue">💙 Blue</div>
+                <div class="theme-option" data-theme="green">💚 Green</div>
+                <div class="theme-option" data-theme="purple">💜 Purple</div>
+            </div>
+        </div>
+        
+        <div class="setting-group">
+            <label class="setting-label">📰 Posts to Show</label>
+            <input type="number" class="number-input" id="posts-count" min="5" max="100" value="30">
+            <small style="color: var(--muted-color); margin-top: 5px; display: block;">
+                Number of posts to display in Latest Posts section
+            </small>
+        </div>
+        
+        <div class="setting-group">
+            <label class="setting-label">👁️ Show Latest Posts</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="show-posts" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+        
+        <div class="setting-group">
+            <label class="setting-label">📡 Show Feeds</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="show-feeds" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+    
+    <header class="header fade-in">
         <h1>📰 {{ title.split(' - ')[1] if ' - ' in title else title }}</h1>
         <p>{{ description }}</p>
         
         <div class="stats">
             <div class="stat-item">
-                <div class="stat-number">{{ total_feeds }}</div>
-                <div class="stat-label">Feeds</div>
+                <span class="stat-number">{{ total_feeds }}</span>
+                <span class="stat-label">Feeds</span>
             </div>
             <div class="stat-item">
-                <div class="stat-number">{{ total_entries }}</div>
-                <div class="stat-label">Total Posts</div>
+                <span class="stat-number">{{ total_entries }}</span>
+                <span class="stat-label">Total Posts</span>
             </div>
             <div class="stat-item">
-                <div class="stat-number">{{ latest_entries|length }}</div>
-                <div class="stat-label">Latest Posts</div>
+                <span class="stat-number" id="visible-posts-count">{{ latest_entries|length }}</span>
+                <span class="stat-label">Latest Posts</span>
             </div>
         </div>
     </header>
 
     <main>
-        <section class="section">
-            <h2>🔥 Latest Posts</h2>
-            <div class="entry-list">
-                {% for entry in latest_entries %}
-                <article class="entry-item">
-                    <div class="entry-title">
-                        <a href="{{ entry.link or '#' }}" target="_blank" rel="noopener noreferrer">
-                            {{ entry.title or 'No Title' }}
-                        </a>
-                    </div>
-                    <div class="entry-meta">
-                        <span class="entry-source">{{ entry.feed_title or 'Unknown Feed' }}</span>
-                        <span>{{ format_date(entry.published) }}</span>
-                    </div>
-                    {% if entry.summary %}
-                    <div class="entry-summary">
-                        {{ truncate_text(clean_html(entry.summary), 250) }}
-                    </div>
-                    {% endif %}
-                </article>
-                {% endfor %}
-            </div>
-        </section>
-
-        <section class="section">
-            <h2>📡 Subscribed Feeds</h2>
-            
-            <div class="feeds-toggle">
-                <button class="toggle-button" onclick="toggleFeeds()">
-                    <span id="toggle-text">Show All Feeds</span>
+        <section class="section fade-in" id="latest-posts-section">
+            <div class="section-header">
+                <h2>🔥 Latest Posts</h2>
+                <button class="section-toggle" onclick="toggleSection('latest-posts')" id="latest-posts-toggle">
+                    Hide Posts
                 </button>
             </div>
             
-            <div class="feeds-content" id="feeds-content">
+            <div class="section-content" id="latest-posts-content">
+                <div class="entry-list" id="entry-list">
+                    {% for entry in latest_entries %}
+                    <article class="entry-item" data-index="{{ loop.index0 }}">
+                        <div class="entry-title">
+                            <a href="{{ entry.link or '#' }}" target="_blank" rel="noopener noreferrer">
+                                {{ entry.title or 'No Title' }}
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source">{{ entry.feed_title or 'Unknown Feed' }}</span>
+                            <span>{{ format_date(entry.published) }}</span>
+                        </div>
+                        {% if entry.summary %}
+                        <div class="entry-summary">
+                            {{ truncate_text(clean_html(entry.summary), 250) }}
+                        </div>
+                        {% endif %}
+                    </article>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <section class="section fade-in" id="feeds-section">
+            <div class="section-header">
+                <h2>📡 Subscribed Feeds</h2>
+                <button class="section-toggle" onclick="toggleSection('feeds')" id="feeds-toggle">
+                    Hide Feeds
+                </button>
+            </div>
+            
+            <div class="section-content" id="feeds-content">
                 {% for category, category_feeds in categories.items() %}
                 <div class="category-section">
                     <h3 class="category-title">
-                        {{ '📂 ' + category if category != 'Uncategorized' else '📄 ' + category }}
-                        ({{ category_feeds|length }})
+                        {% if category != 'Uncategorized' %}
+                            📂 {{ category }}
+                        {% else %}
+                            📄 {{ category }}
+                        {% endif %}
+                        <span style="font-weight: normal; opacity: 0.7;">({{ category_feeds|length }})</span>
                     </h3>
                     
                     <div class="feed-grid">
@@ -405,23 +760,210 @@
     </footer>
 
     <script>
-        function toggleFeeds() {
-            const content = document.getElementById('feeds-content');
-            const text = document.getElementById('toggle-text');
+        // Settings and preferences management
+        const settings = {
+            theme: localStorage.getItem('rss-theme') || 'auto',
+            postsCount: parseInt(localStorage.getItem('rss-posts-count')) || 30,
+            showPosts: localStorage.getItem('rss-show-posts') !== 'false',
+            showFeeds: localStorage.getItem('rss-show-feeds') !== 'false'
+        };
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeSettings();
+            setupEventListeners();
+            applySettings();
+        });
+
+        function initializeSettings() {
+            // Set theme options
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.addEventListener('click', () => setTheme(option.dataset.theme));
+                if (option.dataset.theme === settings.theme) {
+                    option.classList.add('active');
+                }
+            });
+
+            // Set posts count
+            document.getElementById('posts-count').value = settings.postsCount;
             
-            if (content.classList.contains('show')) {
-                content.classList.remove('show');
-                text.textContent = 'Show All Feeds';
+            // Set toggles
+            document.getElementById('show-posts').checked = settings.showPosts;
+            document.getElementById('show-feeds').checked = settings.showFeeds;
+        }
+
+        function setupEventListeners() {
+            // Posts count change
+            document.getElementById('posts-count').addEventListener('change', function() {
+                settings.postsCount = parseInt(this.value);
+                saveSettings();
+                updateVisiblePosts();
+            });
+
+            // Toggle changes
+            document.getElementById('show-posts').addEventListener('change', function() {
+                settings.showPosts = this.checked;
+                saveSettings();
+                toggleSectionVisibility('latest-posts', this.checked);
+            });
+
+            document.getElementById('show-feeds').addEventListener('change', function() {
+                settings.showFeeds = this.checked;
+                saveSettings();
+                toggleSectionVisibility('feeds', this.checked);
+            });
+
+            // Close settings when clicking outside
+            document.addEventListener('click', function(e) {
+                const panel = document.getElementById('settings-panel');
+                const toggle = document.querySelector('.settings-toggle');
+                
+                if (!panel.contains(e.target) && !toggle.contains(e.target) && panel.classList.contains('open')) {
+                    toggleSettings();
+                }
+            });
+        }
+
+        function setTheme(theme) {
+            settings.theme = theme;
+            saveSettings();
+            applyTheme();
+            
+            // Update active theme option
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.classList.toggle('active', option.dataset.theme === theme);
+            });
+        }
+
+        function applyTheme() {
+            const { theme } = settings;
+            const body = document.body;
+            
+            // Remove existing theme attributes
+            body.removeAttribute('data-theme');
+            
+            if (theme === 'auto') {
+                // Let CSS media query handle auto theme
+                return;
+            }
+            
+            // Apply specific theme
+            body.setAttribute('data-theme', theme);
+        }
+
+        function applySettings() {
+            applyTheme();
+            updateVisiblePosts();
+            toggleSectionVisibility('latest-posts', settings.showPosts);
+            toggleSectionVisibility('feeds', settings.showFeeds);
+        }
+
+        function updateVisiblePosts() {
+            const entries = document.querySelectorAll('.entry-item');
+            const count = Math.min(settings.postsCount, entries.length);
+            
+            entries.forEach((entry, index) => {
+                entry.style.display = index < count ? 'block' : 'none';
+            });
+            
+            // Update counter
+            document.getElementById('visible-posts-count').textContent = count;
+        }
+
+        function toggleSectionVisibility(sectionName, show) {
+            const section = document.getElementById(`${sectionName}-section`);
+            const content = document.getElementById(`${sectionName}-content`);
+            const toggle = document.getElementById(`${sectionName}-toggle`);
+            
+            if (show) {
+                section.style.display = 'block';
+                content.classList.remove('hidden');
+                toggle.textContent = sectionName === 'latest-posts' ? 'Hide Posts' : 'Hide Feeds';
             } else {
-                content.classList.add('show');
-                text.textContent = 'Hide Feeds';
+                section.style.display = 'none';
+                content.classList.add('hidden');
+                toggle.textContent = sectionName === 'latest-posts' ? 'Show Posts' : 'Show Feeds';
             }
         }
-        
-        // Auto-hide feeds section on mobile
-        if (window.innerWidth <= 768) {
-            document.getElementById('feeds-content').classList.remove('show');
+
+        function toggleSection(sectionName) {
+            const content = document.getElementById(`${sectionName}-content`);
+            const toggle = document.getElementById(`${sectionName}-toggle`);
+            const isHidden = content.classList.contains('hidden');
+            
+            if (isHidden) {
+                content.classList.remove('hidden');
+                toggle.textContent = sectionName === 'latest-posts' ? 'Hide Posts' : 'Hide Feeds';
+                
+                // Update settings
+                if (sectionName === 'latest-posts') {
+                    settings.showPosts = true;
+                    document.getElementById('show-posts').checked = true;
+                } else {
+                    settings.showFeeds = true;
+                    document.getElementById('show-feeds').checked = true;
+                }
+            } else {
+                content.classList.add('hidden');
+                toggle.textContent = sectionName === 'latest-posts' ? 'Show Posts' : 'Show Feeds';
+                
+                // Update settings
+                if (sectionName === 'latest-posts') {
+                    settings.showPosts = false;
+                    document.getElementById('show-posts').checked = false;
+                } else {
+                    settings.showFeeds = false;
+                    document.getElementById('show-feeds').checked = false;
+                }
+            }
+            
+            saveSettings();
         }
+
+        function toggleSettings() {
+            const panel = document.getElementById('settings-panel');
+            panel.classList.toggle('open');
+        }
+
+        function saveSettings() {
+            localStorage.setItem('rss-theme', settings.theme);
+            localStorage.setItem('rss-posts-count', settings.postsCount.toString());
+            localStorage.setItem('rss-show-posts', settings.showPosts.toString());
+            localStorage.setItem('rss-show-feeds', settings.showFeeds.toString());
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Press 'S' to toggle settings
+            if (e.key === 's' || e.key === 'S') {
+                if (!e.target.matches('input, textarea')) {
+                    e.preventDefault();
+                    toggleSettings();
+                }
+            }
+            
+            // Press 'Escape' to close settings
+            if (e.key === 'Escape') {
+                const panel = document.getElementById('settings-panel');
+                if (panel.classList.contains('open')) {
+                    toggleSettings();
+                }
+            }
+        });
+
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
     </script>
 </body>
 </html>
