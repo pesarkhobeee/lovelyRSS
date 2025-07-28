@@ -439,12 +439,69 @@
             border-radius: 12px;
             font-size: 0.8rem;
             font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .entry-source:hover {
+            background: var(--accent-color);
+            transform: scale(1.05);
+        }
+        
+        .entry-time {
+            color: var(--muted-color);
+            font-size: 0.85rem;
+        }
+        
+        .entry-time.fresh {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+        
+        .entry-category {
+            background: var(--accent-color);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            opacity: 0.9;
         }
         
         .entry-summary {
             color: var(--text-color);
             line-height: 1.6;
             margin-top: 12px;
+        }
+        
+        .posts-filter-banner {
+            background: var(--secondary-color);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .posts-filter-banner.show {
+            display: flex;
+        }
+        
+        .clear-filter-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .entry-item.filtered-out {
+            display: none !important;
         }
         
         .feed-grid {
@@ -475,11 +532,34 @@
             border-radius: 12px;
             background: var(--card-bg);
             transition: all 0.3s ease;
+            position: relative;
         }
         
         .feed-item:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px var(--shadow-color);
+        }
+        
+        .feed-item.fresh-updates {
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .feed-item.fresh-updates::before {
+            content: "🔥";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1rem;
+        }
+        
+        .highlight-feed {
+            animation: highlightPulse 2s ease-in-out;
+            transform: scale(1.02);
+        }
+        
+        @keyframes highlightPulse {
+            0%, 100% { box-shadow: 0 6px 20px var(--shadow-color); }
+            50% { box-shadow: 0 8px 30px var(--accent-color); }
         }
         
         .feed-title {
@@ -622,7 +702,7 @@
         
         <div class="setting-group">
             <label class="setting-label">📰 Posts to Show</label>
-            <input type="number" class="number-input" id="posts-count" min="5" max="100" value="30">
+            <input type="number" class="number-input" id="posts-count" min="5" max="100" value="10">
             <small style="color: var(--muted-color); margin-top: 5px; display: block;">
                 Number of posts to display in Latest Posts section
             </small>
@@ -637,7 +717,7 @@
         </div>
         
         <div class="setting-group">
-            <label class="setting-label">📡 Show Feeds</label>
+            <label class="setting-label">� Show Feeds</label>
             <label class="toggle-switch">
                 <input type="checkbox" id="show-feeds" checked>
                 <span class="slider"></span>
@@ -646,7 +726,7 @@
     </div>
     
     <header class="header fade-in">
-        <h1>📰 {{ title.split(' - ')[1] if ' - ' in title else title }}</h1>
+        <h1>�📰 {{ title.split(' - ')[1] if ' - ' in title else title }}</h1>
         <p>{{ description }}</p>
         
         <div class="stats">
@@ -675,17 +755,29 @@
             </div>
             
             <div class="section-content" id="latest-posts-content">
+                <div class="posts-filter-banner" id="posts-filter-banner">
+                    <span id="filter-text">Showing posts from: </span>
+                    <button class="clear-filter-btn" onclick="clearPostsFilter()">Show All Posts</button>
+                </div>
+                
                 <div class="entry-list" id="entry-list">
                     {% for entry in latest_entries %}
-                    <article class="entry-item" data-index="{{ loop.index0 }}">
+                    <article class="entry-item" data-index="{{ loop.index0 }}" data-feed-url="{{ entry.feed_url }}">
                         <div class="entry-title">
                             <a href="{{ entry.link or '#' }}" target="_blank" rel="noopener noreferrer">
                                 {{ entry.title or 'No Title' }}
                             </a>
                         </div>
                         <div class="entry-meta">
-                            <span class="entry-source">{{ entry.feed_title or 'Unknown Feed' }}</span>
-                            <span>{{ format_date(entry.published) }}</span>
+                            <span class="entry-source" onclick="highlightFeed('{{ entry.feed_url }}')" title="Click to highlight this feed in the feeds section">
+                                {{ entry.feed_title or 'Unknown Feed' }}
+                            </span>
+                            <span class="entry-time" data-published="{{ entry.published or '' }}">
+                                {{ format_date(entry.published) }}
+                            </span>
+                            {% if entry.feed_category %}
+                            <span class="entry-category">📂 {{ entry.feed_category }}</span>
+                            {% endif %}
                         </div>
                         {% if entry.summary %}
                         <div class="entry-summary">
@@ -710,17 +802,13 @@
                 {% for category, category_feeds in categories.items() %}
                 <div class="category-section">
                     <h3 class="category-title">
-                        {% if category != 'Uncategorized' %}
-                            📂 {{ category }}
-                        {% else %}
-                            📄 {{ category }}
-                        {% endif %}
-                        <span style="font-weight: normal; opacity: 0.7;">({{ category_feeds|length }})</span>
+                        {{ '📂 ' + category if category != 'Uncategorized' else '📄 ' + category }}
+                        ({{ category_feeds|length }})
                     </h3>
                     
                     <div class="feed-grid">
                         {% for feed in category_feeds %}
-                        <div class="feed-item">
+                        <div class="feed-item{% if feed.has_recent_update %} fresh-updates{% endif %}" data-feed-url="{{ feed.url }}" id="feed-{{ feed.url | replace('/', '-') | replace(':', '-') | replace('.', '-') }}">
                             <div class="feed-title">
                                 <a href="{{ feed.link or '#' }}" target="_blank" rel="noopener noreferrer">
                                     {{ feed.title or 'Unknown Feed' }}
@@ -732,7 +820,7 @@
                             </div>
                             {% endif %}
                             <div class="feed-meta">
-                                <span>Updated: {{ format_date(feed.updated) }}</span>
+                                <span class="feed-updated">Latest post: {{ format_date(feed.latest_post_date or feed.updated) }}</span>
                                 <span class="feed-count">{{ feed.entry_count }} posts</span>
                             </div>
                         </div>
@@ -762,18 +850,96 @@
     <script>
         // Settings and preferences management
         const settings = {
-            theme: localStorage.getItem('rss-theme') || 'auto',
-            postsCount: parseInt(localStorage.getItem('rss-posts-count')) || 30,
+            theme: localStorage.getItem('rss-theme') || 'green',
+            postsCount: parseInt(localStorage.getItem('rss-posts-count')) || 10,
             showPosts: localStorage.getItem('rss-show-posts') !== 'false',
             showFeeds: localStorage.getItem('rss-show-feeds') !== 'false'
         };
+
+        let currentFilter = null;
 
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
             initializeSettings();
             setupEventListeners();
             applySettings();
+            markFreshPosts();
         });
+
+        function markFreshPosts() {
+            // Mark posts from the last 24 hours as fresh
+            const oneDayAgo = Date.now() - (24 * 60 * 60 * 1000);
+            
+            document.querySelectorAll('.entry-time').forEach(timeElement => {
+                const published = timeElement.getAttribute('data-published');
+                if (published) {
+                    const publishedDate = new Date(published);
+                    if (publishedDate.getTime() > oneDayAgo) {
+                        timeElement.classList.add('fresh');
+                        timeElement.title = 'Fresh post (less than 24 hours old)';
+                    }
+                }
+            });
+        }
+
+        function highlightFeed(feedUrl) {
+            // Clear any existing highlights
+            document.querySelectorAll('.feed-item').forEach(item => {
+                item.classList.remove('highlight-feed');
+            });
+            
+            // Find and highlight the target feed
+            const feedElement = document.querySelector(`.feed-item[data-feed-url="${feedUrl}"]`);
+            if (feedElement) {
+                feedElement.classList.add('highlight-feed');
+                
+                // Ensure feeds section is visible
+                const feedsContent = document.getElementById('feeds-content');
+                if (feedsContent.classList.contains('hidden')) {
+                    feedsContent.classList.remove('hidden');
+                    settings.showFeeds = true;
+                    document.getElementById('show-feeds').checked = true;
+                    document.getElementById('feeds-toggle').textContent = 'Hide Feeds';
+                    saveSettings();
+                }
+                
+                // Scroll to the feed if not visible
+                if (!isElementInViewport(feedElement)) {
+                    feedElement.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center' 
+                    });
+                }
+                
+                // Remove highlight after 3 seconds
+                setTimeout(() => {
+                    feedElement.classList.remove('highlight-feed');
+                }, 3000);
+            }
+        }
+
+        function clearPostsFilter() {
+            currentFilter = null;
+            const entries = document.querySelectorAll('.entry-item');
+            const banner = document.getElementById('posts-filter-banner');
+            
+            entries.forEach(entry => {
+                entry.classList.remove('filtered-out');
+            });
+            
+            banner.classList.remove('show');
+            updateVisiblePosts(); // Reapply the posts count setting
+        }
+
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
 
         function initializeSettings() {
             // Set theme options
@@ -861,26 +1027,37 @@
         function updateVisiblePosts() {
             const entries = document.querySelectorAll('.entry-item');
             const count = Math.min(settings.postsCount, entries.length);
+            let visibleCount = 0;
             
             entries.forEach((entry, index) => {
-                entry.style.display = index < count ? 'block' : 'none';
+                // Don't hide filtered posts, only apply count limit to non-filtered posts
+                if (currentFilter) {
+                    // When filtering, show all posts from the selected feed
+                    const shouldShow = entry.getAttribute('data-feed-url') === currentFilter;
+                    entry.style.display = shouldShow ? 'block' : 'none';
+                    if (shouldShow) visibleCount++;
+                } else {
+                    // Normal count-based hiding
+                    const shouldShow = index < count;
+                    entry.style.display = shouldShow ? 'block' : 'none';
+                    if (shouldShow) visibleCount++;
+                }
             });
             
-            // Update counter
-            document.getElementById('visible-posts-count').textContent = count;
+            // Update counter only if not filtering
+            if (!currentFilter) {
+                document.getElementById('visible-posts-count').textContent = visibleCount;
+            }
         }
 
         function toggleSectionVisibility(sectionName, show) {
-            const section = document.getElementById(`${sectionName}-section`);
             const content = document.getElementById(`${sectionName}-content`);
             const toggle = document.getElementById(`${sectionName}-toggle`);
             
             if (show) {
-                section.style.display = 'block';
                 content.classList.remove('hidden');
                 toggle.textContent = sectionName === 'latest-posts' ? 'Hide Posts' : 'Hide Feeds';
             } else {
-                section.style.display = 'none';
                 content.classList.add('hidden');
                 toggle.textContent = sectionName === 'latest-posts' ? 'Show Posts' : 'Show Feeds';
             }

@@ -139,6 +139,22 @@ class RSSHub:
                 
                 self.all_entries.extend(parsed_feed.entries)
                 
+                # Find the most recent entry date for this feed
+                latest_entry_date = None
+                latest_entry_parsed = None
+                
+                if parsed_feed.entries:
+                    # Sort entries by publication date to find the latest
+                    sorted_entries = sorted(
+                        parsed_feed.entries,
+                        key=lambda x: x.get('published_parsed') or (0,),
+                        reverse=True
+                    )
+                    if sorted_entries:
+                        latest_entry = sorted_entries[0]
+                        latest_entry_date = safe_get_text(latest_entry, 'published')
+                        latest_entry_parsed = latest_entry.get('published_parsed')
+                
                 # Store feed metadata
                 feed_meta = {
                     'title': feed_info['title'],
@@ -148,6 +164,8 @@ class RSSHub:
                     'description': safe_get_text(parsed_feed.feed, 'description'),
                     'updated': safe_get_text(parsed_feed.feed, 'updated'),
                     'updated_parsed': parsed_feed.feed.get('updated_parsed'),
+                    'latest_post_date': latest_entry_date,  # Most recent post date
+                    'latest_post_parsed': latest_entry_parsed,  # Parsed version for sorting
                     'entry_count': len(parsed_feed.entries),
                     'language': safe_get_text(parsed_feed.feed, 'language', 'en'),
                 }
@@ -215,10 +233,10 @@ class RSSHub:
     
     def generate_latest_feeds(self, output_file: str = "latest_feeds.xml"):
         """Generate XML file with feeds sorted by recent updates."""
-        # Sort feeds by last update time
+        # Sort feeds by latest post date (more reliable than feed updated field)
         sorted_feeds = sorted(
             self.feeds_with_updates,
-            key=lambda x: x.get('updated_parsed') or (0,),
+            key=lambda x: x.get('latest_post_parsed') or x.get('updated_parsed') or (0,),
             reverse=True
         )
         
@@ -295,10 +313,10 @@ class RSSHub:
         )
         latest_entries = sorted_entries[:30]  # Show latest 30 on homepage
         
-        # Sort feeds by update time
+        # Sort feeds by update time (using latest post date)
         sorted_feeds = sorted(
             self.feeds_with_updates,
-            key=lambda x: x.get('updated_parsed') or (0,),
+            key=lambda x: x.get('latest_post_parsed') or x.get('updated_parsed') or (0,),
             reverse=True
         )
         
@@ -309,6 +327,19 @@ class RSSHub:
             if category not in categories:
                 categories[category] = []
             categories[category].append(feed)
+        
+        # Mark feeds with recent updates (last 24 hours)
+        from datetime import datetime, timezone
+        now = datetime.now(timezone.utc)
+        one_day_ago = now.timestamp() - (24 * 60 * 60)
+        
+        for feed in sorted_feeds:
+            if feed.get('latest_post_parsed'):
+                import time
+                post_timestamp = time.mktime(feed['latest_post_parsed'])
+                feed['has_recent_update'] = post_timestamp > one_day_ago
+            else:
+                feed['has_recent_update'] = False
         
         # Prepare template data
         template_data = {
