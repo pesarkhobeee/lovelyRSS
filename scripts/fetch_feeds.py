@@ -320,13 +320,37 @@ class RSSHub:
             reverse=True
         )
         
-        # Group feeds by category
+        # Group feeds by category and sort within each category
         categories = {}
         for feed in sorted_feeds:
             category = feed.get('category') or 'Uncategorized'
             if category not in categories:
                 categories[category] = []
             categories[category].append(feed)
+        
+        # Sort feeds within each category by most recent updates
+        for category in categories:
+            categories[category] = sorted(
+                categories[category],
+                key=lambda x: x.get('latest_post_parsed') or x.get('updated_parsed') or (0,),
+                reverse=True
+            )
+        
+        # Group entries by feed URL for easy access
+        entries_by_feed = {}
+        for entry in self.all_entries:
+            feed_url = entry.get('feed_url')
+            if feed_url not in entries_by_feed:
+                entries_by_feed[feed_url] = []
+            entries_by_feed[feed_url].append(entry)
+        
+        # Sort entries within each feed and limit to 10 latest
+        for feed_url in entries_by_feed:
+            entries_by_feed[feed_url] = sorted(
+                entries_by_feed[feed_url],
+                key=lambda x: x.get('published_parsed') or (0,),
+                reverse=True
+            )[:10]  # Keep only latest 10 posts per feed
         
         # Mark feeds with recent updates (last 24 hours)
         from datetime import datetime, timezone
@@ -348,6 +372,7 @@ class RSSHub:
             'latest_entries': latest_entries,
             'feeds': sorted_feeds,
             'categories': categories,
+            'entries_by_feed': entries_by_feed,
             'total_feeds': len(sorted_feeds),
             'total_entries': len(self.all_entries),
             'updated_time': get_readable_timestamp(),
