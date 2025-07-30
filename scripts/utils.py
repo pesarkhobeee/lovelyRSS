@@ -164,6 +164,9 @@ def fetch_with_retry(url: str, timeout: int = 10, retries: int = 3) -> Optional[
         'User-Agent': 'lovelyRSS/1.0 (RSS aggregator; +https://github.com/your-username/rss)'
     }
     
+
+    headers['Accept'] = 'application/atom+xml'
+    
     for attempt in range(retries):
         try:
             response = requests.get(url, timeout=timeout, headers=headers)
