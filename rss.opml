@@ -42,15 +42,22 @@
 
     <!-- Blogs & Personal -->
     <outline text="Blogs" title="Blogs">
-      <outline text="Joel on Software" title="Joel on Software" type="rss" 
-               xmlUrl="https://www.joelonsoftware.com/feed/" 
-               htmlUrl="https://www.joelonsoftware.com/"
+      <outline text="David Heinemeier Hansson" title="David Heinemeier Hansson" type="rss" 
+               xmlUrl="https://world.hey.com/dhh/feed.atom" 
+               htmlUrl="https://world.hey.com/dhh/"
                category="Blogs"/>
-      
-      <outline text="Dan Luu" title="Dan Luu" type="rss" 
-               xmlUrl="https://danluu.com/atom.xml" 
-               htmlUrl="https://danluu.com/"
-               category="Blogs"/>
+    </outline>
+
+    <!-- Youtube Channels -->
+    <outline text="YouTube" title="YouTube">
+      <outline text="Kurzgesagt – In a Nutshell" title="Kurzgesagt – In a Nutshell" type="rss" 
+               xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCsXVk37bltHxD1rDPwtNM8Q"
+                htmlUrl="https://www.youtube.com/@kurzgesagt"
+                category="YouTube"/>
+      <outline text="Big Think" title="Big Think" type="rss" 
+               xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCvQECJukTDE2i6aCoMnS-Vg"
+                htmlUrl="https://www.youtube.com/@bigthink"
+                category="YouTube"/>
     </outline>
 
     <!-- 
