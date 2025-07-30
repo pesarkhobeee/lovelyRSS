@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "lovely-rss"
 version = "1.0.0"
-description = "A personal GitHub-based RSS hub for transparent, decentralized reading habits"
+description = "Static RSS Hub Generator, admiring RSS for transparent, decentralized reading habits"
 readme = "README.md"
 license = "MIT"
 authors = [

@@ -1,0 +1,759 @@
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": "lovelyRSS - Latest Posts",
+  "description": "Latest posts from all subscribed feeds",
+  "home_page_url": "https://github.com",
+  "feed_url": "./latest_posts.json",
+  "items": [
+    {
+      "id": "https://www.bbc.com/news/articles/cpv0zkxx0njo?at_medium=RSS&at_campaign=rss",
+      "title": "YouTube to be included in Australia's teen social media ban",
+      "content_text": "The Australian government says the world-first ban is aimed at protecting youth from online harm.",
+      "url": "https://www.bbc.com/news/articles/cpv0zkxx0njo?at_medium=RSS&at_campaign=rss",
+      "date_published": "Wed, 30 Jul 2025 01:24:49 GMT",
+      "external_url": "https://www.bbc.com/news/articles/cpv0zkxx0njo?at_medium=RSS&at_campaign=rss",
+      "tags": [
+        "News"
+      ],
+      "_source": {
+        "feed_title": "BBC Technology",
+        "feed_url": "http://feeds.bbci.co.uk/news/technology/rss.xml"
+      }
+    },
+    {
+      "id": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000qw60/executive",
+      "title": "M8.7 earthquake in Western Pacific, tsunami warning issued",
+      "content_text": "Article URL: https://earthquake.usgs.gov/earthquakes/eventpage/us6000qw60/executive Comments URL: https://news.ycombinator.com/item?id=44729865 Points: 539 # Comments: 142",
+      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000qw60/executive",
+      "date_published": "Wed, 30 Jul 2025 00:38:25 +0000",
+      "external_url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000qw60/executive",
+      "tags": [
+        "Technology"
+      ],
+      "_source": {
+        "feed_title": "Hacker News",
+        "feed_url": "https://hnrss.org/frontpage"
+      }
+    },
+    {
+      "id": "https://wirelesspi.com/two-birds-with-one-tone-i-q-signals-and-fourier-transform-part-1/",
+      "title": "Two Birds with One Tone: I/Q Signals and Fourier Transform",
+      "content_text": "Article URL: https://wirelesspi.com/two-birds-with-one-tone-i-q-signals-and-fourier-transform-part-1/ Comments URL: https://news.ycombinator.com/item?id=44729302 Points: 41 # Comments: 6",
+      "url": "https://wirelesspi.com/two-birds-with-one-tone-i-q-signals-and-fourier-transform-part-1/",
+      "date_published": "Tue, 29 Jul 2025 23:09:04 +0000",
+      "external_url": "https://wirelesspi.com/two-birds-with-one-tone-i-q-signals-and-fourier-transform-part-1/",
+      "tags": [
+        "Technology"
+      ],
+      "_source": {
+        "feed_title": "Hacker News",
+        "feed_url": "https://hnrss.org/frontpage"
+      }
+    },
+    {
+      "id": "https://www.lorenstew.art/blog/bookmarkable-by-design-url-state-htmx/",
+      "title": "URL-Driven State in HTMX",
+      "content_text": "Article URL: https://www.lorenstew.art/blog/bookmarkable-by-design-url-state-htmx/ Comments URL: https://news.ycombinator.com/item?id=44728833 Points: 146 # Comments: 55",
+      "url": "https://www.lorenstew.art/blog/bookmarkable-by-design-url-state-htmx/",
+      "date_published": "Tue, 29 Jul 2025 22:09:48 +0000",
+      "external_url": "https://www.lorenstew.art/blog/bookmarkable-by-design-url-state-htmx/",
+      "tags": [
+        "Technology"
+      ],
+      "_source": {
+        "feed_title": "Hacker News",
+        "feed_url": "https://hnrss.org/frontpage"
+      }
+    },
+    {
+      "id": "https://www.ycombinator.com/companies/codecrafters/jobs/7ATipKJ-1st-marketing-hire",
+      "title": "CodeCrafters (YC S22) is hiring first Marketing Person",
+      "content_text": "Article URL: https://www.ycombinator.com/companies/codecrafters/jobs/7ATipKJ-1st-marketing-hire Comments URL: https://news.ycombinator.com/item?id=44728513 Points: 0 # Comments: 0",
+      "url": "https://www.ycombinator.com/companies/codecrafters/jobs/7ATipKJ-1st-marketing-hire",
+      "date_published": "Tue, 29 Jul 2025 21:34:28 +0000",
+      "external_url": "https://www.ycombinator.com/companies/codecrafters/jobs/7ATipKJ-1st-marketing-hire",
+      "tags": [
+        "Technology"
+      ],
+      "_source": {
+        "feed_title": "Hacker News",
+        "feed_url": "https://hnrss.org/frontpage"
+      }
+    },
+    {
+      "id": "https://JapaneseNostalgicCar.com/rip-shunsaku-tamiya-plastic-model-kits/",
+      "title": "RIP Shunsaku Tamiya, the man who made plastic model kits a global obsession",
+      "content_text": "Article URL: https://JapaneseNostalgicCar.com/rip-shunsaku-tamiya-plastic-model-kits/ Comments URL: https://news.ycombinator.com/item?id=44728188 Points: 204 # Comments: 39",
+      "url": "https://JapaneseNostalgicCar.com/rip-shunsaku-tamiya-plastic-model-kits/",
+      "date_published": "Tue, 29 Jul 2025 20:57:47 +0000",
+      "external_url": "https://JapaneseNostalgicCar.com/rip-shunsaku-tamiya-plastic-model-kits/",
+      "tags": [
+        "Technology"
+      ],
+      "_source": {
+        "feed_title": "Hacker News",
+        "feed_url": "https://hnrss.org/frontpage"
+      }
+    },
+    {
+      "id": "https://arxiv.org/abs/2507.12856",
+      "title": "Supervised fine tuning on curated data is reinforcement learning",
+      "content_text": "Article URL: https://arxiv.org/abs/2507.12856 Comments URL: https://news.ycombinator.com/item?id=44727788 Points: 53 # Comments: 14",
+      "url": "https://arxiv.org/abs/2507.12856",
+      "date_published": "Tue, 29 Jul 2025 20:18:23 +0000",
+      "external_url": "https://arxiv.org/abs/2507.12856",
+      "tags": [
+        "Technology"
+      ],
+      "_source": {
+        "feed_title": "Hacker News",
+        "feed_url": "https://hnrss.org/frontpage"
+      }
+    },
+    {
+      "id": "https://help.dropbox.com/en-us/installs/dropbox-passwords-discontinuation",
+      "title": "Dropbox Passwords discontinuation",
+      "content_text": "Article URL: https://help.dropbox.com/en-us/installs/dropbox-passwords-discontinuation Comments URL: https://news.ycombinator.com/item?id=44727653 Points: 57 # Comments: 38",
+      "url": "https://help.dropbox.com/en-us/installs/dropbox-passwords-discontinuation",
+      "date_published": "Tue, 29 Jul 2025 20:03:29 +0000",
+      "external_url": "https://help.dropbox.com/en-us/installs/dropbox-passwords-discontinuation",
+      "tags": [
+        "Technology"
+      ],
+      "_source": {
+        "feed_title": "Hacker News",
+        "feed_url": "https://hnrss.org/frontpage"
+      }
+    },
+    {
+      "id": "https://news.uoguelph.ca/2025/07/more-honey-bees-dying-even-as-antibiotic-use-halves/",
+      "title": "More honey bees dying, even as antibiotic use halves",
+      "content_text": "Article URL: https://news.uoguelph.ca/2025/07/more-honey-bees-dying-even-as-antibiotic-use-halves/ Comments URL: https://news.ycombinator.com/item?id=44727420 Points: 184 # Comments: 120",
+      "url": "https://news.uoguelph.ca/2025/07/more-honey-bees-dying-even-as-antibiotic-use-halves/",
+      "date_published": "Tue, 29 Jul 2025 19:37:05 +0000",
+      "external_url": "https://news.uoguelph.ca/2025/07/more-honey-bees-dying-even-as-antibiotic-use-halves/",
+      "tags": [
+        "Technology"
+      ],
+      "_source": {
+        "feed_title": "Hacker News",
+        "feed_url": "https://hnrss.org/frontpage"
+      }
+    },
+    {
+      "id": "https://maruos.com/",
+      "title": "Maru OS – Use your phone as your PC",
+      "content_text": "Article URL: https://maruos.com/ Comments URL: https://news.ycombinator.com/item?id=44727298 Points: 228 # Comments: 151",
+      "url": "https://maruos.com/",
+      "date_published": "Tue, 29 Jul 2025 19:24:40 +0000",
+      "external_url": "https://maruos.com/",
+      "tags": [
+        "Technology"
+      ],
+      "_source": {
+        "feed_title": "Hacker News",
+        "feed_url": "https://hnrss.org/frontpage"
+      }
+    },
+    {
+      "id": "https://hms.harvard.edu/news/how-brain-increases-blood-flow-demand",
+      "title": "How the brain increases blood flow on demand",
+      "content_text": "Article URL: https://hms.harvard.edu/news/how-brain-increases-blood-flow-demand Comments URL: https://news.ycombinator.com/item?id=44727191 Points: 94 # Comments: 41",
+      "url": "https://hms.harvard.edu/news/how-brain-increases-blood-flow-demand",
+      "date_published": "Tue, 29 Jul 2025 19:13:32 +0000",
+      "external_url": "https://hms.harvard.edu/news/how-brain-increases-blood-flow-demand",
+      "tags": [
+        "Technology"
+      ],
+      "_source": {
+        "feed_title": "Hacker News",
+        "feed_url": "https://hnrss.org/frontpage"
+      }
+    },
+    {
+      "id": "https://neilzone.co.uk/2023/08/a-month-using-xmpp-using-snikket-for-every-call-and-chat/",
+      "title": "A month using XMPP (using Snikket) for every call and chat (2023)",
+      "content_text": "Article URL: https://neilzone.co.uk/2023/08/a-month-using-xmpp-using-snikket-for-every-call-and-chat/ Comments URL: https://news.ycombinator.com/item?id=44726731 Points: 94 # Comments: 53",
+      "url": "https://neilzone.co.uk/2023/08/a-month-using-xmpp-using-snikket-for-every-call-and-chat/",
+      "date_published": "Tue, 29 Jul 2025 18:24:23 +0000",
+      "external_url": "https://neilzone.co.uk/2023/08/a-month-using-xmpp-using-snikket-for-every-call-and-chat/",
+      "tags": [
+        "Technology"
+      ],
+      "_source": {
+        "feed_title": "Hacker News",
+        "feed_url": "https://hnrss.org/frontpage"
+      }
+    },
+    {
+      "id": "https://github.com/jarulraj/periodic-table",
+      "title": "Elements of System Design",
+      "content_text": "Article URL: https://github.com/jarulraj/periodic-table Comments URL: https://news.ycombinator.com/item?id=44726280 Points: 104 # Comments: 34",
+      "url": "https://github.com/jarulraj/periodic-table",
+      "date_published": "Tue, 29 Jul 2025 17:44:58 +0000",
+      "external_url": "https://github.com/jarulraj/periodic-table",
+      "tags": [
+        "Technology"
+      ],
+      "_source": {
+        "feed_title": "Hacker News",
+        "feed_url": "https://hnrss.org/frontpage"
+      }
+    },
+    {
+      "id": "https://www.acm.org/publications/openaccess",
+      "title": "ACM Transitions to Full Open Access",
+      "content_text": "Article URL: https://www.acm.org/publications/openaccess Comments URL: https://news.ycombinator.com/item?id=44725966 Points: 191 # Comments: 16",
+      "url": "https://www.acm.org/publications/openaccess",
+      "date_published": "Tue, 29 Jul 2025 17:17:58 +0000",
+      "external_url": "https://www.acm.org/publications/openaccess",
+      "tags": [
+        "Technology"
+      ],
+      "_source": {
+        "feed_title": "Hacker News",
+        "feed_url": "https://hnrss.org/frontpage"
+      }
+    },
+    {
+      "id": "https://openai.com/index/chatgpt-study-mode/",
+      "title": "Study mode",
+      "content_text": "Article URL: https://openai.com/index/chatgpt-study-mode/ Comments URL: https://news.ycombinator.com/item?id=44725764 Points: 810 # Comments: 562",
+      "url": "https://openai.com/index/chatgpt-study-mode/",
+      "date_published": "Tue, 29 Jul 2025 17:01:14 +0000",
+      "external_url": "https://openai.com/index/chatgpt-study-mode/",
+      "tags": [
+        "Technology"
+      ],
+      "_source": {
+        "feed_title": "Hacker News",
+        "feed_url": "https://hnrss.org/frontpage"
+      }
+    },
+    {
+      "id": "http://a64.in/posts/learning-basic-electronics-by-building-fireflies/",
+      "title": "Learning basic electronics by building fireflies",
+      "content_text": "Article URL: http://a64.in/posts/learning-basic-electronics-by-building-fireflies/ Comments URL: https://news.ycombinator.com/item?id=44725757 Points: 214 # Comments: 58",
+      "url": "http://a64.in/posts/learning-basic-electronics-by-building-fireflies/",
+      "date_published": "Tue, 29 Jul 2025 17:00:43 +0000",
+      "external_url": "http://a64.in/posts/learning-basic-electronics-by-building-fireflies/",
+      "tags": [
+        "Technology"
+      ],
+      "_source": {
+        "feed_title": "Hacker News",
+        "feed_url": "https://hnrss.org/frontpage"
+      }
+    },
+    {
+      "id": "https://stackoverflow.blog/2025/07/29/developers-remain-willing-but-reluctant-to-use-ai-the-2025-developer-survey-results-are-here/",
+      "title": "Developers remain willing but reluctant to use AI: The 2025 Developer Survey results are here",
+      "content_text": "No need to bury the lede: more developers are using AI tools, but their trust in those tools is falling.",
+      "url": "https://stackoverflow.blog/2025/07/29/developers-remain-willing-but-reluctant-to-use-ai-the-2025-developer-survey-results-are-here/",
+      "date_published": "Tue, 29 Jul 2025 17:00:00 GMT",
+      "external_url": "https://stackoverflow.blog/2025/07/29/developers-remain-willing-but-reluctant-to-use-ai-the-2025-developer-survey-results-are-here/",
+      "tags": [
+        "Technology"
+      ],
+      "_source": {
+        "feed_title": "Stack Overflow Blog",
+        "feed_url": "https://stackoverflow.blog/feed/"
+      }
+    },
+    {
+      "id": "https://github.blog/open-source/maintainers/from-first-commits-to-big-ships-tune-into-our-new-open-source-podcast/",
+      "title": "From first commits to big ships: Tune into our new open source podcast",
+      "content_text": "Introducing the brand new GitHub Podcast: A show dedicated to the topics, trends, stories, and culture in and around the open source developer community on GitHub. The post From first commits to big ships: Tune into our new open source podcast appeared first on The GitHub Blog.",
+      "url": "https://github.blog/open-source/maintainers/from-first-commits-to-big-ships-tune-into-our-new-open-source-podcast/",
+      "date_published": "Tue, 29 Jul 2025 16:31:29 +0000",
+      "external_url": "https://github.blog/open-source/maintainers/from-first-commits-to-big-ships-tune-into-our-new-open-source-podcast/",
+      "tags": [
+        "Technology"
+      ],
+      "_source": {
+        "feed_title": "GitHub Blog",
+        "feed_url": "https://github.blog/feed/"
+      }
+    },
+    {
+      "id": "https://news.ycombinator.com/item?id=44725306",
+      "title": "Launch HN: Hyprnote (YC S25) – An open-source AI meeting notetaker",
+      "content_text": "Hi HN! We're Yujong, John, Duck, and Sung from Hyprnote (https://hyprnote.com). We're building an open-source, privacy-first AI note-taking app that runs fully on-device. Think of it as an open-source Granola. No Zoom bots, no cloud APIs, no data ever leaves your machine.Source code: https://github.com/fastrepl/hyprnote Demo video: https://hyprnote.com/demoWe built Hyprnote because some of our friends told us that their companies banned certain meeting notetakers due to data concerns, or they simply felt uncomfortable sending data to unknown servers. So they went back to manual note-taking - losing focus during meetings and wasting time afterward.We asked: could we build something just as useful, but completely local?Hyprnote is a desktop app that transcribes and summarizes meetings on-device. It captures both your mic input and system audio, so you don't need to invite bots. It generates a summary based on the notes you take. Everything runs on local AI models by default, using Whisper and HyprLLM. HyprLLM is our proof-of-concept model fine-tuned from Qwen3 1.7B. We learned that summarizing meetings is a very nuanced task and that a model's raw intelligence (or weight) doesn't matter THAT much. We'll release more details on evaluation and training once we finish the 2nd iteration of the model (still not that good we can make it a lot better).Whisper inference: https://github.com/fastrepl/hyprnote/blob/main/crates/whispe...AEC inference: https://github.com/fastrepl/hyprnote/blob/main/crates/aec/sr...LLM inference: https://github.com/fastrepl/hyprnote/blob/main/crates/llama/...We also learned that for some folks, having full data controllability was as important as privacy. So we support custom endpoints, allowing users to bring in their company's internal LLM. For teams that need integrations, collaboration, or admin controls, we're working on an optional server component that can be self-hosted. Lastly, we're exploring ways to make Hyprnote work like VSCode, so you can install extensions and build your own workflows around your meetings.We believe privacy-first tools, powered by local models, are going to unlock the next wave of real-world AI apps.We're here and looking forward to your comments! Comments URL: https://news.ycombinator.com/item?id=44725306 Points: 174 # Comments: 85",
+      "url": "https://news.ycombinator.com/item?id=44725306",
+      "date_published": "Tue, 29 Jul 2025 16:24:08 +0000",
+      "external_url": "https://news.ycombinator.com/item?id=44725306",
+      "tags": [
+        "Technology"
+      ],
+      "_source": {
+        "feed_title": "Hacker News",
+        "feed_url": "https://hnrss.org/frontpage"
+      }
+    },
+    {
+      "id": "https://www.kathaaverse.com/",
+      "title": "Show HN: I built an AI that turns any book into a text adventure game",
+      "content_text": "It's a web app that uses AI to turn any book into a playable text adventure. Your favorite book, but your choices, hence your story. You can even \"remix\" the genre like playing Dune as a noir detective story.Note: Work in progress. Suggestions are welcome. Comments URL: https://news.ycombinator.com/item?id=44725202 Points: 220 # Comments: 87",
+      "url": "https://www.kathaaverse.com/",
+      "date_published": "Tue, 29 Jul 2025 16:17:14 +0000",
+      "external_url": "https://www.kathaaverse.com/",
+      "tags": [
+        "Technology"
+      ],
+      "_source": {
+        "feed_title": "Hacker News",
+        "feed_url": "https://hnrss.org/frontpage"
+      }
+    },
+    {
+      "id": "https://www.science.org/content/article/scienceadviser-cats-confuse-ai",
+      "title": "Irrelevant facts about cats added to math problems increase LLM errors by 300%",
+      "content_text": "Article URL: https://www.science.org/content/article/scienceadviser-cats-confuse-ai Comments URL: https://news.ycombinator.com/item?id=44724238 Points: 360 # Comments: 170",
+      "url": "https://www.science.org/content/article/scienceadviser-cats-confuse-ai",
+      "date_published": "Tue, 29 Jul 2025 14:59:18 +0000",
+      "external_url": "https://www.science.org/content/article/scienceadviser-cats-confuse-ai",
+      "tags": [
+        "Technology"
+      ],
+      "_source": {
+        "feed_title": "Hacker News",
+        "feed_url": "https://hnrss.org/frontpage"
+      }
+    },
+    {
+      "id": "https://observablehq.com/notebook-kit/",
+      "title": "Observable Notebooks 2.0 Technology Preview",
+      "content_text": "Article URL: https://observablehq.com/notebook-kit/ Comments URL: https://news.ycombinator.com/item?id=44724068 Points: 201 # Comments: 45",
+      "url": "https://observablehq.com/notebook-kit/",
+      "date_published": "Tue, 29 Jul 2025 14:44:00 +0000",
+      "external_url": "https://observablehq.com/notebook-kit/",
+      "tags": [
+        "Technology"
+      ],
+      "_source": {
+        "feed_title": "Hacker News",
+        "feed_url": "https://hnrss.org/frontpage"
+      }
+    },
+    {
+      "id": "https://biffweb.com/p/structuring-large-codebases/",
+      "title": "Structuring large Clojure codebases with Biff",
+      "content_text": "Article URL: https://biffweb.com/p/structuring-large-codebases/ Comments URL: https://news.ycombinator.com/item?id=44723818 Points: 67 # Comments: 4",
+      "url": "https://biffweb.com/p/structuring-large-codebases/",
+      "date_published": "Tue, 29 Jul 2025 14:26:47 +0000",
+      "external_url": "https://biffweb.com/p/structuring-large-codebases/",
+      "tags": [
+        "Technology"
+      ],
+      "_source": {
+        "feed_title": "Hacker News",
+        "feed_url": "https://hnrss.org/frontpage"
+      }
+    },
+    {
+      "id": "https://www.youtube.com/watch?v=7wK4peez9zE",
+      "title": "Let's Kill You a Billion Times to Make You Immortal",
+      "content_text": "Go to https://ground.news/KiN to get 40% off unlimited access to Ground News so you can compare coverage and think critically about the news you read. Students get 10% off in our Back to School collection! https://shop.kgs.link/back2school Explore inspiring posters and stationery from the kurzgesagt shop – designed to turn your workspace into a curiosity-powered study zone. Sources & further reading: https://sites.google.com/view/sources-quantum-immortality/ No matter how likely your death is, there will always be a version of you that survives. At least according to one of the most bizarre interpretations of quantum mechanics, known as Quantum Immortality. Can science prove that you are unkillable? And does this mean our reality is split into an endless number of copies? OUR CHANNELS ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ German: https://kgs.link/youtubeDE Spanish: https://kgs.link/youtubeES French: https://kgs.link/youtubeFR Portuguese: https://kgs.link/youtubePT Arabic: https://kgs.link/youtubeAR Hindi: https://kgs.link/youtubeHI Japanese: https://kgs.link/youtubeJA Korean: https://kgs.link/youtubeKO HOW CAN YOU SUPPORT US? ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ This is how we make our living and it would be a pleasure if you support us! Get Products designed with ❤️ https://shop.kgs.link Join the Patreon Bird Army 🐧 https://kgs.link/patreon DISCUSSIONS & SOCIAL MEDIA ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ Instagram: https://kgs.link/instagram TikTok: https://kgs.link/tiktok Reddit: https://kgs.link/reddit Discord: https://kgs.link/discord Twitter: https://kgs.link/twitter Bluesky: https://kgs.link/bluesky Facebook: https://kgs.link/facebook Newsletter: https://kgs.link/newsletter OUR VOICE ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ The kurzgesagt voice is from Steve Taylor: https://kgs.link/youtube-voice OUR MUSIC ♬♪ ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ 700+ minutes of kurzgesagt soundtracks by Epic Mountain: Spotify: https://kgs.link/music-spotify Soundcloud: https://kgs.link/music-soundcloud Bandcamp: https://kgs.link/music-bandcamp Youtube: https://kgs.link/music-youtube Facebook: https://kgs.link/music-facebook The soundtrack of this video: SoundCloud: https://bit.ly/40vijCu Bandcamp: https://bit.ly/46TSXSv If you want to help us caption this video, please send subtitles to subtitle@kurzgesagt.org You can find info on what subtitle files work on YouTube here: https://support.google.com/youtube/answer/2734698?hl=en-GB&ref_topic=7296214 Thank you! 🐦🐧🐤 PATREON BIRD ARMY 🐤🐧🐦 ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ Many thanks to our wonderful Patreons (from http://kgs.link/patreon) who support us every month and made this video possible: Pawel, Signe Ozola, Leon Baran, ThreefromTwo, Micaela Jennings, Jake Hopkins, DamienVV, Hougle, Stefan Kraft, ICE, Alessandro Crespi, Amory D, MC Brawl, Titus, Eric Chagnon, Saif AlNajjar, Redcheshire, Gergely Garai",
+      "url": "https://www.youtube.com/watch?v=7wK4peez9zE",
+      "date_published": "2025-07-29T14:00:02+00:00",
+      "external_url": "https://www.youtube.com/watch?v=7wK4peez9zE",
+      "tags": [
+        "YouTube"
+      ],
+      "_source": {
+        "feed_title": "Kurzgesagt – In a Nutshell",
+        "feed_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCsXVk37bltHxD1rDPwtNM8Q"
+      }
+    },
+    {
+      "id": "https://www.youtube.com/watch?v=_A0JV_4kMXA",
+      "title": "How Jesus and Socrates taught the same way",
+      "content_text": "This interview is an episode from ‪ @The-Well, our publication about ideas that inspire a life well-lived, created with the ‪@JohnTempletonFoundation. Subscribe to The Well on YouTube ► https://bit.ly/thewell-youtube Watch The Well’s next interview with Betül Kaçar ► The ocean is evolving, and it’s not based on the ‘survival of the fittest’ https://youtu.be/nl_-nmZ4_Xc What if religious texts were some of our most significant sources of philosophical insight? Philosopher Meghan Sullivan believes that traditions like Christianity, Judaism, and Islam are filled with moral questions that invite discussion and reflection. She challenges the idea that philosophy must be strictly secular, pointing out how religious stories and parables often resemble the open-ended questioning found in ancient dialogues like Plato’s Republic. These connections support the idea that religious texts are not meant to shut down debate, but encourage it. For Sullivan, exploring faith through philosophical conversation helps us think more clearly about how to live and what it means to be human. Read the video transcript ►https://bigthink.com/the-well/why-philosophy-needs-religion?utm_source=youtube&utm_medium=video&utm_campaign=youtube_description_bigthink ---------------------------------------------------------------------------------- About Meghan Sullivan: Meghan Sullivan is the Wilsey Family College Professor of Philosophy at the University of Notre Dame, where she leads the Ethics Initiative and founded the Institute for Ethics and the Common Good. With support from the John Templeton Foundation, the Institute advances research and teaching on human flourishing. Sullivan’s work spans ethics, metaphysics, and religion. She’s the author of Time Biases and co-author of The Good Life Method, based on her acclaimed course “God and the Good Life.” ---------------------------------------------------------------------------------- About The Well Do we inhabit a multiverse? Do we have free will? What is love? Is evolution directional? There are no simple answers to life’s biggest questions, and that’s why they’re the questions occupying the world’s brightest minds. Together, let's learn from them. Subscribe to the weekly newsletter ► https://bit.ly/thewellemailsignup ---------------------------------------------------------------------------------- Join The Well on your favorite platforms: ► Facebook: https://bit.ly/thewellFB ► Instagram: https://bit.ly/thewellIG",
+      "url": "https://www.youtube.com/watch?v=_A0JV_4kMXA",
+      "date_published": "2025-07-29T13:01:07+00:00",
+      "external_url": "https://www.youtube.com/watch?v=_A0JV_4kMXA",
+      "tags": [
+        "YouTube"
+      ],
+      "_source": {
+        "feed_title": "Big Think",
+        "feed_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCvQECJukTDE2i6aCoMnS-Vg"
+      }
+    },
+    {
+      "id": "https://www.bbc.com/news/articles/cgery3eeqzxo?at_medium=RSS&at_campaign=rss",
+      "title": "Minister must apologise over Savile claim, says Farage",
+      "content_text": "Minister Peter Kyle claims that by opposing online safety laws the Reform UK leader is siding with sex offenders.",
+      "url": "https://www.bbc.com/news/articles/cgery3eeqzxo?at_medium=RSS&at_campaign=rss",
+      "date_published": "Tue, 29 Jul 2025 11:28:07 GMT",
+      "external_url": "https://www.bbc.com/news/articles/cgery3eeqzxo?at_medium=RSS&at_campaign=rss",
+      "tags": [
+        "News"
+      ],
+      "_source": {
+        "feed_title": "BBC Technology",
+        "feed_url": "http://feeds.bbci.co.uk/news/technology/rss.xml"
+      }
+    },
+    {
+      "id": "https://www.bbc.com/news/articles/cvg3lgdv3r7o?at_medium=RSS&at_campaign=rss",
+      "title": "EE to launch phone plans which restrict internet for teens",
+      "content_text": "UK mobile network operators are already required to ensure only adults can access adult content while using their network.",
+      "url": "https://www.bbc.com/news/articles/cvg3lgdv3r7o?at_medium=RSS&at_campaign=rss",
+      "date_published": "Tue, 29 Jul 2025 11:11:08 GMT",
+      "external_url": "https://www.bbc.com/news/articles/cvg3lgdv3r7o?at_medium=RSS&at_campaign=rss",
+      "tags": [
+        "News"
+      ],
+      "_source": {
+        "feed_title": "BBC Technology",
+        "feed_url": "http://feeds.bbci.co.uk/news/technology/rss.xml"
+      }
+    },
+    {
+      "id": "https://www.bbc.com/news/articles/clyj4zky4zwo?at_medium=RSS&at_campaign=rss",
+      "title": "Google launches new AI search feature in UK",
+      "content_text": "The new tool marks a significant change for the search giant but raises questions for advertisers.",
+      "url": "https://www.bbc.com/news/articles/clyj4zky4zwo?at_medium=RSS&at_campaign=rss",
+      "date_published": "Tue, 29 Jul 2025 08:43:59 GMT",
+      "external_url": "https://www.bbc.com/news/articles/clyj4zky4zwo?at_medium=RSS&at_campaign=rss",
+      "tags": [
+        "News"
+      ],
+      "_source": {
+        "feed_title": "BBC Technology",
+        "feed_url": "http://feeds.bbci.co.uk/news/technology/rss.xml"
+      }
+    },
+    {
+      "id": "https://stackoverflow.blog/2025/07/29/that-custom-gift-for-your-mom-takes-more-work-than-you-think/",
+      "title": "That custom gift for your mom takes more work than you think",
+      "content_text": "Ryan welcomes Mahir Yavuz, Senior Director of Engineering at Etsy, to the show to explore the unique challenges that Etsy’s marketplace faces and how Etsy’s teams leverage machine learning and AI to manage product SKUs, enrich inventory metadata, and improve both buyer and seller experiences.",
+      "url": "https://stackoverflow.blog/2025/07/29/that-custom-gift-for-your-mom-takes-more-work-than-you-think/",
+      "date_published": "Tue, 29 Jul 2025 07:40:00 GMT",
+      "external_url": "https://stackoverflow.blog/2025/07/29/that-custom-gift-for-your-mom-takes-more-work-than-you-think/",
+      "tags": [
+        "Technology"
+      ],
+      "_source": {
+        "feed_title": "Stack Overflow Blog",
+        "feed_url": "https://stackoverflow.blog/feed/"
+      }
+    },
+    {
+      "id": "https://www.bbc.com/news/articles/ce3nw5vnzgpo?at_medium=RSS&at_campaign=rss",
+      "title": "Could aluminium become the packaging 'champion'?",
+      "content_text": "Some packaging firms say aluminium could be used more widely in packaging, but cost may hold it back",
+      "url": "https://www.bbc.com/news/articles/ce3nw5vnzgpo?at_medium=RSS&at_campaign=rss",
+      "date_published": "Mon, 28 Jul 2025 23:04:41 GMT",
+      "external_url": "https://www.bbc.com/news/articles/ce3nw5vnzgpo?at_medium=RSS&at_campaign=rss",
+      "tags": [
+        "News"
+      ],
+      "_source": {
+        "feed_title": "BBC Technology",
+        "feed_url": "http://feeds.bbci.co.uk/news/technology/rss.xml"
+      }
+    },
+    {
+      "id": "https://github.blog/open-source/social-impact/scaling-for-impact-how-github-copilot-supercharges-smallholder-farmers/",
+      "title": "Scaling for impact: How GitHub Copilot supercharges smallholder farmers",
+      "content_text": "Empowering 10 million farm families by 2030 to generate $1 billion in new revenue. How GitHub helps One Acre Fund’s mission — driving real impact across Africa. The post Scaling for impact: How GitHub Copilot supercharges smallholder farmers appeared first on The GitHub Blog.",
+      "url": "https://github.blog/open-source/social-impact/scaling-for-impact-how-github-copilot-supercharges-smallholder-farmers/",
+      "date_published": "Mon, 28 Jul 2025 19:53:32 +0000",
+      "external_url": "https://github.blog/open-source/social-impact/scaling-for-impact-how-github-copilot-supercharges-smallholder-farmers/",
+      "tags": [
+        "Technology"
+      ],
+      "_source": {
+        "feed_title": "GitHub Blog",
+        "feed_url": "https://github.blog/feed/"
+      }
+    },
+    {
+      "id": "https://www.bbc.com/news/articles/cn72ydj70g5o?at_medium=RSS&at_campaign=rss",
+      "title": "VPNs top download charts as age verification law kicks in",
+      "content_text": "Experts say free versions of such apps or services may carry potential security and privacy risks.",
+      "url": "https://www.bbc.com/news/articles/cn72ydj70g5o?at_medium=RSS&at_campaign=rss",
+      "date_published": "Mon, 28 Jul 2025 14:25:21 GMT",
+      "external_url": "https://www.bbc.com/news/articles/cn72ydj70g5o?at_medium=RSS&at_campaign=rss",
+      "tags": [
+        "News"
+      ],
+      "_source": {
+        "feed_title": "BBC Technology",
+        "feed_url": "http://feeds.bbci.co.uk/news/technology/rss.xml"
+      }
+    },
+    {
+      "id": "https://world.hey.com/dhh/the-beauty-of-ideals-b3dccf72",
+      "title": "The beauty of ideals",
+      "content_text": "Ideals are supposed to be unattainable for the great many. If everyone could be the smartest, strongest, prettiest, or best, there would be no need for ideals — we'd all just be perfect. But we're not, so ideals exist to show us the peak of humanity and to point our ambition and appreciation toward it.This is what I always hated about the 90s. It was a decade that made it cool to be a loser. It was the decade of MTV's Beavis and Butt-Head. It was the age of grunge. I'm generationally obliged to like Nirvana, but what a perfectly depressive, suicidal soundtrack to loser culture.Naomi Wolf's The Beauty Myth was published in 1990. It took a critical theory-like lens on beauty ideals, and finding it all so awfully oppressive. Because, actually, seeing beautiful, slim people in advertising or media is bad. Because we don't all look like that! And who's even to say what \"beauty\" is, anyway? It's all just socially constructed! The final stage of that dead-end argument appeared as an ad here in Copenhagen thirty years later during the 2020 insanity: I passed it every day biking the boys to school for weeks. Next to other slim, fit Danes also riding their bikes. None of whom resembled the grotesque display of obesity towering over them on their commute from Calvin Klein.While this campaign was laughably out of place in Copenhagen, it's possible that it brought recognition and representation in some parts of America. But a celebration of ideals it was not.That's the problem with the whole \"representation\" narrative. It proposes we're all better off if all we see is a mirror of ourselves, however obese, lazy, ignorant, or incompetent, because at least it won't be \"unrealistic\". Screw that. The last thing we need is a patronizing message that however little you try, you're perfect just the way you are.No, the beauty of ideals is that they ask more of us. Ask us to pursue knowledge, fitness, and competence by taking inspiration from the best human specimens.Thankfully, no amount of post-modern deconstruction or academic theory babble seems capable of suppressing the intrinsic human yearning for excellence forever. The ideals are finally starting to emerge again.",
+      "url": "https://world.hey.com/dhh/the-beauty-of-ideals-b3dccf72",
+      "date_published": "2025-07-28T10:31:34Z",
+      "external_url": "https://world.hey.com/dhh/the-beauty-of-ideals-b3dccf72",
+      "tags": [
+        "Blogs"
+      ],
+      "_source": {
+        "feed_title": "David Heinemeier Hansson",
+        "feed_url": "https://world.hey.com/dhh/feed.atom"
+      }
+    },
+    {
+      "id": "https://www.bbc.com/news/articles/c77v2kx304go?at_medium=RSS&at_campaign=rss",
+      "title": "Google failed to warn 10 million of Turkey earthquake severity",
+      "content_text": "The tech giant said only 469 serious warnings were sent out ahead of the 7.8 magnitude quake.",
+      "url": "https://www.bbc.com/news/articles/c77v2kx304go?at_medium=RSS&at_campaign=rss",
+      "date_published": "Sun, 27 Jul 2025 23:16:50 GMT",
+      "external_url": "https://www.bbc.com/news/articles/c77v2kx304go?at_medium=RSS&at_campaign=rss",
+      "tags": [
+        "News"
+      ],
+      "_source": {
+        "feed_title": "BBC Technology",
+        "feed_url": "http://feeds.bbci.co.uk/news/technology/rss.xml"
+      }
+    },
+    {
+      "id": "https://www.bbc.com/news/articles/cx2q8qw0q0go?at_medium=RSS&at_campaign=rss",
+      "title": "EE says latest outage fixed after 'technical fault'",
+      "content_text": "The mobile phone service provider says it carried out work overnight after customers reported problems.",
+      "url": "https://www.bbc.com/news/articles/cx2q8qw0q0go?at_medium=RSS&at_campaign=rss",
+      "date_published": "Sat, 26 Jul 2025 19:02:36 GMT",
+      "external_url": "https://www.bbc.com/news/articles/cx2q8qw0q0go?at_medium=RSS&at_campaign=rss",
+      "tags": [
+        "News"
+      ],
+      "_source": {
+        "feed_title": "BBC Technology",
+        "feed_url": "http://feeds.bbci.co.uk/news/technology/rss.xml"
+      }
+    },
+    {
+      "id": "https://www.bbc.com/news/articles/c7vl57n74pqo?at_medium=RSS&at_campaign=rss",
+      "title": "Hackers steal images from women's dating safety app that vets men",
+      "content_text": "Thousands of women registered with Tea have had their images illegally accessed, the US firm says.",
+      "url": "https://www.bbc.com/news/articles/c7vl57n74pqo?at_medium=RSS&at_campaign=rss",
+      "date_published": "Sat, 26 Jul 2025 13:58:47 GMT",
+      "external_url": "https://www.bbc.com/news/articles/c7vl57n74pqo?at_medium=RSS&at_campaign=rss",
+      "tags": [
+        "News"
+      ],
+      "_source": {
+        "feed_title": "BBC Technology",
+        "feed_url": "http://feeds.bbci.co.uk/news/technology/rss.xml"
+      }
+    },
+    {
+      "id": "https://www.bbc.co.uk/iplayer/episode/m002gm6k?at_medium=RSS&at_campaign=rss",
+      "title": "Tech Now",
+      "content_text": "Yasmin Morgan-Griffiths has exclusive access to La Sagrada Familia in Barcelona.",
+      "url": "https://www.bbc.co.uk/iplayer/episode/m002gm6k?at_medium=RSS&at_campaign=rss",
+      "date_published": "Sat, 26 Jul 2025 01:00:00 GMT",
+      "external_url": "https://www.bbc.co.uk/iplayer/episode/m002gm6k?at_medium=RSS&at_campaign=rss",
+      "tags": [
+        "News"
+      ],
+      "_source": {
+        "feed_title": "BBC Technology",
+        "feed_url": "http://feeds.bbci.co.uk/news/technology/rss.xml"
+      }
+    },
+    {
+      "id": "https://github.blog/ai-and-ml/generative-ai/how-to-build-secure-and-scalable-remote-mcp-servers/",
+      "title": "How to build secure and scalable remote MCP servers",
+      "content_text": "More context can mean more attack surfaces for your projects. Be prepared for what lies ahead with this guide. The post How to build secure and scalable remote MCP servers appeared first on The GitHub Blog.",
+      "url": "https://github.blog/ai-and-ml/generative-ai/how-to-build-secure-and-scalable-remote-mcp-servers/",
+      "date_published": "Fri, 25 Jul 2025 17:12:02 +0000",
+      "external_url": "https://github.blog/ai-and-ml/generative-ai/how-to-build-secure-and-scalable-remote-mcp-servers/",
+      "tags": [
+        "Technology"
+      ],
+      "_source": {
+        "feed_title": "GitHub Blog",
+        "feed_url": "https://github.blog/feed/"
+      }
+    },
+    {
+      "id": "https://world.hey.com/dhh/building-competency-is-better-than-therapy-4622c6b7",
+      "title": "Building competency is better than therapy",
+      "content_text": "The world is waking to the fact that talk therapy is neither the only nor the best way to cure a garden-variety petite depression. Something many people will encounter at some point in their lives. Studies have shown that exercise, for example, is a more effective treatment than talk therapy (and pharmaceuticals!) when dealing with such episodes. But I'm just as interested in the role building competence can have in warding off the demons.And partly because of this meme: I've talked about it before, but I keep coming back to the fact that it's exactly backwards. That signing up for an educational quest into Linux, history, or motorcycle repair actually is an incredibly effective alternative to therapy! At least for men who'd prefer to feel useful over being listened to, which, in my experience, is most of them.This is why I find it so misguided when people who undertake those quests sell their journey short with self-effacing jibes about how much an unattractive nerd it makes them to care about their hobby. Mihaly Csikszentmihalyi detailed back in 1990 how peak human happiness arrives exactly in these moments of flow when your competence is stretched by a difficult-but-doable challenge. Don't tell me those endorphins don't also help counter the darkness.But it's just as much about the fact that these pursuits of competence usually offer a great opportunity for community as well that seals the deal. I've found time and again that people are starved for the kind of topic-based connections that, say, learning about Linux offers in spades. You're not just learning, you're learning with others.That is a time-tested antidote to depression: Forming and cultivating meaningful human connections. Yes, doing so over the internet isn't as powerful as doing it in person, but it's still powerful. It still offers community, involvement, and plenty of invitation to carry a meaningful burden.Open source nails this trifecta of motivations to a T. There are endless paths of discovery and mastery available. There are tons of fellow travelers with whom to connect and collaborate. And you'll find an unlimited number of meaningful burdens in maintainerships open for the taking.So next time you see that meme, you should cheer that the talk therapy table is empty. Leave it available for the severe, pathological cases that exercise and the pursuit of competence can't cure. Most people just don't need therapy, they need purpose, they need competence, they need exercise, and they need community.",
+      "url": "https://world.hey.com/dhh/building-competency-is-better-than-therapy-4622c6b7",
+      "date_published": "2025-07-25T15:16:53Z",
+      "external_url": "https://world.hey.com/dhh/building-competency-is-better-than-therapy-4622c6b7",
+      "tags": [
+        "Blogs"
+      ],
+      "_source": {
+        "feed_title": "David Heinemeier Hansson",
+        "feed_url": "https://world.hey.com/dhh/feed.atom"
+      }
+    },
+    {
+      "id": "https://www.youtube.com/watch?v=_CxmzkYPvsg",
+      "title": "What 85 years of research says is the real key to happiness | Robert Waldinger: Full Interview",
+      "content_text": "“We can make ourselves more likely to be happy by building a life that includes the conditions that make for happiness.” Subscribe to Big Think on YouTube ► https://www.youtube.com/channel/UCvQECJukTDE2i6aCoMnS-Vg?sub_confirmation=1 Up next, Harvard professor’s 6-step guide to Zen Buddhism ► https://www.youtube.com/watch?v=zBN5aa3jAHw What if the secret to lasting happiness has been hiding in plain sight? Harvard psychiatrist Robert Waldinger reveals insights from the world’s longest study on adult life, 85 years of data that challenge our assumptions about success, health, and fulfillment. Waldinger shares how our relationships and connections – not our wealth, fame, or success, directly boosts our minds, bodies, and longevity. 00:00:00 Part 1: Happiness. How did you get into psychiatry? 00:01:05 What is your research about? 00:05:35 How much control do we have over our happiness? 00:06:34 How do relationships affect happiness? 00:08:43 How do childhood experiences impact happiness? 00:11:44 How does evolutionary biology influence our happiness? 00:12:29 How do relationships impact physical health? 00:17:18 What is social fitness? 00:17:55 How do I maintain healthy relationships? 00:18:49 How can I evaluate my social fitness? 00:20:16 How does mapping my social universe contribute to my wellbeing? 00:22:11 If a relationship is depleting, what should I do? 00:23:42 How many close friends do I need? 00:24:43 What is your study's primary discovery? 00:29:16 What is your background with Zen? 00:29:52 How does Zen shape relationships? 00:31:30 What is the goal of Zen? 00:32:37 Why is impermanence helpful to consider? 00:34:53 How might the Four Noble Truths improve relationships? 00:37:51 How does understanding attachment help guide my relationships? 00:38:17 How does a \"beginner's mind\" benefit my relationships? 00:39:55 What is mindfulness and how do I cultivate it? 00:42:19 How does recognizing suffering improve relationships? 00:43:00 How does \"metta\" aid relationships? 00:44:31 What is enlightenment? 00:50:31 Do we have a loneliness epidemic? 00:53:26 What’s the difference between loneliness and isolation? 00:54:27 How does loneliness harm us physically? 00:56:12 What fundamental need do relationships satisfy? 00:58:27 Is our happiness only dictated by our close connections? 01:01:07 What can I do to lessen loneliness? Read the video transcript ► https://bigthink.com/series/full-interview/robert-waldinger-happiness/?utm_source=youtube&utm_medium=video&utm_campaign=youtube_description ---------------------------------------------------------------------------------- Go Deeper with Big Think: ►Become a Big Think Member Get exclusive content, early, ad-free access to new releases, and more. https://www.youtube.com/@bigthink/membership/ ►Get Big Think+ for Business Engage learners like never before with high-impact video microlearning from the biggest thinkers in the world. https://bigthink.com/plus/?utm_source=youtube&utm_medium=video&utm_campaign=youtube_description ---------------------------------------------------------------------------------- About Robert Waldinger: Robert Waldinger, MD is a Clinical Professor of Psychiatry at Harvard Medical School, a practicing psychiatrist, psychoanalyst, and a Zen teacher and practitioner. For the last two decades, Waldinger has been the director of the Harvard Study of Adult Development. This study, conducted over more than 85 years, has analyzed the entire lives of 724 families to determine the activities, behaviors, and dynamics that enhance a person’s life-long well-being. Waldinger has dedicated his career to examining these elements and discovering what brings true fulfillment to human existence. He is the author of several books, including his most recent, The Good Life: Lessons from the World’s Longest Scientific Study of Happiness.",
+      "url": "https://www.youtube.com/watch?v=_CxmzkYPvsg",
+      "date_published": "2025-07-25T13:01:17+00:00",
+      "external_url": "https://www.youtube.com/watch?v=_CxmzkYPvsg",
+      "tags": [
+        "YouTube"
+      ],
+      "_source": {
+        "feed_title": "Big Think",
+        "feed_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCvQECJukTDE2i6aCoMnS-Vg"
+      }
+    },
+    {
+      "id": "https://www.bbc.com/news/articles/c24v4dl5r16o?at_medium=RSS&at_campaign=rss",
+      "title": "Around 6,000 porn sites start checking ages in UK",
+      "content_text": "Despite the law some remain sceptical about the effectiveness of porn age checks.",
+      "url": "https://www.bbc.com/news/articles/c24v4dl5r16o?at_medium=RSS&at_campaign=rss",
+      "date_published": "Fri, 25 Jul 2025 11:30:21 GMT",
+      "external_url": "https://www.bbc.com/news/articles/c24v4dl5r16o?at_medium=RSS&at_campaign=rss",
+      "tags": [
+        "News"
+      ],
+      "_source": {
+        "feed_title": "BBC Technology",
+        "feed_url": "http://feeds.bbci.co.uk/news/technology/rss.xml"
+      }
+    },
+    {
+      "id": "https://stackoverflow.blog/2025/07/25/saving-the-world-with-speed-and-at-scale/",
+      "title": "Saving the world with speed and at scale",
+      "content_text": "Ryan Panchadsaram, co-author of Speed and Scale, sits down on the podcast to explore the role of developers in combating climate change, how efficient coding practices help lower emissions, and how developers can contribute to open-source projects through GitHub’s Climate Action Plan that help drive forward sustainable technologies.",
+      "url": "https://stackoverflow.blog/2025/07/25/saving-the-world-with-speed-and-at-scale/",
+      "date_published": "Fri, 25 Jul 2025 07:40:00 GMT",
+      "external_url": "https://stackoverflow.blog/2025/07/25/saving-the-world-with-speed-and-at-scale/",
+      "tags": [
+        "Technology"
+      ],
+      "_source": {
+        "feed_title": "Stack Overflow Blog",
+        "feed_url": "https://stackoverflow.blog/feed/"
+      }
+    },
+    {
+      "id": "https://www.bbc.com/news/articles/c4g83dpeendo?at_medium=RSS&at_campaign=rss",
+      "title": "Artificial food colours are out, so what's next?",
+      "content_text": "Big food firms are phasing out artificial colours, so tech firms are rushing to fill the gap.",
+      "url": "https://www.bbc.com/news/articles/c4g83dpeendo?at_medium=RSS&at_campaign=rss",
+      "date_published": "Thu, 24 Jul 2025 23:01:09 GMT",
+      "external_url": "https://www.bbc.com/news/articles/c4g83dpeendo?at_medium=RSS&at_campaign=rss",
+      "tags": [
+        "News"
+      ],
+      "_source": {
+        "feed_title": "BBC Technology",
+        "feed_url": "http://feeds.bbci.co.uk/news/technology/rss.xml"
+      }
+    },
+    {
+      "id": "https://world.hey.com/dhh/you-expect-principles-but-should-wish-for-none-531988ec",
+      "title": "You expect principles but should wish for none",
+      "content_text": "People seem to be continuously disappointed by the fact that public companies are run by professional managers who don't operate from deep principles. But they shouldn't be. It's in everyone's interest that corporations set their sails to the wind and whims of the prevailing culture. It's the essence of capitalism: Give people what they want (especially when they change their minds)! Now, as an owner-operator, I can afford to have unpopular principles from time to time. I can afford to earn less than the theoretical maximum from the market as a consequence of these principles. That's because I'm playing with my own money. That's the privilege of being privately held.But even the most powerful professional CEO is on a short leash from the company's real owners, the shareholders. This is often maligned as the root of all evil in modern capitalism. That we've divorced the owner and the operator. And I think there's a worthy critique of that arrangement to be had, like Burnham in The Managerial Society. But I also think not enough appreciation is afforded this arrangement.Shareholders, in their Platonic ideal, only care about maximizing profits. That can occasionally be an incentive for amoral behavior, but more often, it's simply a driver towards making stuff that people want. Not what they say they want, but what they actually buy. That's why libertarians love to talk about the free-market economy as an information system. Supply-side economics notwithstanding, demand directs production and judges the contestants. If you don't make something people want, they won't buy it, and you'll soon be out of business.I thought about this today because of two popular marketing campaigns currently running in America. The one by Nike celebrating family, the other by American Eagle celebrating \"good jeans\". Here's a comparison someone made online using these companies' campaigns from the early 2020s and now: Quite the contrast! Almost looks like hypocrisy, doesn't it? How can you celebrate obesity one moment, then hour-glass ideals the next? How can you embrace undirected individualism before, then exalt family values at the height of excellence now?Easy: The vibe changed. Demand changed. Selling 2020 woke platitudes into a 2025 market is a clear way to lose your job as a professional manager. Because it's no longer what people want.Hell, it's most likely not even the same managers making these diametrically-opposed value judgments. Perhaps not even managers at all, but marketing agencies in tune with said prevailing culture. The big information system of commerce is sending a billion packets of intent all day long and the current message is now crystal clear: Blond babies and boobs are back in business!This was the original killer insight by the architects of the short-lived woke theocracy: If you can capture culture, you can capture capitalism. But it's one thing to capture culture, it's quite another to hold it.So now much of mainstream American culture has simply reverted to the roots of capitalism: Making things that most people want. By course-correcting the culture, we've course-corrected commerce. No corporate principles required.",
+      "url": "https://world.hey.com/dhh/you-expect-principles-but-should-wish-for-none-531988ec",
+      "date_published": "2025-07-24T19:28:08Z",
+      "external_url": "https://world.hey.com/dhh/you-expect-principles-but-should-wish-for-none-531988ec",
+      "tags": [
+        "Blogs"
+      ],
+      "_source": {
+        "feed_title": "David Heinemeier Hansson",
+        "feed_url": "https://world.hey.com/dhh/feed.atom"
+      }
+    },
+    {
+      "id": "https://github.blog/enterprise-software/ci-cd/how-to-streamline-github-api-calls-in-azure-pipelines/",
+      "title": "How to streamline GitHub API calls in Azure Pipelines",
+      "content_text": "Build a custom Azure DevOps extension that eliminates the complexity of JWT generation and token management, enabling powerful automation and enhanced security controls. The post How to streamline GitHub API calls in Azure Pipelines appeared first on The GitHub Blog.",
+      "url": "https://github.blog/enterprise-software/ci-cd/how-to-streamline-github-api-calls-in-azure-pipelines/",
+      "date_published": "Thu, 24 Jul 2025 16:00:00 +0000",
+      "external_url": "https://github.blog/enterprise-software/ci-cd/how-to-streamline-github-api-calls-in-azure-pipelines/",
+      "tags": [
+        "Technology"
+      ],
+      "_source": {
+        "feed_title": "GitHub Blog",
+        "feed_url": "https://github.blog/feed/"
+      }
+    },
+    {
+      "id": "https://www.youtube.com/shorts/IZ55YvFE960",
+      "title": "The 5 Times Life on Earth Almost Ended",
+      "content_text": "Life on Earth has nearly ended five times, and it may be happening again right now. From massive volcanic eruptions to deadly asteroids and algae gone wild, mass extinction events have wiped out over 99% of all species that ever lived. #kurzgesagt #inanutshell #kurzgesagt_inanutshell #learnwithshorts #science Sources & further reading: https://sites.google.com/view/kgs-tiktok-sources Follow us for more sciencey content! 🦆 OUR CHANNELS ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ German: https://kgs.link/youtubeDE Spanish: https://kgs.link/youtubeES French: https://kgs.link/youtubeFR Portuguese: https://kgs.link/youtubePT Arabic: https://kgs.link/youtubeAR Hindi: https://kgs.link/youtubeHI Japanese: https://kgs.link/youtubeJA Korean: https://kgs.link/youtubeKO HOW CAN YOU SUPPORT US? ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ This is how we make our living and it would be a pleasure if you support us! Get Products designed with ❤ https://shop.kgs.link/shorts Become a Part of kurzgesagt by joining the Patreon Bird Army 🐧 https://kgs.link/patreon DISCUSSIONS & SOCIAL MEDIA ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ Instagram: https://kgs.link/instagram TikTok: https://kgs.link/tiktok Reddit: https://kgs.link/reddit Discord: https://kgs.link/discord Twitter: https://kgs.link/twitter Bluesky: https://kgs.link/bluesky Facebook: https://kgs.link/facebook Newsletter: https://kgs.link/newsletter OUR VOICE ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ The Kurzgesagt voice is from Steve Taylor: https://kgs.link/youtube-voice OUR MUSIC ♬♪ ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ 700+ minutes of Kurzgesagt Soundtracks by Epic Mountain: Spotify: https://kgs.link/music-spotify Soundcloud: https://kgs.link/music-soundcloud Bandcamp: https://kgs.link/music-bandcamp Youtube: https://kgs.link/music-youtube Facebook: https://kgs.link/music-facebook",
+      "url": "https://www.youtube.com/shorts/IZ55YvFE960",
+      "date_published": "2025-07-24T14:00:34+00:00",
+      "external_url": "https://www.youtube.com/shorts/IZ55YvFE960",
+      "tags": [
+        "YouTube"
+      ],
+      "_source": {
+        "feed_title": "Kurzgesagt – In a Nutshell",
+        "feed_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCsXVk37bltHxD1rDPwtNM8Q"
+      }
+    },
+    {
+      "id": "https://www.youtube.com/watch?v=Ua13CLOgZis",
+      "title": "Ask yourself: Are you a process, or a person? | Annaka Harris",
+      "content_text": "\"The sense that we are a solid entity, an unchanging entity that exists someplace in our body and takes ownership of our body, and even ownership of our brain rather than being identical to our brain, that is where the illusion lies.\" Subscribe to Big Think on YouTube ► https://www.youtube.com/channel/UCvQECJukTDE2i6aCoMnS-Vg?sub_confirmation=1 Up next, Science is shattering our intuitions about consciousness ► https://www.youtube.com/watch?v=m0UjqT45JsQ What if the “you” you feel so certain about isn’t real in the way you think? Author Annaka Harris argues that the brain’s constant dialogue with the world creates a shifting process, not a fixed identity, and how this discovery changes how we see our choices, our memories, and our place in nature. Harris also explores why quieting the brain’s default mode through meditation, altered states, or deep focus can dissolve the boundary between self and world. 0:00 The illusion of self 4:22 The brain as a dynamic process 6:53 Decision-making & “free will\" 10:33 Neuroscience of the self 13:11 Losing the self Read the video transcript ► https://bigthink.com/series/the-big-think-interview/annaka-harris-self/?utm_source=youtube&utm_medium=video&utm_campaign=youtube_description ---------------------------------------------------------------------------------- Go Deeper with Big Think: ►Become a Big Think Member Get exclusive access to full interviews, early access to new releases, Big Think merch and more. https://members.bigthink.com/?utm_source=youtube&utm_medium=video&utm_campaign=youtube_description ►Get Big Think+ for Business Guide, inspire and accelerate leaders at all levels of your company with the biggest minds in business. https://bigthink.com/plus/great-leaders-think-big/?utm_source=youtube&utm_medium=video&utm_campaign=youtube_description ---------------------------------------------------------------------------------- About Annaka Harris: Annaka Harris is the New York Times bestselling author of CONSCIOUS: A Brief Guide to the Fundamental Mystery of the Mind and writer and producer of the forthcoming audio documentary series, LIGHTS ON. Her work has appeared in The New York Times, Nautilus Magazine, the Journal of Consciousness Studies, and IAI Magazine. She is also an editor and consultant for science writers, specializing in neuroscience and physics. Annaka is the author of the children’s book I Wonder, coauthor of the Mindful Games Activity Cards, and a volunteer mindfulness teacher for the organization Inner Kids.",
+      "url": "https://www.youtube.com/watch?v=Ua13CLOgZis",
+      "date_published": "2025-07-24T13:00:57+00:00",
+      "external_url": "https://www.youtube.com/watch?v=Ua13CLOgZis",
+      "tags": [
+        "YouTube"
+      ],
+      "_source": {
+        "feed_title": "Big Think",
+        "feed_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCvQECJukTDE2i6aCoMnS-Vg"
+      }
+    },
+    {
+      "id": "https://www.bbc.com/news/articles/cr4wgywwg0qo?at_medium=RSS&at_campaign=rss",
+      "title": "South Park to stream on Paramount+ after bidding war",
+      "content_text": "The deal that will see the long-running comedy series move from HBO Max is reportedly worth $1.5bn.",
+      "url": "https://www.bbc.com/news/articles/cr4wgywwg0qo?at_medium=RSS&at_campaign=rss",
+      "date_published": "Thu, 24 Jul 2025 04:14:14 GMT",
+      "external_url": "https://www.bbc.com/news/articles/cr4wgywwg0qo?at_medium=RSS&at_campaign=rss",
+      "tags": [
+        "News"
+      ],
+      "_source": {
+        "feed_title": "BBC Technology",
+        "feed_url": "http://feeds.bbci.co.uk/news/technology/rss.xml"
+      }
+    },
+    {
+      "id": "https://www.bbc.com/news/articles/c1k81lj8nvpo?at_medium=RSS&at_campaign=rss",
+      "title": "As porn sites apply new age checks, will users hand over personal ID?",
+      "content_text": "All websites hosting pornography will have to check the age of their users from Friday.",
+      "url": "https://www.bbc.com/news/articles/c1k81lj8nvpo?at_medium=RSS&at_campaign=rss",
+      "date_published": "Thu, 24 Jul 2025 02:25:59 GMT",
+      "external_url": "https://www.bbc.com/news/articles/c1k81lj8nvpo?at_medium=RSS&at_campaign=rss",
+      "tags": [
+        "News"
+      ],
+      "_source": {
+        "feed_title": "BBC Technology",
+        "feed_url": "http://feeds.bbci.co.uk/news/technology/rss.xml"
+      }
+    },
+    {
+      "id": "https://world.hey.com/dhh/it-s-a-beelink-baby-243fdaf1",
+      "title": "It's a Beelink, baby",
+      "content_text": "It's only been two months since I discovered the power and joy of this new generation of mini PCs. My journey started out with a Minisforum UM870, which is a lovely machine, but since then, I've come to really appreciate the work of Beelink. In a crowded market for mini PCs, Beelink stands out with their superior build quality, their class-leading cooling and silent operation, and their use of fully Linux-compatible components (the UM870 shipped with a MediaTek bluetooth/wifi card that doesn't work with Linux!). It's the complete package at three super compelling price points.For $289, you can get the EQR5, which runs an 8-core AMD Zen3 5825U that puts out 1723/6419 in Geekbench, and comes with 16GB RAM and 500GB NVMe. I've run Omarchy on it, and it flies. For me, the main drawback was the lack of a DisplayPort, which kept me from using it with an Apple display, and the fact that the SER8 exists. But if you're on a budget, and you're fine with HDMI only, it's a wild bargain.For $499, you can get the SER8. That's the price-to-performance sweet spot in the range. It uses the excellent 8-core AMD Zen4 8745HS that puts out 2595/12985 in Geekbench (~M4 multi-core numbers!), and runs our HEY test suite with 30,000 assertions almost as fast as an M4 Max! At that price, you get 32GB RAM + 1TB NVMe, as well as a DisplayPort, so it works with both the Apple 5K Studio Display and the Apple 6K XDR Display (you just need the right cable). Main drawback is limited wifi/bluetooth range, but Beelink tells me there's a fix on the way for that.For $929, you can get the SER9 HX370. This is the top dog in this form factor. It uses the incredible 12-core AMD Zen5 HX370 that hits 2990/15611 in Geekbench, and runs our HEY test suite faster than any Apple M chip I've ever tested. The built-in graphics are also very capable. Enough to play a ton of games at 1080p. It also sorted the SER8's current wifi/bluetooth range issue.I ran the SER8 as my main computer for a while, but now I'm using the SER9, and I just about never feel like I need anything more. Yes, the Framework Desktop, with its insane AMD Max 395+ chip, is even more bonkers. It almost cuts the HEY test suite time in half(!), but it's also $1,795, and not yet generally available. (But preorders are open for the ballers!).Whichever machine fits your budget, it's frankly incredible that we have this kind of performance and efficiency available at these prices with all of these Beelinks drawing less than 10 watt at idle and no more than 100 watt at peak!So it's no wonder that Beelink has been selling these units like hotcakes since I started talking about them on X as the ideal, cheap Omarchy desktop computers. It's such a symbiotic relationship. There are a ton of programmers who have become Linux curious, and Beelink offers no-brainer options to give that a try at a bargain.I just love when that happens. The perfect intersection of hardware, software, and timing. That's what we got here. It's a Beelink, baby!(And no, before you ask, I don't get any royalties, there's no affiliate link, and I don't own any shares in Beelink. I just love discovering great technology and seeing people start their Linux journey with an awesome, affordable computer!)",
+      "url": "https://world.hey.com/dhh/it-s-a-beelink-baby-243fdaf1",
+      "date_published": "2025-07-23T18:03:06Z",
+      "external_url": "https://world.hey.com/dhh/it-s-a-beelink-baby-243fdaf1",
+      "tags": [
+        "Blogs"
+      ],
+      "_source": {
+        "feed_title": "David Heinemeier Hansson",
+        "feed_url": "https://world.hey.com/dhh/feed.atom"
+      }
+    }
+  ]
+}

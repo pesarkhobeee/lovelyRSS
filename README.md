@@ -1,12 +1,12 @@
-# 🌟 lovelyRSS - Personal GitHub-based RSS Hub
+# 🌟 lovelyRSS - Static RSS Hub Generator
 
 ![RSS Hub](https://img.shields.io/badge/📰_RSS_Hub-Updated_every_6h-brightgreen)
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Deploy-blue)](https://pages.github.com/)
 [![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-**lovelyRSS** is a beautiful, automated RSS aggregator that transforms any GitHub repository into your personal RSS reading hub. It encourages open sharing of reading habits and interests in a transparent, decentralized way.
+**lovelyRSS** is a beautiful, static RSS hub generator that transforms any GitHub repository into your personal RSS reading hub. It encourages open sharing of reading habits and interests in a transparent, decentralized way.
 
-🔗 **Live Demo**: [your-username.github.io/rss](https://your-username.github.io/rss)
+🔗 **Live Demo**: [pesarkhobeee.github.io/lovelyRSS](https://pesarkhobeee.github.io/lovelyRSS)
 
 ## ✨ Features
 

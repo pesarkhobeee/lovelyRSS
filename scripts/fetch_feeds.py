@@ -367,8 +367,8 @@ class RSSHub:
         
         # Prepare template data
         template_data = {
-            'title': 'lovelyRSS - Personal RSS Hub',
-            'description': 'A personal RSS aggregator showcasing reading habits',
+            'title': 'lovelyRSS - Static RSS Hub Generator',
+            'description': 'A static RSS hub generator for personal reading habits',
             'latest_entries': latest_entries,
             'feeds': sorted_feeds,
             'categories': categories,
