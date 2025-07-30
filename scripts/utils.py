@@ -76,9 +76,15 @@ def format_date(date_str: Optional[str]) -> str:
         return "Unknown date"
     
     try:
-        # Try to parse and reformat
+        # Try to parse and reformat with timezone handling
         from dateutil import parser
-        dt = parser.parse(date_str)
+        # Define timezone mappings for common abbreviations
+        tzinfos = {
+            'UT': timezone.utc,
+            'UTC': timezone.utc,
+            'GMT': timezone.utc,
+        }
+        dt = parser.parse(date_str, tzinfos=tzinfos)
         return dt.strftime("%B %d, %Y at %H:%M UTC")
     except Exception:
         return date_str
