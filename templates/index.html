@@ -523,14 +523,49 @@
             font-weight: 600;
             color: var(--accent-color);
             margin-bottom: 15px;
-            padding-bottom: 8px;
+            padding: 8px 12px;
             border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s ease;
+        }
+        
+        .category-title:hover {
+            background: rgba(var(--accent-rgb), 0.05);
+        }
+        
+        .category-name {
+            flex: 1;
+        }
+        
+        .category-expand-icon {
+            font-size: 0.8rem;
+            color: var(--muted-color);
+            transition: transform 0.2s ease;
+            margin-left: 8px;
+        }
+        
+        .category-section.collapsed .category-expand-icon {
+            transform: rotate(-90deg);
         }
         
         .feed-list {
             border: 1px solid var(--border-color);
             border-radius: 8px;
             overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+            max-height: 1000px;
+            opacity: 1;
+        }
+        
+        .category-section.collapsed .feed-list {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            border: none;
         }
         
         .feed-item {
@@ -1076,14 +1111,14 @@
             </div>
             
             <div class="section-content" id="feeds-content">
-                {% for category, category_feeds in categories.items() %}
-                <div class="category-section">
-                    <h3 class="category-title">
-                        {{ category }} ({{ category_feeds|length }})
-                    </h3>
-                    
-                    <div class="feed-list">
-                        {% for feed in category_feeds %}
+                {% for category, feeds in categories.items() %}
+                <div class="category-section" data-category="{{ category }}">
+                    <div class="category-title" onclick="toggleCategory('{{ category }}')">
+                        <span class="category-name">{{ category }}</span>
+                        <span class="category-expand-icon">▼</span>
+                    </div>
+                    <div class="feed-list" id="category-{{ category | replace(' ', '-') | replace('/', '-') | replace(':', '-') }}">
+                        {% for feed in feeds %}
                         <div class="feed-item{% if feed.has_recent_update %} fresh-updates{% endif %}" data-feed-url="{{ feed.url }}">
                             <div class="feed-header" onclick="toggleFeedPosts('{{ feed.url }}')">
                                 <div class="feed-info">
@@ -1154,8 +1189,20 @@
             initializeSettings();
             setupEventListeners();
             applySettings();
+            restoreCollapsedCategories();
             markFreshPosts();
         });
+
+        // Restore collapsed categories from localStorage
+        function restoreCollapsedCategories() {
+            const collapsedCategories = JSON.parse(localStorage.getItem('collapsedCategories') || '[]');
+            collapsedCategories.forEach(categoryName => {
+                const categorySection = document.querySelector(`.category-section[data-category="${categoryName}"]`);
+                if (categorySection) {
+                    categorySection.classList.add('collapsed');
+                }
+            });
+        }
 
         function markFreshPosts() {
             // Mark posts from the last 24 hours as fresh
@@ -1220,6 +1267,29 @@
             
             banner.classList.remove('show');
             updateVisiblePosts(); // Reapply the posts count setting
+        }
+
+        // Toggle category collapse
+        function toggleCategory(categoryName) {
+            const categorySection = document.querySelector(`.category-section[data-category="${categoryName}"]`);
+            if (categorySection) {
+                categorySection.classList.toggle('collapsed');
+                
+                // Save collapsed state to localStorage
+                const collapsedCategories = JSON.parse(localStorage.getItem('collapsedCategories') || '[]');
+                const isCollapsed = categorySection.classList.contains('collapsed');
+                
+                if (isCollapsed && !collapsedCategories.includes(categoryName)) {
+                    collapsedCategories.push(categoryName);
+                } else if (!isCollapsed) {
+                    const index = collapsedCategories.indexOf(categoryName);
+                    if (index > -1) {
+                        collapsedCategories.splice(index, 1);
+                    }
+                }
+                
+                localStorage.setItem('collapsedCategories', JSON.stringify(collapsedCategories));
+            }
         }
 
         function toggleFeedPosts(feedUrl) {
