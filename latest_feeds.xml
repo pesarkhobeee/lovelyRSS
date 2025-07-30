@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<feeds updated="2025-07-30T06:11:05.885909+00:00" count="8">
+<feeds updated="2025-07-30T06:16:45.147842+00:00" count="8">
   <feed>
     <title>Python.org Jobs</title>
     <url>https://www.python.org/jobs/feed/rss/</url>
@@ -15,7 +15,7 @@
     <url>http://feeds.bbci.co.uk/news/technology/rss.xml</url>
     <link>https://www.bbc.co.uk/news/technology</link>
     <description>BBC News - Technology</description>
-    <updated>Wed, 30 Jul 2025 06:10:56 GMT</updated>
+    <updated>Wed, 30 Jul 2025 06:16:36 GMT</updated>
     <entry_count>60</entry_count>
     <category>News</category>
     <language>en-gb</language>
