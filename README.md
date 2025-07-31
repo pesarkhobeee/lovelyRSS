@@ -181,9 +181,9 @@ Organize your feeds using the `category` attribute in OPML:
          .../>
 ```
 
-### GitHub Actions Schedule
+### Formatting Your OPML File
 
-The GitHub Actions workflow is configured to run every hour. However, the script will only fetch feeds if the `update_interval_hours` in your `config.json` has passed since the last run. You can also trigger a manual run from the Actions tab in your repository.
+To automatically format your `feeds.opml` file, you can manually trigger the "Format OPML File" workflow in the Actions tab of your repository. This will ensure your file is well-formed and easy to read.
 
 ## 📊 Output Formats
 

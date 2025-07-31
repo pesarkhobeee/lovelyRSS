@@ -1,0 +1,35 @@
+name: 🎨 Format OPML File
+
+on:
+  workflow_dispatch:
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🔧 Install xmllint
+        run: sudo apt-get update && sudo apt-get install -y libxml2-utils
+
+      - name: 🎨 Format OPML file
+        run: |
+          if [ -f feeds.opml ]; then
+            xmllint --format feeds.opml --output feeds.opml.formatted
+            mv feeds.opml.formatted feeds.opml
+          else
+            echo "feeds.opml not found, skipping format."
+          fi
+
+      - name: 💾 Commit changes
+        run: |
+          git config --global user.name "lovely-rss-bot"
+          git config --global user.email "lovely-rss-bot@users.noreply.github.com"
+          git add feeds.opml
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Chore: Format feeds.opml"
+            git push
+          fi
