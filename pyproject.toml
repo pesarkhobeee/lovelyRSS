@@ -33,6 +33,9 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
+    "pytest>=7.4.0",
+    "pytest-mock>=3.10.0",
+    "six>=1.16.0",
 ]
 
 [tool.uv]
