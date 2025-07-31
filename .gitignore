@@ -65,9 +65,10 @@ htmlcov/
 .tox/
 coverage.xml
 
-# Keep generated files (we want them in git for GitHub Pages)
-# latest_rss.xml
-# latest_feeds.xml
-# latest_posts.json
-# index.html
-# badge.md
+# Generated files (ignored by git)
+latest_rss.xml
+latest_feeds.xml
+latest_posts.json
+index.html
+badge.md
+feeds.opml

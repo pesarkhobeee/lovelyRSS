@@ -27,7 +27,7 @@ Click the **"Use this template"** button or [create a new repository](https://gi
 
 ### 2. Add Your RSS Feeds
 
-Edit the `rss.opml` file and add your favorite RSS feeds:
+Create a new file named `feeds.opml` and add your favorite RSS feeds. You can use `rss.opml.template` as a starting point.
 
 ```xml
 <outline text="Your Blog" 
@@ -65,7 +65,8 @@ Your RSS hub will be available at: `https://your-username.github.io/your-repo-na
 
 ```
 lovely-rss/
-├── 📝 rss.opml                  # Your RSS feed list (edit this!)
+├── 📝 feeds.opml                # Your RSS feed list (create this file!)
+├── 📝 rss.opml.template         # An example feed list
 ├── 🤖 latest_rss.xml            # Auto-generated: latest posts from all feeds
 ├── 🤖 latest_feeds.xml          # Auto-generated: feed metadata
 ├── 🤖 latest_posts.json         # Auto-generated: JSON feed format
@@ -97,6 +98,9 @@ lovely-rss/
 # Clone your repository
 git clone https://github.com/your-username/your-rss-hub.git
 cd your-rss-hub
+
+# Create your feed file
+cp rss.opml.template feeds.opml
 
 # Install dependencies with uv (recommended)
 uv sync
@@ -263,7 +267,7 @@ RSS hubs built with lovelyRSS:
 ### Feeds not updating?
 
 1. **Check Actions logs**: Go to Actions tab → latest workflow run
-2. **Verify OPML**: Ensure `rss.opml` is valid XML
+2. **Verify OPML**: Ensure `feeds.opml` is valid XML
 3. **Test feed URLs**: Manually check if feeds are accessible
 4. **Check rate limits**: Some feeds may have rate limiting
 

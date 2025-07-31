@@ -28,9 +28,15 @@ from utils import (
 
 class RSSHub:
     """Main RSS hub processor."""
-    
-    def __init__(self, opml_file: str = "rss.opml"):
-        self.opml_file = opml_file
+
+    def __init__(self, opml_file: str = "feeds.opml"):
+        # Determine which OPML file to use
+        if os.path.exists(opml_file):
+            self.opml_file = opml_file
+        else:
+            self.opml_file = "rss.opml.template"
+            print(f"⚠️  {opml_file} not found, using {self.opml_file} as a fallback.")
+
         self.feeds = []
         self.all_entries = []
         self.feeds_with_updates = []
