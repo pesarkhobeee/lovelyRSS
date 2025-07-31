@@ -28,6 +28,8 @@ from utils import (
 
 from datetime import datetime, timezone, timedelta
 
+import toml
+
 class RSSHub:
     """Main RSS hub processor."""
 
@@ -47,6 +49,11 @@ class RSSHub:
             with open("config.json.template", 'r', encoding='utf-8') as f:
                 self.config = json.load(f)
             print(f"⚠️  {config_file} not found, using config.json.template as a fallback.")
+
+        # Load version from pyproject.toml
+        with open("pyproject.toml", "r") as f:
+            pyproject = toml.load(f)
+            self.version = pyproject["project"]["version"]
 
         self.last_run_file = last_run_file
         self.feeds = []
@@ -425,6 +432,7 @@ class RSSHub:
             'total_entries': len(self.all_entries),
             'updated_time': get_readable_timestamp(),
             'update_interval_hours': self.config.get("update_interval_hours", 6),
+            'version': self.version,
             'clean_html': clean_html,
             'format_date': format_date,
             'truncate_text': truncate_text,
