@@ -67,6 +67,8 @@ Your RSS hub will be available at: `https://your-username.github.io/your-repo-na
 lovely-rss/
 ├── 📝 feeds.opml                # Your RSS feed list (create this file!)
 ├── 📝 rss.opml.template         # An example feed list
+├── 📝 config.json               # Your site configuration (create this file!)
+├── 📝 config.json.template      # An example configuration file
 ├── 🤖 latest_rss.xml            # Auto-generated: latest posts from all feeds
 ├── 🤖 latest_feeds.xml          # Auto-generated: feed metadata
 ├── 🤖 latest_posts.json         # Auto-generated: JSON feed format
@@ -99,8 +101,9 @@ lovely-rss/
 git clone https://github.com/your-username/your-rss-hub.git
 cd your-rss-hub
 
-# Create your feed file
+# Create your feed and config files
 cp rss.opml.template feeds.opml
+cp config.json.template config.json
 
 # Install dependencies with uv (recommended)
 uv sync
@@ -127,6 +130,17 @@ start index.html  # Windows
 ```
 
 ## 🎨 Customization
+
+### Configuration
+
+Create a `config.json` file (you can copy `config.json.template`) to customize site-wide settings:
+
+- `site_title`: The main title of your RSS hub.
+- `site_description`: A short description of your hub.
+- `site_link`: A link to your project or website.
+- `generator`: The name of the generator.
+- `output_files`: The names of the generated files.
+- `max_entries`: The maximum number of entries to include in each file type.
 
 ### HTML Template
 

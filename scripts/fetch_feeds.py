@@ -29,13 +29,22 @@ from utils import (
 class RSSHub:
     """Main RSS hub processor."""
 
-    def __init__(self, opml_file: str = "feeds.opml"):
+    def __init__(self, opml_file: str = "feeds.opml", config_file: str = "config.json"):
         # Determine which OPML file to use
         if os.path.exists(opml_file):
             self.opml_file = opml_file
         else:
             self.opml_file = "rss.opml.template"
             print(f"⚠️  {opml_file} not found, using {self.opml_file} as a fallback.")
+
+        # Load configuration
+        if os.path.exists(config_file):
+            with open(config_file, 'r', encoding='utf-8') as f:
+                self.config = json.load(f)
+        else:
+            with open("config.json.template", 'r', encoding='utf-8') as f:
+                self.config = json.load(f)
+            print(f"⚠️  {config_file} not found, using config.json.template as a fallback.")
 
         self.feeds = []
         self.all_entries = []
@@ -183,8 +192,11 @@ class RSSHub:
         
         print(f"📰 Total entries collected: {len(self.all_entries)}")
     
-    def generate_latest_rss(self, output_file: str = "latest_rss.xml", max_entries: int = 50):
+    def generate_latest_rss(self):
         """Generate merged RSS file with latest entries."""
+        output_file = self.config["output_files"]["rss"]
+        max_entries = self.config["max_entries"]["rss"]
+
         # Sort entries by publication date (newest first)
         sorted_entries = sorted(
             self.all_entries,
@@ -200,11 +212,11 @@ class RSSHub:
         
         channel = ET.SubElement(rss, 'channel')
         
-        ET.SubElement(channel, 'title').text = 'lovelyRSS - Latest Posts'
-        ET.SubElement(channel, 'description').text = 'Latest posts from all subscribed feeds'
-        ET.SubElement(channel, 'link').text = 'https://github.com'
+        ET.SubElement(channel, 'title').text = self.config["site_title"]
+        ET.SubElement(channel, 'description').text = self.config["site_description"]
+        ET.SubElement(channel, 'link').text = self.config["site_link"]
         ET.SubElement(channel, 'lastBuildDate').text = get_readable_timestamp()
-        ET.SubElement(channel, 'generator').text = 'lovelyRSS/1.0'
+        ET.SubElement(channel, 'generator').text = self.config["generator"]
         
         # Add atom:link for self-reference
         atom_link = ET.SubElement(channel, '{http://www.w3.org/2005/Atom}link')
@@ -237,8 +249,10 @@ class RSSHub:
         tree.write(output_file, encoding='utf-8', xml_declaration=True)
         print(f"✅ Generated {output_file} with {len(latest_entries)} entries")
     
-    def generate_latest_feeds(self, output_file: str = "latest_feeds.xml"):
+    def generate_latest_feeds(self):
         """Generate XML file with feeds sorted by recent updates."""
+        output_file = self.config["output_files"]["feeds"]
+
         # Sort feeds by latest post date (more reliable than feed updated field)
         sorted_feeds = sorted(
             self.feeds_with_updates,
@@ -268,8 +282,11 @@ class RSSHub:
         tree.write(output_file, encoding='utf-8', xml_declaration=True)
         print(f"✅ Generated {output_file} with {len(sorted_feeds)} feeds")
     
-    def generate_json_feed(self, output_file: str = "latest_posts.json", max_entries: int = 50):
+    def generate_json_feed(self):
         """Generate JSON feed for API consumption."""
+        output_file = self.config["output_files"]["json"]
+        max_entries = self.config["max_entries"]["json"]
+
         # Sort entries by publication date (newest first)
         sorted_entries = sorted(
             self.all_entries,
@@ -281,9 +298,9 @@ class RSSHub:
         
         json_feed = {
             "version": "https://jsonfeed.org/version/1.1",
-            "title": "lovelyRSS - Latest Posts",
-            "description": "Latest posts from all subscribed feeds",
-            "home_page_url": "https://github.com",
+            "title": self.config["site_title"],
+            "description": self.config["site_description"],
+            "home_page_url": self.config["site_link"],
             "feed_url": f"./{output_file}",
             "items": []
         }
@@ -309,15 +326,18 @@ class RSSHub:
         
         print(f"✅ Generated {output_file} with {len(latest_entries)} entries")
     
-    def generate_html(self, output_file: str = "index.html"):
+    def generate_html(self):
         """Generate HTML page with feeds and latest entries."""
+        output_file = self.config["output_files"]["html"]
+        max_entries = self.config["max_entries"]["html"]
+
         # Sort entries by date
         sorted_entries = sorted(
             self.all_entries,
             key=lambda x: x.get('published_parsed') or (0,),
             reverse=True
         )
-        latest_entries = sorted_entries[:30]  # Show latest 30 on homepage
+        latest_entries = sorted_entries[:max_entries]  # Show latest 30 on homepage
         
         # Sort feeds by update time (using latest post date)
         sorted_feeds = sorted(
@@ -373,8 +393,8 @@ class RSSHub:
         
         # Prepare template data
         template_data = {
-            'title': 'lovelyRSS - Static RSS Hub Generator',
-            'description': 'A static RSS hub generator for personal reading habits',
+            'title': self.config["site_title"],
+            'description': self.config["site_description"],
             'latest_entries': latest_entries,
             'feeds': sorted_feeds,
             'categories': categories,
