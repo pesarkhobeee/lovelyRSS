@@ -54,6 +54,28 @@ Create a file named `feeds.opml` and add the RSS feeds you want to follow. You c
 
 That's it! Your personal RSS reader will be built and deployed automatically. You can find it at `https://your-username.github.io/your-repo-name/`.
 
+## 🛠️ Local Development
+
+For local development, you can use the provided `Makefile` for common tasks.
+
+- `make install`: Install all necessary dependencies.
+- `make build`: Build the static site.
+- `make test`: Run the test suite.
+- `make clean`: Remove all generated files.
+
+### Manual Setup
+
+If you prefer not to use `make`, you can also set up the project manually:
+
+1.  **Install dependencies:**
+    ```bash
+    uv sync --dev
+    ```
+2.  **Run the script:**
+    ```bash
+    uv run python scripts/fetch_feeds.py
+    ```
+
 ## 🎨 Customization
 
 ### Personalize Your Reader

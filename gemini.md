@@ -21,7 +21,14 @@ This document provides instructions for Gemini agents on how to interact with th
 
 ## Development Setup
 
-The project uses `uv` for dependency management.
+The project uses `uv` for dependency management and a `Makefile` for common tasks.
+
+- `make install`: Install all necessary dependencies.
+- `make build`: Build the static site.
+- `make test`: Run the test suite.
+- `make clean`: Remove all generated files.
+
+Alternatively, you can run the commands manually:
 
 1.  **Install dependencies:**
     ```bash
@@ -33,6 +40,12 @@ The project uses `uv` for dependency management.
 To run the main script locally:
 
 ```bash
+make build
+```
+
+Or:
+
+```bash
 uv run python scripts/fetch_feeds.py
 ```
 
@@ -40,7 +53,13 @@ This will generate the output files in the project root based on the `feeds.opml
 
 ## Running Tests
 
-The project uses `pytest`. To run the tests:
+To run the tests:
+
+```bash
+make test
+```
+
+Or:
 
 ```bash
 uv run pytest
