@@ -3,6 +3,7 @@
   "site_description": "Latest posts from all subscribed feeds",
   "site_link": "https://github.com",
   "generator": "lovelyRSS/1.0",
+  "update_interval_hours": 6,
   "output_files": {
     "rss": "latest_rss.xml",
     "feeds": "latest_feeds.xml",

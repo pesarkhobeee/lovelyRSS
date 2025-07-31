@@ -26,10 +26,12 @@ from utils import (
 )
 
 
+from datetime import datetime, timezone, timedelta
+
 class RSSHub:
     """Main RSS hub processor."""
 
-    def __init__(self, opml_file: str = "feeds.opml", config_file: str = "config.json"):
+    def __init__(self, opml_file: str = "feeds.opml", config_file: str = "config.json", last_run_file: str = "last_run.json"):
         # Determine which OPML file to use
         if os.path.exists(opml_file):
             self.opml_file = opml_file
@@ -46,6 +48,7 @@ class RSSHub:
                 self.config = json.load(f)
             print(f"⚠️  {config_file} not found, using config.json.template as a fallback.")
 
+        self.last_run_file = last_run_file
         self.feeds = []
         self.all_entries = []
         self.feeds_with_updates = []
@@ -56,6 +59,25 @@ class RSSHub:
             loader=FileSystemLoader(template_dir),
             autoescape=True
         )
+
+    def should_run(self) -> bool:
+        """Check if the script should run based on the last run time."""
+        if not os.path.exists(self.last_run_file):
+            return True
+
+        with open(self.last_run_file, 'r', encoding='utf-8') as f:
+            last_run_data = json.load(f)
+        
+        last_run_time = datetime.fromisoformat(last_run_data["last_run"])
+        update_interval = timedelta(hours=self.config.get("update_interval_hours", 6))
+
+        return (datetime.now(timezone.utc) - last_run_time) >= update_interval
+
+    def record_run(self):
+        """Record the current run time."""
+        with open(self.last_run_file, 'w', encoding='utf-8') as f:
+            json.dump({"last_run": get_current_timestamp()}, f, indent=2)
+
     
     def parse_opml(self) -> List[Dict[str, str]]:
         """
@@ -402,6 +424,7 @@ class RSSHub:
             'total_feeds': len(sorted_feeds),
             'total_entries': len(self.all_entries),
             'updated_time': get_readable_timestamp(),
+            'update_interval_hours': self.config.get("update_interval_hours", 6),
             'clean_html': clean_html,
             'format_date': format_date,
             'truncate_text': truncate_text,
@@ -425,6 +448,10 @@ def main():
     
     # Initialize RSS hub
     hub = RSSHub()
+
+    if not hub.should_run():
+        print("👋 Skipping run, not enough time has passed since the last run.")
+        sys.exit(0)
     
     # Process all feeds
     hub.process_feeds()
@@ -435,6 +462,8 @@ def main():
     hub.generate_latest_feeds()
     hub.generate_json_feed()
     hub.generate_html()
+
+    hub.record_run()
     
     print("\n🎉 All files generated successfully!")
     print(f"📊 Summary: {len(hub.feeds_with_updates)} feeds, {len(hub.all_entries)} total entries")

@@ -2,7 +2,7 @@ name: 🤖 Update RSS Feeds
 
 on:
   schedule:
-    - cron: "0 */6 * * *"  # Every 6 hours
+    - cron: "0 * * * *"  # Every hour
   workflow_dispatch:  # Allow manual trigger
   push:
     branches: [ main ]  # Also run on push for testing

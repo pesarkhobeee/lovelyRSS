@@ -140,6 +140,7 @@ Create a `config.json` file (you can copy `config.json.template`) to customize s
 - `site_description`: A short description of your hub.
 - `site_link`: A link to your project or website.
 - `generator`: The name of the generator.
+- `update_interval_hours`: How often to check for new feed items (in hours).
 - `output_files`: The names of the generated files.
 - `max_entries`: The maximum number of entries to include in each file type.
 
@@ -182,14 +183,7 @@ Organize your feeds using the `category` attribute in OPML:
 
 ### GitHub Actions Schedule
 
-Edit `.github/workflows/update_feeds.yml` to change update frequency:
-
-```yaml
-schedule:
-  - cron: "0 */3 * * *"  # Every 3 hours
-  - cron: "0 8 * * *"    # Once daily at 8 AM UTC
-  - cron: "0 12 * * 1"   # Weekly on Monday at noon
-```
+The GitHub Actions workflow is configured to run every hour. However, the script will only fetch feeds if the `update_interval_hours` in your `config.json` has passed since the last run. You can also trigger a manual run from the Actions tab in your repository.
 
 ## 📊 Output Formats
 
