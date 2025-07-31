@@ -26,7 +26,9 @@ In a world of centralized social media, RSS is a powerful tool for taking contro
 
 ## 🚀 Quick Start
 
-### 1. Use This Template
+Getting started with your own personal RSS reader is as simple as 1-2-3.
+
+### 1. Create Your Own Copy
 
 Click the **"Use this template"** button to create your own copy of this repository.
 
@@ -34,49 +36,16 @@ Click the **"Use this template"** button to create your own copy of this reposit
 
 Create a file named `feeds.opml` and add the RSS feeds you want to follow. You can use `rss.opml.template` as a starting point.
 
-```xml
-<outline text="A Cool Blog" 
-         title="A Cool Blog" 
-         type="rss" 
-         xmlUrl="https://coolblog.com/feed.xml" />
-```
+### 3. Enable GitHub Pages & Actions
 
-### 3. Enable GitHub Pages
-
-1.  Go to your repository **Settings**.
-2.  Navigate to the **"Pages"** section.
-3.  Set the source to **"GitHub Actions"** and save.
-
-### 4. Enable Actions
-
-1.  Go to the **"Actions"** tab.
-2.  Click **"I understand my workflows, go ahead and enable them."**
+1.  Go to your repository **Settings** > **Pages** and set the source to **"GitHub Actions"**.
+2.  Go to the **"Actions"** tab and click **"I understand my workflows, go ahead and enable them."**
 
 That's it! Your personal RSS reader will be built and deployed automatically. You can find it at `https://your-username.github.io/your-repo-name/`.
 
-## 🛠️ Local Development
-
-For local development, you can use the provided `Makefile` for common tasks.
-
-- `make install`: Install all necessary dependencies.
-- `make build`: Build the static site.
-- `make test`: Run the test suite.
-- `make clean`: Remove all generated files.
-
-### Manual Setup
-
-If you prefer not to use `make`, you can also set up the project manually:
-
-1.  **Install dependencies:**
-    ```bash
-    uv sync --dev
-    ```
-2.  **Run the script:**
-    ```bash
-    uv run python scripts/fetch_feeds.py
-    ```
-
 ## 🎨 Customization
+
+Once you have your reader up and running, you can personalize it to make it your own.
 
 ### Personalize Your Reader
 
@@ -98,12 +67,20 @@ If your `feeds.opml` file gets messy, you can automatically format it by running
 
 You don't have to subscribe to every feed your friend follows. Instead, you can subscribe to their `latest_rss.xml` feed. This single feed contains the latest posts from all of their subscriptions, making it easy to see what they're reading without overwhelming your own reader.
 
-If you create your own `lovelyRSS` reader, consider sharing it with your friends and adding it to our list of community examples by opening a pull request!
+We encourage you to share your reader with your friends and on your social media. Let's build a more open web together!
 
 ## 🌟 Community Examples
 
 -   [your-username.github.io/rss](https://your-username.github.io/rss) - Your personal reader could be here!
 -   Add your reader by opening a PR!
+
+## What's Next?
+
+Now that you have your own personal RSS reader, here are a few things you can do:
+
+-   **Add more feeds:** Start building your collection of your favorite sites and blogs.
+-   **Customize your reader:** Change the colors, fonts, and layout to make it your own.
+-   **Share it with the world:** Share your reader with your friends and encourage them to create their own.
 
 ---
 
