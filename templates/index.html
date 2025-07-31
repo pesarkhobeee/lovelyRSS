@@ -1039,7 +1039,7 @@
     </div>
     
     <header class="header fade-in">
-        <h1>🌟📰 {{ title.split(' - ')[1] if ' - ' in title else title }}</h1>
+        <h1>🌟 {{ title }}</h1>
         <p>{{ description }}</p>
         
         <div class="stats">
@@ -1165,16 +1165,14 @@
 
     <footer class="footer">
         <p>
-            📰 RSS Hub - Updated {{ updated_time }}<br>
-            <a href="latest_rss.xml">📡 Latest Posts RSS</a> • 
-            <a href="latest_posts.json">📄 Latest Posts JSON API</a> • 
-            <a href="latest_feeds.xml">📋 Latest Feeds Change</a> • 
-            <a href="rss.opml">📦 Export All Feeds</a>
+            Updated {{ updated_time }}<br>
+            <a href="latest_rss.xml">RSS Feed</a> • 
+            <a href="latest_posts.json">JSON Feed</a> • 
+            <a href="rss.opml">Export Feeds (OPML)</a>
         </p>
         <p>
             <small>
-                Built with ❤️ using 
-                <a href="https://github.com/pesarkhobeee/lovelyRSS" target="_blank">lovelyRSS</a> v{{ version }} - Static RSS Hub Generator
+                Made with ❤️ by <a href="https://github.com/pesarkhobeee/lovelyRSS" target="_blank">lovelyRSS</a> v{{ version }}
             </small>
         </p>
     </footer>

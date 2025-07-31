@@ -4,7 +4,7 @@ This document provides instructions for Gemini agents on how to interact with th
 
 ## About This Project
 
-`lovelyRSS` is a static RSS hub generator written in Python. It fetches a list of RSS feeds from an OPML file, processes the entries, and generates several output files: a combined RSS feed, a JSON feed, an HTML page, and a list of the feeds themselves. The project is designed to be run automatically using GitHub Actions and is built to be easily forkable and configurable by users.
+`lovelyRSS` is a simple, static RSS reader that helps you share what you read. It fetches a list of RSS feeds from an OPML file, processes the entries, and generates a beautiful, static website that you can easily share with friends. The project is designed to be run automatically using GitHub Actions and is built to be easily forkable and configurable by users.
 
 ## Key Files
 

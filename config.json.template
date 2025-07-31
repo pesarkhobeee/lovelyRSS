@@ -1,6 +1,6 @@
 {
-  "site_title": "lovelyRSS - Latest Posts",
-  "site_description": "Latest posts from all subscribed feeds",
+  "site_title": "My RSS Feed",
+  "site_description": "A collection of my favorite RSS feeds.",
   "site_link": "https://github.com",
   "generator": "lovelyRSS/1.0",
   "update_interval_hours": 6,
