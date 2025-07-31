@@ -69,6 +69,7 @@ lovely-rss/
 ├── 📝 rss.opml.template         # An example feed list
 ├── 📝 config.json               # Your site configuration (create this file!)
 ├── 📝 config.json.template      # An example configuration file
+├── 📝 static/custom.css         # Your custom styles (create this file!)
 ├── 🤖 latest_rss.xml            # Auto-generated: latest posts from all feeds
 ├── 🤖 latest_feeds.xml          # Auto-generated: feed metadata
 ├── 🤖 latest_posts.json         # Auto-generated: JSON feed format
@@ -163,7 +164,7 @@ Customize `scripts/fetch_feeds.py` to:
 ### Styling
 
 1. **Dark/Light Mode**: Automatically handled via CSS `prefers-color-scheme`
-2. **Custom CSS**: Add styles to the template or create `static/custom.css`
+2. **Custom CSS**: Create a `static/custom.css` file to add your own styles. This file will override the default styles.
 3. **Responsive Design**: Built-in responsive breakpoints
 
 ### Categories
