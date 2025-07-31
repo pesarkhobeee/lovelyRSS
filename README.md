@@ -72,6 +72,10 @@ If your `feeds.opml` file gets messy, you can automatically format it by running
 
 `lovelyRSS` is more than just a tool; it's an invitation to a more open and decentralized way of sharing information. By sharing your reading list, you are helping to build a more connected and curious web. 
 
+### How to Follow a Friend
+
+You don't have to subscribe to every feed your friend follows. Instead, you can subscribe to their `latest_rss.xml` feed. This single feed contains the latest posts from all of their subscriptions, making it easy to see what they're reading without overwhelming your own reader.
+
 If you create your own `lovelyRSS` reader, consider sharing it with your friends and adding it to our list of community examples by opening a pull request!
 
 ## 🌟 Community Examples

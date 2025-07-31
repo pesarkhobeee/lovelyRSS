@@ -311,49 +311,7 @@ class RSSHub:
         tree.write(output_file, encoding='utf-8', xml_declaration=True)
         print(f"✅ Generated {output_file} with {len(sorted_feeds)} feeds")
     
-    def generate_json_feed(self):
-        """Generate JSON feed for API consumption."""
-        output_file = self.config["output_files"]["json"]
-        max_entries = self.config["max_entries"]["json"]
-
-        # Sort entries by publication date (newest first)
-        sorted_entries = sorted(
-            self.all_entries,
-            key=lambda x: x.get('published_parsed') or (0,),
-            reverse=True
-        )
-        
-        latest_entries = sorted_entries[:max_entries]
-        
-        json_feed = {
-            "version": "https://jsonfeed.org/version/1.1",
-            "title": self.config["site_title"],
-            "description": self.config["site_description"],
-            "home_page_url": self.config["site_link"],
-            "feed_url": f"./{output_file}",
-            "items": []
-        }
-        
-        for entry in latest_entries:
-            item = {
-                "id": safe_get_text(entry, 'link') or safe_get_text(entry, 'id', 'no-id'),
-                "title": safe_get_text(entry, 'title', 'No Title'),
-                "content_text": clean_html(safe_get_text(entry, 'summary')),
-                "url": safe_get_text(entry, 'link'),
-                "date_published": entry.get('published'),
-                "external_url": safe_get_text(entry, 'link'),
-                "tags": [entry.get('feed_category')] if entry.get('feed_category') else [],
-                "_source": {
-                    "feed_title": entry.get('feed_title', 'Unknown Feed'),
-                    "feed_url": entry.get('feed_url', '')
-                }
-            }
-            json_feed["items"].append(item)
-        
-        with open(output_file, 'w', encoding='utf-8') as f:
-            json.dump(json_feed, f, indent=2, ensure_ascii=False)
-        
-        print(f"✅ Generated {output_file} with {len(latest_entries)} entries")
+    
     
     def generate_html(self):
         """Generate HTML page with feeds and latest entries."""
@@ -468,7 +426,6 @@ def main():
     print("\n📄 Generating output files...")
     hub.generate_latest_rss()
     hub.generate_latest_feeds()
-    hub.generate_json_feed()
     hub.generate_html()
 
     hub.record_run()
