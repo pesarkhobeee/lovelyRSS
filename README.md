@@ -30,7 +30,7 @@ Getting started with your own personal RSS reader is as simple as 1-2-3.
 
 ### 1. Create Your Own Copy
 
-Click the **"Use this template"** button to create your own copy of this repository.
+Click the **"Fork"** button to create your own copy of this repository.
 
 ### 2. Add Your Favorite Feeds
 
@@ -71,6 +71,7 @@ We encourage you to share your reader with your friends and on your social media
 
 ## 🌟 Community Examples
 
+-   [pesarkhobeeee.github.io/rss](https://pesarkhobeee.github.io/rss/)
 -   [your-username.github.io/rss](https://your-username.github.io/rss) - Your personal reader could be here!
 -   Add your reader by opening a PR!
 
