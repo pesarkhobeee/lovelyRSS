@@ -1,0 +1,2948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My RSS Feed</title>
+    <meta name="description" content="A collection of my favorite RSS feeds.">
+    <link rel="icon" href="static/favicon.ico">
+    <link rel="alternate" type="application/rss+xml" title="Latest Posts" href="latest_rss.xml">
+    <link rel="alternate" type="application/json" title="Latest Posts (JSON)" href="latest_posts.json">
+    <link rel="stylesheet" href="static/custom.css">
+    
+    <style>
+        :root {
+            /* Light theme (default) */
+            --bg-color: #fefefe;
+            --text-color: #333;
+            --link-color: #0066cc;
+            --border-color: #e1e1e1;
+            --card-bg: #f9f9f9;
+            --accent-color: #ff6b6b;
+            --accent-rgb: 255, 107, 107;
+            --secondary-color: #4ecdc4;
+            --muted-color: #666;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --header-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --text-color: #e1e1e1;
+            --link-color: #66b3ff;
+            --border-color: #333;
+            --card-bg: #2d2d2d;
+            --accent-color: #ff8a8a;
+            --accent-rgb: 255, 138, 138;
+            --secondary-color: #6ee7dd;
+            --muted-color: #aaa;
+            --shadow-color: rgba(255, 255, 255, 0.1);
+            --header-bg: linear-gradient(135deg, #434343 0%, #000000 100%);
+        }
+        
+        [data-theme="blue"] {
+            --bg-color: #f0f4f8;
+            --text-color: #2d3748;
+            --link-color: #3182ce;
+            --border-color: #cbd5e0;
+            --card-bg: #ffffff;
+            --accent-color: #3182ce;
+            --accent-rgb: 49, 130, 206;
+            --secondary-color: #4299e1;
+            --muted-color: #718096;
+            --shadow-color: rgba(49, 130, 206, 0.1);
+            --header-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        [data-theme="green"] {
+            --bg-color: #f7fafc;
+            --text-color: #2d3748;
+            --link-color: #38a169;
+            --border-color: #e2e8f0;
+            --card-bg: #ffffff;
+            --accent-color: #38a169;
+            --accent-rgb: 56, 161, 105;
+            --secondary-color: #48bb78;
+            --muted-color: #718096;
+            --shadow-color: rgba(56, 161, 105, 0.1);
+            --header-bg: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+        }
+        
+        [data-theme="purple"] {
+            --bg-color: #faf5ff;
+            --text-color: #2d3748;
+            --link-color: #805ad5;
+            --border-color: #e9d8fd;
+            --card-bg: #ffffff;
+            --accent-color: #805ad5;
+            --accent-rgb: 128, 90, 213;
+            --secondary-color: #9f7aea;
+            --muted-color: #718096;
+            --shadow-color: rgba(128, 90, 213, 0.1);
+            --header-bg: linear-gradient(135deg, #805ad5 0%, #553c9a 100%);
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme]) {
+                --bg-color: #1a1a1a;
+                --text-color: #e1e1e1;
+                --link-color: #66b3ff;
+                --border-color: #333;
+                --card-bg: #2d2d2d;
+                --accent-color: #ff8a8a;
+                --accent-rgb: 255, 138, 138;
+                --secondary-color: #6ee7dd;
+                --muted-color: #aaa;
+                --shadow-color: rgba(255, 255, 255, 0.1);
+                --header-bg: linear-gradient(135deg, #434343 0%, #000000 100%);
+            }
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .settings-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 2px 10px var(--shadow-color);
+            transition: transform 0.2s ease;
+        }
+        
+        .settings-toggle:hover {
+            transform: scale(1.1);
+        }
+        
+        .settings-panel {
+            position: fixed;
+            top: 0;
+            right: -350px;
+            width: 350px;
+            height: 100vh;
+            background: var(--card-bg);
+            border-left: 1px solid var(--border-color);
+            z-index: 999;
+            padding: 20px;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+            box-shadow: -5px 0 15px var(--shadow-color);
+        }
+        
+        .settings-panel.open {
+            right: 0;
+        }
+        
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .settings-header h3 {
+            margin: 0;
+            color: var(--accent-color);
+        }
+        
+        .close-settings {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--muted-color);
+        }
+        
+        .setting-group {
+            margin-bottom: 25px;
+        }
+        
+        .setting-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        
+        .theme-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .theme-option {
+            padding: 10px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s ease;
+            background: var(--card-bg);
+        }
+        
+        .theme-option.active {
+            border-color: var(--accent-color);
+            background: var(--accent-color);
+            color: white;
+        }
+        
+        .theme-option:hover {
+            transform: translateY(-1px);
+        }
+        
+        .number-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--card-bg);
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--border-color);
+            transition: 0.4s;
+            border-radius: 24px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: var(--accent-color);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+            background: var(--header-bg);
+            border-radius: 20px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header > * {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .section h2 {
+            font-size: 1.8rem;
+            margin: 0;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+        
+        .section-toggle {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .section-toggle:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px var(--shadow-color);
+        }
+        
+        .section-content {
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .section-content.hidden {
+            display: none;
+        }
+        
+        .entry-list {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .entry-item {
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            background: var(--card-bg);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .entry-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent-color);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .entry-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px var(--shadow-color);
+        }
+        
+        .entry-item:hover::before {
+            transform: scaleY(1);
+        }
+        
+        .entry-title {
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            line-height: 1.4;
+        }
+        
+        .entry-title a {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .entry-title a:hover {
+            color: var(--accent-color);
+        }
+        
+        .entry-meta {
+            font-size: 0.9rem;
+            color: var(--muted-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .entry-source {
+            background: var(--secondary-color);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .entry-source:hover {
+            background: var(--accent-color);
+            transform: scale(1.05);
+        }
+        
+        .entry-time {
+            color: var(--muted-color);
+            font-size: 0.85rem;
+        }
+        
+        .entry-time.fresh {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+        
+        .entry-category {
+            background: var(--accent-color);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            opacity: 0.9;
+        }
+        
+        .entry-summary {
+            color: var(--text-color);
+            line-height: 1.6;
+            margin-top: 12px;
+        }
+        
+        .posts-filter-banner {
+            background: var(--secondary-color);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .posts-filter-banner.show {
+            display: flex;
+        }
+        
+        .clear-filter-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .entry-item.filtered-out {
+            display: none !important;
+        }
+        
+        .feed-grid {
+            display: block;
+        }
+        
+        .category-section {
+            margin-bottom: 30px;
+        }
+        
+        .category-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s ease;
+        }
+        
+        .category-title:hover {
+            background: rgba(var(--accent-rgb), 0.05);
+        }
+        
+        .category-name {
+            flex: 1;
+        }
+        
+        .category-expand-icon {
+            font-size: 0.8rem;
+            color: var(--muted-color);
+            transition: transform 0.2s ease;
+            margin-left: 8px;
+        }
+        
+        .category-section.collapsed .category-expand-icon {
+            transform: rotate(-90deg);
+        }
+        
+        .feed-list {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+            max-height: 1000px;
+            opacity: 1;
+        }
+        
+        .category-section.collapsed .feed-list {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            border: none;
+        }
+        
+        .feed-item {
+            border-bottom: 1px solid var(--border-color);
+            background: var(--card-bg);
+        }
+        
+        .feed-item:last-child {
+            border-bottom: none;
+        }
+        
+        .feed-item.fresh-updates {
+            border-left: 3px solid #00ff88;
+        }
+        
+        .feed-header {
+            padding: 12px 16px;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s ease;
+        }
+        
+        .feed-header:hover {
+            background: rgba(var(--accent-rgb), 0.05);
+        }
+        
+        .feed-info {
+            flex: 1;
+        }
+        
+        .feed-title {
+            font-weight: 600;
+            color: var(--text-color);
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        .feed-meta {
+            font-size: 0.85rem;
+            color: var(--muted-color);
+        }
+        
+        .expand-icon {
+            font-size: 0.8rem;
+            color: var(--muted-color);
+            transition: transform 0.2s ease;
+        }
+        
+        .feed-item.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+        
+        .feed-posts {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: rgba(var(--accent-rgb), 0.02);
+        }
+        
+        .feed-item.expanded .feed-posts {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .post-item {
+            padding: 8px 16px;
+            border-bottom: 1px solid rgba(var(--accent-rgb), 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .post-item:last-child {
+            border-bottom: none;
+        }
+        
+        .post-title {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            flex: 1;
+        }
+        
+        .post-title:hover {
+            color: var(--accent-color);
+        }
+        
+        .post-date {
+            font-size: 0.8rem;
+            color: var(--muted-color);
+            white-space: nowrap;
+        }        .feed-activity {
+            width: 60px;
+            height: 20px;
+            background: var(--border-color);
+            border-radius: 3px;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .feed-activity.active {
+            background: linear-gradient(90deg, #00ff88, #00cc6a);
+        }
+        
+        .feed-activity.moderate {
+            background: linear-gradient(90deg, #ffaa00, #ff8800);
+        }
+        
+        .feed-activity.low {
+            background: linear-gradient(90deg, #666, #888);
+        }
+        
+        .feed-activity::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 2px,
+                rgba(255,255,255,0.1) 2px,
+                rgba(255,255,255,0.1) 4px
+            );
+        }
+        
+        .feed-status {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border-color);
+            flex-shrink: 0;
+            margin-right: 4px;
+        }
+        
+        .feed-status.online {
+            background: #00ff88;
+            box-shadow: 0 0 8px rgba(0, 255, 136, 0.5);
+        }
+        
+        .feed-status.recent {
+            background: #ffaa00;
+            box-shadow: 0 0 8px rgba(255, 170, 0, 0.5);
+        }
+        
+        .feed-status.offline {
+            background: #666;
+        }
+        
+        .feed-main {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .feed-title {
+            font-weight: 500;
+            margin: 0;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .feed-title a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .feed-title a:hover {
+            color: var(--accent-color);
+        }
+        
+        .feed-meta {
+            font-size: 0.75rem;
+            color: var(--muted-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 2px;
+        }
+        
+        .feed-count {
+            background: var(--accent-color);
+            color: white;
+            padding: 1px 6px;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 0.7rem;
+            min-width: 20px;
+            text-align: center;
+        }
+        
+        .feed-time {
+            font-size: 0.7rem;
+            color: var(--muted-color);
+            white-space: nowrap;
+        }
+        
+        .feed-item.fresh-updates .feed-time {
+            color: #00ff88;
+            font-weight: 600;
+        }
+        
+        .feed-header {
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .feed-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .feed-title {
+            font-weight: 500;
+            margin: 0;
+            font-size: 0.9rem;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+        }
+        
+        .feed-title a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .feed-title a:hover {
+            color: var(--accent-color);
+        }
+        
+        .feed-category-tag {
+            background: var(--secondary-color);
+            color: white;
+            padding: 1px 6px;
+            border-radius: 8px;
+            font-size: 0.6rem;
+            font-weight: 500;
+            opacity: 0.8;
+            white-space: nowrap;
+        }
+        
+        .feed-expand-icon {
+            font-size: 0.7rem;
+            color: var(--muted-color);
+            transition: transform 0.2s ease;
+            margin-left: 8px;
+            flex-shrink: 0;
+        }
+        
+        .feed-item.expanded .feed-expand-icon {
+            transform: rotate(90deg);
+        }
+        
+        .feed-posts {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            margin-top: 8px;
+        }
+        
+        .feed-item.expanded .feed-posts {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .feed-post-item {
+            padding: 6px 12px;
+            border-left: 2px solid var(--border-color);
+            margin: 4px 0;
+            background: rgba(var(--accent-rgb), 0.03);
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        
+        .feed-post-item:hover {
+            background: rgba(var(--accent-rgb), 0.08);
+            border-left-color: var(--accent-color);
+        }
+        
+        .feed-post-title {
+            font-size: 0.8rem;
+            color: var(--text-color);
+            text-decoration: none;
+            line-height: 1.3;
+            flex: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .feed-post-title:hover {
+            color: var(--accent-color);
+        }
+        
+        .feed-post-date {
+            font-size: 0.65rem;
+            color: var(--muted-color);
+            white-space: nowrap;
+            margin-top: 2px;
+        }
+        
+        .highlight-feed {
+            animation: highlightPulse 2s ease-in-out;
+            background: rgba(var(--accent-rgb), 0.15) !important;
+            border-left-color: var(--accent-color) !important;
+            transform: translateX(8px);
+        }
+        
+        @keyframes highlightPulse {
+            0%, 100% { 
+                background: rgba(var(--accent-rgb), 0.15) !important;
+                transform: translateX(8px);
+            }
+            50% { 
+                background: rgba(var(--accent-rgb), 0.25) !important;
+                transform: translateX(12px);
+            }
+        }
+        
+        .feed-item.fresh-updates .feed-time {
+            color: #00ff88;
+            font-weight: 600;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px 20px;
+            border-top: 2px solid var(--border-color);
+            color: var(--muted-color);
+            background: var(--card-bg);
+            border-radius: 16px;
+        }
+        
+        .footer a {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .footer a:hover {
+            color: var(--accent-color);
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .settings-panel {
+                width: 100vw;
+                right: -100vw;
+            }
+            
+            .header {
+                padding: 30px 15px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .stats {
+                gap: 25px;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+            
+            .entry-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .feed-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .theme-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Settings Toggle Button -->
+    <button class="settings-toggle" onclick="toggleSettings()" title="Settings">
+        ⚙️
+    </button>
+    
+    <!-- Settings Panel -->
+    <div class="settings-panel" id="settings-panel">
+        <div class="settings-header">
+            <h3>⚙️ Settings</h3>
+            <button class="close-settings" onclick="toggleSettings()">×</button>
+        </div>
+        
+        <div class="setting-group">
+            <label class="setting-label">🎨 Theme</label>
+            <div class="theme-grid">
+                <div class="theme-option" data-theme="auto">🌓 Auto</div>
+                <div class="theme-option" data-theme="light">☀️ Light</div>
+                <div class="theme-option" data-theme="dark">🌙 Dark</div>
+                <div class="theme-option" data-theme="blue">💙 Blue</div>
+                <div class="theme-option" data-theme="green">💚 Green</div>
+                <div class="theme-option" data-theme="purple">💜 Purple</div>
+            </div>
+        </div>
+        
+        <div class="setting-group">
+            <label class="setting-label">📰 Posts to Show</label>
+            <input type="number" class="number-input" id="posts-count" min="5" max="100" value="10">
+            <small style="color: var(--muted-color); margin-top: 5px; display: block;">
+                Number of posts to display in Latest Posts section
+            </small>
+        </div>
+        
+        <div class="setting-group">
+            <label class="setting-label">👁️ Show Latest Posts</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="show-posts" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+        
+        <div class="setting-group">
+            <label class="setting-label">📡 Show Feeds</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="show-feeds" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+    
+    <header class="header fade-in">
+        <h1>🌟 My RSS Feed</h1>
+        <p>A collection of my favorite RSS feeds.</p>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-number">8</span>
+                <span class="stat-label">Feeds</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">210</span>
+                <span class="stat-label">Total Posts</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="visible-posts-count">30</span>
+                <span class="stat-label">Latest Posts</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">6h</span>
+                <span class="stat-label">Updates Every</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="section fade-in" id="latest-posts-section">
+            <div class="section-header">
+                <h2>🔥 Latest Posts</h2>
+                <button class="section-toggle" onclick="toggleSection('latest-posts')" id="latest-posts-toggle">
+                    Hide Posts
+                </button>
+            </div>
+            
+            <div class="section-content" id="latest-posts-content">
+                <div class="posts-filter-banner" id="posts-filter-banner">
+                    <span id="filter-text">Showing posts from: </span>
+                    <button class="clear-filter-btn" onclick="clearPostsFilter()">Show All Posts</button>
+                </div>
+                
+                <div class="entry-list" id="entry-list">
+                    
+                    <article class="entry-item" data-index="0" data-feed-url="http://feeds.bbci.co.uk/news/technology/rss.xml">
+                        <div class="entry-title">
+                            <a href="https://www.bbc.com/news/articles/c5y2xx6z6eko?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener noreferrer">
+                                Ofcom investigates 34 porn sites over age checks
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('http://feeds.bbci.co.uk/news/technology/rss.xml')" title="Click to highlight this feed in the feeds section">
+                                BBC Technology
+                            </span>
+                            <span class="entry-time" data-published="Thu, 31 Jul 2025 12:29:13 GMT">
+                                July 31, 2025 at 12:29 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 News</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            Ofcom said on Friday that more than 6,000 porn sites would begin verifying users, but it believes some are ignoring the new rules.
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="1" data-feed-url="https://hnrss.org/frontpage">
+                        <div class="entry-title">
+                            <a href="https://computeradsfromthepast.substack.com/p/altima-nsx" target="_blank" rel="noopener noreferrer">
+                                Altima NSX – Computer Ads from the Past
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('https://hnrss.org/frontpage')" title="Click to highlight this feed in the feeds section">
+                                Hacker News
+                            </span>
+                            <span class="entry-time" data-published="Thu, 31 Jul 2025 12:25:43 +0000">
+                                July 31, 2025 at 12:25 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 Technology</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            Article URL: https://computeradsfromthepast.substack.com/p/altima-nsx Comments URL: https://news.ycombinator.com/item?id=44744927 Points: 3 # Comments: 0
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="2" data-feed-url="https://world.hey.com/dhh/feed.atom">
+                        <div class="entry-title">
+                            <a href="https://world.hey.com/dhh/executives-should-be-the-least-busy-people-bb94fb18" target="_blank" rel="noopener noreferrer">
+                                Executives should be the least busy people
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('https://world.hey.com/dhh/feed.atom')" title="Click to highlight this feed in the feeds section">
+                                David Heinemeier Hansson
+                            </span>
+                            <span class="entry-time" data-published="2025-07-31T12:11:02Z">
+                                July 31, 2025 at 12:11 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 Blogs</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            If your executive calendar is packed back to back, you have no room for fires, customers, or serendipities. You&#39;ve traded all your availability for efficiency. That&#39;s a bad deal.Executives of old used to know this! That&#39;s what the long lunches,...
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="3" data-feed-url="https://hnrss.org/frontpage">
+                        <div class="entry-title">
+                            <a href="https://www.ycombinator.com/companies/infracost/jobs/ukwJ299-senior-product-manager" target="_blank" rel="noopener noreferrer">
+                                Infracost (YC W21) hiring first PM to shift $600B cloud spend to proactive
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('https://hnrss.org/frontpage')" title="Click to highlight this feed in the feeds section">
+                                Hacker News
+                            </span>
+                            <span class="entry-time" data-published="Thu, 31 Jul 2025 12:00:26 +0000">
+                                July 31, 2025 at 12:00 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 Technology</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            Article URL: https://www.ycombinator.com/companies/infracost/jobs/ukwJ299-senior-product-manager Comments URL: https://news.ycombinator.com/item?id=44744756 Points: 0 # Comments: 0
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="4" data-feed-url="https://hnrss.org/frontpage">
+                        <div class="entry-title">
+                            <a href="https://cmtext.com/" target="_blank" rel="noopener noreferrer">
+                                Introduction to Computer Music an Electronic Textbook
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('https://hnrss.org/frontpage')" title="Click to highlight this feed in the feeds section">
+                                Hacker News
+                            </span>
+                            <span class="entry-time" data-published="Thu, 31 Jul 2025 11:37:22 +0000">
+                                July 31, 2025 at 11:37 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 Technology</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            Article URL: https://cmtext.com/ Comments URL: https://news.ycombinator.com/item?id=44744578 Points: 47 # Comments: 3
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="5" data-feed-url="https://hnrss.org/frontpage">
+                        <div class="entry-title">
+                            <a href="https://movies.stackexchange.com/questions/128020/how-was-the-universal-pictures-1936-opening-logo-created" target="_blank" rel="noopener noreferrer">
+                                How was the Universal Pictures 1936 opening logo created?
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('https://hnrss.org/frontpage')" title="Click to highlight this feed in the feeds section">
+                                Hacker News
+                            </span>
+                            <span class="entry-time" data-published="Thu, 31 Jul 2025 11:19:54 +0000">
+                                July 31, 2025 at 11:19 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 Technology</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            Article URL: https://movies.stackexchange.com/questions/128020/how-was-the-universal-pictures-1936-opening-logo-created Comments URL: https://news.ycombinator.com/item?id=44744454 Points: 43 # Comments: 3
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="6" data-feed-url="https://hnrss.org/frontpage">
+                        <div class="entry-title">
+                            <a href="https://arxiviq.substack.com/p/gepa-reflective-prompt-evolution" target="_blank" rel="noopener noreferrer">
+                                GEPA: Reflective Prompt Evolution Can Outperform Reinforcement Learning
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('https://hnrss.org/frontpage')" title="Click to highlight this feed in the feeds section">
+                                Hacker News
+                            </span>
+                            <span class="entry-time" data-published="Thu, 31 Jul 2025 10:57:58 +0000">
+                                July 31, 2025 at 10:57 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 Technology</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            Article URL: https://arxiviq.substack.com/p/gepa-reflective-prompt-evolution Comments URL: https://news.ycombinator.com/item?id=44744331 Points: 34 # Comments: 2
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="7" data-feed-url="https://hnrss.org/frontpage">
+                        <div class="entry-title">
+                            <a href="https://www.spacebar.news/servo-undercover-web-browser-engine/" target="_blank" rel="noopener noreferrer">
+                                I tried Servo, the undercover web browser engine made with Rust
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('https://hnrss.org/frontpage')" title="Click to highlight this feed in the feeds section">
+                                Hacker News
+                            </span>
+                            <span class="entry-time" data-published="Thu, 31 Jul 2025 10:56:21 +0000">
+                                July 31, 2025 at 10:56 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 Technology</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            Article URL: https://www.spacebar.news/servo-undercover-web-browser-engine/ Comments URL: https://news.ycombinator.com/item?id=44744324 Points: 54 # Comments: 32
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="8" data-feed-url="https://hnrss.org/frontpage">
+                        <div class="entry-title">
+                            <a href="https://www.cbsnews.com/news/hawley-democrats-vote-stock-trading-ban-committee/" target="_blank" rel="noopener noreferrer">
+                                GOP’s Josh Hawley and Democrats vote to advance congressional stock trading ban
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('https://hnrss.org/frontpage')" title="Click to highlight this feed in the feeds section">
+                                Hacker News
+                            </span>
+                            <span class="entry-time" data-published="Thu, 31 Jul 2025 10:07:19 +0000">
+                                July 31, 2025 at 10:07 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 Technology</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            Article URL: https://www.cbsnews.com/news/hawley-democrats-vote-stock-trading-ban-committee/ Comments URL: https://news.ycombinator.com/item?id=44744096 Points: 94 # Comments: 91
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="9" data-feed-url="https://hnrss.org/frontpage">
+                        <div class="entry-title">
+                            <a href="https://dataswamp.org/~solene/2025-05-31-linux-killswitch-on-power-disconnect.html" target="_blank" rel="noopener noreferrer">
+                                How to trigger a command on Linux when disconnected from power
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('https://hnrss.org/frontpage')" title="Click to highlight this feed in the feeds section">
+                                Hacker News
+                            </span>
+                            <span class="entry-time" data-published="Thu, 31 Jul 2025 10:03:54 +0000">
+                                July 31, 2025 at 10:03 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 Technology</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            Article URL: https://dataswamp.org/~solene/2025-05-31-linux-killswitch-on-power-disconnect.html Comments URL: https://news.ycombinator.com/item?id=44744079 Points: 6 # Comments: 0
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="10" data-feed-url="https://stackoverflow.blog/feed/">
+                        <div class="entry-title">
+                            <a href="https://stackoverflow.blog/2025/07/31/the-innovation-leadership-and-team-agility-inside-u-s-bank-s-cloud-journey/" target="_blank" rel="noopener noreferrer">
+                                The innovation, leadership, and team agility inside U.S. Bank’s cloud journey
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('https://stackoverflow.blog/feed/')" title="Click to highlight this feed in the feeds section">
+                                Stack Overflow Blog
+                            </span>
+                            <span class="entry-time" data-published="Thu, 31 Jul 2025 07:40:00 GMT">
+                                July 31, 2025 at 07:40 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 Technology</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            In this episode of Leaders of Code, Jody Bailey, Stack Overflow’s CPO, Anirudh Kaul, Senior Director of Software Engineering, and Paul Petersen, Cloud Platform Engineering Manager, discuss the U.S. Bank’s journey from traditional banking practices...
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="11" data-feed-url="https://hnrss.org/frontpage">
+                        <div class="entry-title">
+                            <a href="https://github.com/dipampaul17/AgentGuard" target="_blank" rel="noopener noreferrer">
+                                Show HN: AgentGuard – Auto-kill AI agents before they burn through your budget
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('https://hnrss.org/frontpage')" title="Click to highlight this feed in the feeds section">
+                                Hacker News
+                            </span>
+                            <span class="entry-time" data-published="Thu, 31 Jul 2025 05:54:04 +0000">
+                                July 31, 2025 at 05:54 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 Technology</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            Your AI agent hits an infinite loop and racks up $2000 in API charges overnight. This happens weekly to AI developers.AgentGuard monitors API calls in real-time and automatically kills your process when it hits your budget limit.How it works:Add 2...
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="12" data-feed-url="https://hnrss.org/frontpage">
+                        <div class="entry-title">
+                            <a href="https://futhark-lang.org/blog/2025-07-29-tracking-source-locations.html" target="_blank" rel="noopener noreferrer">
+                                Tracking source locations in the Futhark compiler
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('https://hnrss.org/frontpage')" title="Click to highlight this feed in the feeds section">
+                                Hacker News
+                            </span>
+                            <span class="entry-time" data-published="Thu, 31 Jul 2025 04:40:31 +0000">
+                                July 31, 2025 at 04:40 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 Technology</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            Article URL: https://futhark-lang.org/blog/2025-07-29-tracking-source-locations.html Comments URL: https://news.ycombinator.com/item?id=44742359 Points: 37 # Comments: 0
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="13" data-feed-url="https://hnrss.org/frontpage">
+                        <div class="entry-title">
+                            <a href="https://alexkondov.com/i-know-when-youre-vibe-coding/" target="_blank" rel="noopener noreferrer">
+                                I know when you&#39;re vibe coding
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('https://hnrss.org/frontpage')" title="Click to highlight this feed in the feeds section">
+                                Hacker News
+                            </span>
+                            <span class="entry-time" data-published="Thu, 31 Jul 2025 04:16:40 +0000">
+                                July 31, 2025 at 04:16 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 Technology</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            Article URL: https://alexkondov.com/i-know-when-youre-vibe-coding/ Comments URL: https://news.ycombinator.com/item?id=44742251 Points: 247 # Comments: 120
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="14" data-feed-url="https://hnrss.org/frontpage">
+                        <div class="entry-title">
+                            <a href="https://tante.cc/2025/07/30/friction-and-not-being-touched/" target="_blank" rel="noopener noreferrer">
+                                Friction and Not Being Touched
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('https://hnrss.org/frontpage')" title="Click to highlight this feed in the feeds section">
+                                Hacker News
+                            </span>
+                            <span class="entry-time" data-published="Thu, 31 Jul 2025 03:18:31 +0000">
+                                July 31, 2025 at 03:18 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 Technology</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            Article URL: https://tante.cc/2025/07/30/friction-and-not-being-touched/ Comments URL: https://news.ycombinator.com/item?id=44742021 Points: 46 # Comments: 9
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="15" data-feed-url="https://hnrss.org/frontpage">
+                        <div class="entry-title">
+                            <a href="https://undeadly.org/cgi?action=article;sid=20250730080301" target="_blank" rel="noopener noreferrer">
+                                Classic Common Desktop Environment coming to OpenBSD
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('https://hnrss.org/frontpage')" title="Click to highlight this feed in the feeds section">
+                                Hacker News
+                            </span>
+                            <span class="entry-time" data-published="Thu, 31 Jul 2025 01:42:58 +0000">
+                                July 31, 2025 at 01:42 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 Technology</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            Article URL: https://undeadly.org/cgi?action=article;sid=20250730080301 Comments URL: https://news.ycombinator.com/item?id=44741539 Points: 113 # Comments: 51
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="16" data-feed-url="http://feeds.bbci.co.uk/news/technology/rss.xml">
+                        <div class="entry-title">
+                            <a href="https://www.bbc.com/news/articles/cqlernrw62yo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener noreferrer">
+                                Meta profits surge helps drive Zuckerberg’s AI ambitions
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('http://feeds.bbci.co.uk/news/technology/rss.xml')" title="Click to highlight this feed in the feeds section">
+                                BBC Technology
+                            </span>
+                            <span class="entry-time" data-published="Thu, 31 Jul 2025 01:03:35 GMT">
+                                July 31, 2025 at 01:03 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 News</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            The Facebook, Instagram and WhatsApp-owner is pumping billions of dollars into artificial intelligence projects.
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="17" data-feed-url="http://feeds.bbci.co.uk/news/technology/rss.xml">
+                        <div class="entry-title">
+                            <a href="https://www.bbc.com/news/articles/c9d0l40v551o?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener noreferrer">
+                                What screen time does to children&#39;s brains is more complicated than it seems
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('http://feeds.bbci.co.uk/news/technology/rss.xml')" title="Click to highlight this feed in the feeds section">
+                                BBC Technology
+                            </span>
+                            <span class="entry-time" data-published="Wed, 30 Jul 2025 23:44:30 GMT">
+                                July 30, 2025 at 23:44 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 News</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            Screen time has become synonymous with bad news - but the science may not be as straightforward as it seems
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="18" data-feed-url="http://feeds.bbci.co.uk/news/technology/rss.xml">
+                        <div class="entry-title">
+                            <a href="https://www.bbc.com/news/articles/cvg8z2mx508o?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener noreferrer">
+                                The Gulf bets big on AI as it seeks the &#39;new oil&#39;
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('http://feeds.bbci.co.uk/news/technology/rss.xml')" title="Click to highlight this feed in the feeds section">
+                                BBC Technology
+                            </span>
+                            <span class="entry-time" data-published="Wed, 30 Jul 2025 23:14:44 GMT">
+                                July 30, 2025 at 23:14 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 News</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            The UAE and Saudi Arabia are partnering with the US to position themselves as AI hubs.
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="19" data-feed-url="https://hnrss.org/frontpage">
+                        <div class="entry-title">
+                            <a href="https://www.figma.com/blog/ipo-pricing/" target="_blank" rel="noopener noreferrer">
+                                Figma will IPO on July 31
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('https://hnrss.org/frontpage')" title="Click to highlight this feed in the feeds section">
+                                Hacker News
+                            </span>
+                            <span class="entry-time" data-published="Wed, 30 Jul 2025 22:24:58 +0000">
+                                July 30, 2025 at 22:24 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 Technology</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            Article URL: https://www.figma.com/blog/ipo-pricing/ Comments URL: https://news.ycombinator.com/item?id=44740222 Points: 277 # Comments: 175
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="20" data-feed-url="https://hnrss.org/frontpage">
+                        <div class="entry-title">
+                            <a href="https://ollama.com/blog/new-app" target="_blank" rel="noopener noreferrer">
+                                Ollama&#39;s new app
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('https://hnrss.org/frontpage')" title="Click to highlight this feed in the feeds section">
+                                Hacker News
+                            </span>
+                            <span class="entry-time" data-published="Wed, 30 Jul 2025 21:19:03 +0000">
+                                July 30, 2025 at 21:19 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 Technology</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            Article URL: https://ollama.com/blog/new-app Comments URL: https://news.ycombinator.com/item?id=44739632 Points: 437 # Comments: 237
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="21" data-feed-url="https://hnrss.org/frontpage">
+                        <div class="entry-title">
+                            <a href="https://www.science.org/content/article/early-universe-s-little-red-dots-may-be-black-hole-stars" target="_blank" rel="noopener noreferrer">
+                                Early universe&#39;s &#39;little red dots&#39; may be black hole stars
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('https://hnrss.org/frontpage')" title="Click to highlight this feed in the feeds section">
+                                Hacker News
+                            </span>
+                            <span class="entry-time" data-published="Wed, 30 Jul 2025 21:18:21 +0000">
+                                July 30, 2025 at 21:18 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 Technology</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            Article URL: https://www.science.org/content/article/early-universe-s-little-red-dots-may-be-black-hole-stars Comments URL: https://news.ycombinator.com/item?id=44739618 Points: 99 # Comments: 50
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="22" data-feed-url="https://hnrss.org/frontpage">
+                        <div class="entry-title">
+                            <a href="https://blog.val.town/vibe-code" target="_blank" rel="noopener noreferrer">
+                                Vibe code is legacy code
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('https://hnrss.org/frontpage')" title="Click to highlight this feed in the feeds section">
+                                Hacker News
+                            </span>
+                            <span class="entry-time" data-published="Wed, 30 Jul 2025 21:13:20 +0000">
+                                July 30, 2025 at 21:13 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 Technology</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            Article URL: https://blog.val.town/vibe-code Comments URL: https://news.ycombinator.com/item?id=44739556 Points: 636 # Comments: 372
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="23" data-feed-url="https://hnrss.org/frontpage">
+                        <div class="entry-title">
+                            <a href="https://www.newstatesman.com/culture/books/book-of-the-day/2025/07/150-years-of-the-bizarre-hans-christian-andersen" target="_blank" rel="noopener noreferrer">
+                                150 years of Hans Christian Andersen
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('https://hnrss.org/frontpage')" title="Click to highlight this feed in the feeds section">
+                                Hacker News
+                            </span>
+                            <span class="entry-time" data-published="Wed, 30 Jul 2025 21:07:13 +0000">
+                                July 30, 2025 at 21:07 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 Technology</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            https://archive.ph/10l96 Comments URL: https://news.ycombinator.com/item?id=44739494 Points: 90 # Comments: 20
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="24" data-feed-url="https://hnrss.org/frontpage">
+                        <div class="entry-title">
+                            <a href="https://overreacted.io/the-math-is-haunted/" target="_blank" rel="noopener noreferrer">
+                                The Math Is Haunted
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('https://hnrss.org/frontpage')" title="Click to highlight this feed in the feeds section">
+                                Hacker News
+                            </span>
+                            <span class="entry-time" data-published="Wed, 30 Jul 2025 20:46:49 +0000">
+                                July 30, 2025 at 20:46 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 Technology</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            Article URL: https://overreacted.io/the-math-is-haunted/ Comments URL: https://news.ycombinator.com/item?id=44739315 Points: 283 # Comments: 120
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="25" data-feed-url="https://hnrss.org/frontpage">
+                        <div class="entry-title">
+                            <a href="https://www.catherinejue.com/fast" target="_blank" rel="noopener noreferrer">
+                                Fast
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('https://hnrss.org/frontpage')" title="Click to highlight this feed in the feeds section">
+                                Hacker News
+                            </span>
+                            <span class="entry-time" data-published="Wed, 30 Jul 2025 17:21:17 +0000">
+                                July 30, 2025 at 17:21 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 Technology</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            Article URL: https://www.catherinejue.com/fast Comments URL: https://news.ycombinator.com/item?id=44736967 Points: 1382 # Comments: 379
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="26" data-feed-url="http://feeds.bbci.co.uk/news/technology/rss.xml">
+                        <div class="entry-title">
+                            <a href="https://www.bbc.com/news/articles/c93d7qlp974o?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener noreferrer">
+                                TikTok removes video by Huda Beauty boss over anti-Israel conspiracy theories
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('http://feeds.bbci.co.uk/news/technology/rss.xml')" title="Click to highlight this feed in the feeds section">
+                                BBC Technology
+                            </span>
+                            <span class="entry-time" data-published="Wed, 30 Jul 2025 16:16:28 GMT">
+                                July 30, 2025 at 16:16 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 News</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            Huda Kattan is accused of &#34;using her massive platform to spread vile antisemitic conspiracy theories&#34;.
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="27" data-feed-url="https://github.blog/feed/">
+                        <div class="entry-title">
+                            <a href="https://github.blog/ai-and-ml/generative-ai/a-practical-guide-on-how-to-use-the-github-mcp-server/" target="_blank" rel="noopener noreferrer">
+                                A practical guide on how to use the GitHub MCP server
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('https://github.blog/feed/')" title="Click to highlight this feed in the feeds section">
+                                GitHub Blog
+                            </span>
+                            <span class="entry-time" data-published="Wed, 30 Jul 2025 16:00:00 +0000">
+                                July 30, 2025 at 16:00 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 Technology</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            Upgrade from a local MCP Docker image to GitHub’s hosted server and automate pull requests, continuous integration, and security triage in minutes — no tokens required. The post A practical guide on how to use the GitHub MCP server appeared first on...
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="28" data-feed-url="https://www.youtube.com/feeds/videos.xml?channel_id=UCvQECJukTDE2i6aCoMnS-Vg">
+                        <div class="entry-title">
+                            <a href="https://www.youtube.com/shorts/1KnTEjxFM0E" target="_blank" rel="noopener noreferrer">
+                                Why do we all remember the same things differently?
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('https://www.youtube.com/feeds/videos.xml?channel_id=UCvQECJukTDE2i6aCoMnS-Vg')" title="Click to highlight this feed in the feeds section">
+                                Big Think
+                            </span>
+                            <span class="entry-time" data-published="2025-07-30T13:00:02+00:00">
+                                July 30, 2025 at 13:00 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 YouTube</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            We made this video in partnership with Unlikely Collaborators. Our memories aren’t perfect records of the past — they’re reconstructions shaped by brain activity. Neuroscientists Lisa Genova and André Fenton explain that a memory is created through...
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="entry-item" data-index="29" data-feed-url="http://feeds.bbci.co.uk/news/technology/rss.xml">
+                        <div class="entry-title">
+                            <a href="https://www.bbc.com/news/articles/cd0dgkjgzvjo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener noreferrer">
+                                Dating safety app Tea suspends messaging after hack
+                            </a>
+                        </div>
+                        <div class="entry-meta">
+                            <span class="entry-source" onclick="highlightFeed('http://feeds.bbci.co.uk/news/technology/rss.xml')" title="Click to highlight this feed in the feeds section">
+                                BBC Technology
+                            </span>
+                            <span class="entry-time" data-published="Wed, 30 Jul 2025 10:01:32 GMT">
+                                July 30, 2025 at 10:01 UTC
+                            </span>
+                            
+                            <span class="entry-category">📂 News</span>
+                            
+                        </div>
+                        
+                        <div class="entry-summary">
+                            It comes after a hack which exposed thousands of members&#39; images, posts and comments.
+                        </div>
+                        
+                    </article>
+                    
+                </div>
+            </div>
+        </section>
+
+        <section class="section fade-in" id="feeds-section">
+            <div class="section-header">
+                <h2>📡 Subscribed Feeds</h2>
+                <button class="section-toggle" onclick="toggleSection('feeds')" id="feeds-toggle">
+                    Hide Feeds
+                </button>
+            </div>
+            
+            <div class="section-content" id="feeds-content">
+                
+                <div class="category-section" data-category="News">
+                    <div class="category-title" onclick="toggleCategory('News')">
+                        <span class="category-name">News</span>
+                        <span class="category-expand-icon">▼</span>
+                    </div>
+                    <div class="feed-list" id="category-News">
+                        
+                        <div class="feed-item fresh-updates" data-feed-url="http://feeds.bbci.co.uk/news/technology/rss.xml">
+                            <div class="feed-header" onclick="toggleFeedPosts('http://feeds.bbci.co.uk/news/technology/rss.xml')">
+                                <div class="feed-info">
+                                    <span class="feed-title">
+                                        BBC Technology
+                                    </span>
+                                    <span class="feed-meta">
+                                        60 posts • July 31, 2025 at 12:29 UTC
+                                    </span>
+                                </div>
+                                <span class="expand-icon">▼</span>
+                            </div>
+                            
+                            <div class="feed-posts" id="feed-posts-http---feeds-bbci-co-uk-news-technology-rss-xml">
+                                
+                                
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.bbc.com/news/articles/c5y2xx6z6eko?at_medium=RSS&amp;at_campaign=rss" target="_blank" class="post-title">
+                                            Ofcom investigates 34 porn sites over age checks
+                                        </a>
+                                        <span class="post-date">July 31, 2025 at 12:29 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.bbc.com/news/articles/cqlernrw62yo?at_medium=RSS&amp;at_campaign=rss" target="_blank" class="post-title">
+                                            Meta profits surge helps drive Zuckerberg’s AI ambitions
+                                        </a>
+                                        <span class="post-date">July 31, 2025 at 01:03 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.bbc.com/news/articles/c9d0l40v551o?at_medium=RSS&amp;at_campaign=rss" target="_blank" class="post-title">
+                                            What screen time does to children&#39;s brains is more complicated than it seems
+                                        </a>
+                                        <span class="post-date">July 30, 2025 at 23:44 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.bbc.com/news/articles/cvg8z2mx508o?at_medium=RSS&amp;at_campaign=rss" target="_blank" class="post-title">
+                                            The Gulf bets big on AI as it seeks the &#39;new oil&#39;
+                                        </a>
+                                        <span class="post-date">July 30, 2025 at 23:14 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.bbc.com/news/articles/c93d7qlp974o?at_medium=RSS&amp;at_campaign=rss" target="_blank" class="post-title">
+                                            TikTok removes video by Huda Beauty boss over anti-Israel conspiracy theories
+                                        </a>
+                                        <span class="post-date">July 30, 2025 at 16:16 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.bbc.com/news/articles/cd0dgkjgzvjo?at_medium=RSS&amp;at_campaign=rss" target="_blank" class="post-title">
+                                            Dating safety app Tea suspends messaging after hack
+                                        </a>
+                                        <span class="post-date">July 30, 2025 at 10:01 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.bbc.com/news/articles/cpv0zkxx0njo?at_medium=RSS&amp;at_campaign=rss" target="_blank" class="post-title">
+                                            YouTube to be included in Australia&#39;s teen social media ban
+                                        </a>
+                                        <span class="post-date">July 30, 2025 at 01:24 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.bbc.co.uk/sounds/play/w3ct6zp1?at_medium=RSS&amp;at_campaign=rss" target="_blank" class="post-title">
+                                            Tech Life
+                                        </a>
+                                        <span class="post-date">July 29, 2025 at 19:32 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.bbc.com/news/articles/cgery3eeqzxo?at_medium=RSS&amp;at_campaign=rss" target="_blank" class="post-title">
+                                            Minister must apologise over Savile claim, says Farage
+                                        </a>
+                                        <span class="post-date">July 29, 2025 at 11:28 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.bbc.com/news/articles/cvg3lgdv3r7o?at_medium=RSS&amp;at_campaign=rss" target="_blank" class="post-title">
+                                            EE to launch phone plans which restrict internet for teens
+                                        </a>
+                                        <span class="post-date">July 29, 2025 at 11:11 UTC</span>
+                                    </div>
+                                    
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <div class="category-section" data-category="Technology">
+                    <div class="category-title" onclick="toggleCategory('Technology')">
+                        <span class="category-name">Technology</span>
+                        <span class="category-expand-icon">▼</span>
+                    </div>
+                    <div class="feed-list" id="category-Technology">
+                        
+                        <div class="feed-item fresh-updates" data-feed-url="https://hnrss.org/frontpage">
+                            <div class="feed-header" onclick="toggleFeedPosts('https://hnrss.org/frontpage')">
+                                <div class="feed-info">
+                                    <span class="feed-title">
+                                        Hacker News
+                                    </span>
+                                    <span class="feed-meta">
+                                        20 posts • July 31, 2025 at 12:25 UTC
+                                    </span>
+                                </div>
+                                <span class="expand-icon">▼</span>
+                            </div>
+                            
+                            <div class="feed-posts" id="feed-posts-https---hnrss-org-frontpage">
+                                
+                                
+                                    
+                                    <div class="post-item">
+                                        <a href="https://computeradsfromthepast.substack.com/p/altima-nsx" target="_blank" class="post-title">
+                                            Altima NSX – Computer Ads from the Past
+                                        </a>
+                                        <span class="post-date">July 31, 2025 at 12:25 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.ycombinator.com/companies/infracost/jobs/ukwJ299-senior-product-manager" target="_blank" class="post-title">
+                                            Infracost (YC W21) hiring first PM to shift $600B cloud spend to proactive
+                                        </a>
+                                        <span class="post-date">July 31, 2025 at 12:00 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://cmtext.com/" target="_blank" class="post-title">
+                                            Introduction to Computer Music an Electronic Textbook
+                                        </a>
+                                        <span class="post-date">July 31, 2025 at 11:37 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://movies.stackexchange.com/questions/128020/how-was-the-universal-pictures-1936-opening-logo-created" target="_blank" class="post-title">
+                                            How was the Universal Pictures 1936 opening logo created?
+                                        </a>
+                                        <span class="post-date">July 31, 2025 at 11:19 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://arxiviq.substack.com/p/gepa-reflective-prompt-evolution" target="_blank" class="post-title">
+                                            GEPA: Reflective Prompt Evolution Can Outperform Reinforcement Learning
+                                        </a>
+                                        <span class="post-date">July 31, 2025 at 10:57 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.spacebar.news/servo-undercover-web-browser-engine/" target="_blank" class="post-title">
+                                            I tried Servo, the undercover web browser engine made with Rust
+                                        </a>
+                                        <span class="post-date">July 31, 2025 at 10:56 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.cbsnews.com/news/hawley-democrats-vote-stock-trading-ban-committee/" target="_blank" class="post-title">
+                                            GOP’s Josh Hawley and Democrats vote to advance congressional stock trading ban
+                                        </a>
+                                        <span class="post-date">July 31, 2025 at 10:07 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://dataswamp.org/~solene/2025-05-31-linux-killswitch-on-power-disconnect.html" target="_blank" class="post-title">
+                                            How to trigger a command on Linux when disconnected from power
+                                        </a>
+                                        <span class="post-date">July 31, 2025 at 10:03 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://github.com/dipampaul17/AgentGuard" target="_blank" class="post-title">
+                                            Show HN: AgentGuard – Auto-kill AI agents before they burn through your budget
+                                        </a>
+                                        <span class="post-date">July 31, 2025 at 05:54 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://futhark-lang.org/blog/2025-07-29-tracking-source-locations.html" target="_blank" class="post-title">
+                                            Tracking source locations in the Futhark compiler
+                                        </a>
+                                        <span class="post-date">July 31, 2025 at 04:40 UTC</span>
+                                    </div>
+                                    
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="feed-item" data-feed-url="https://www.python.org/jobs/feed/rss/">
+                            <div class="feed-header" onclick="toggleFeedPosts('https://www.python.org/jobs/feed/rss/')">
+                                <div class="feed-info">
+                                    <span class="feed-title">
+                                        Python.org Jobs
+                                    </span>
+                                    <span class="feed-meta">
+                                        20 posts • July 31, 2025 at 12:22 UTC
+                                    </span>
+                                </div>
+                                <span class="expand-icon">▼</span>
+                            </div>
+                            
+                            <div class="feed-posts" id="feed-posts-https---www-python-org-jobs-feed-rss-">
+                                
+                                
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.python.org/jobs/7938/" target="_blank" class="post-title">
+                                            Principal Python Engineer, Teramind
+                                        </a>
+                                        <span class="post-date">Unknown date</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.python.org/jobs/7937/" target="_blank" class="post-title">
+                                            Python Software Engineer. AI driven Helpdesk. RASA integration, I-GTM
+                                        </a>
+                                        <span class="post-date">Unknown date</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.python.org/jobs/7936/" target="_blank" class="post-title">
+                                            Senior Full Stack Engineer - React/Python in Toronto., TechedIn
+                                        </a>
+                                        <span class="post-date">Unknown date</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.python.org/jobs/7935/" target="_blank" class="post-title">
+                                            Senior Software Engineer, Linden Lab
+                                        </a>
+                                        <span class="post-date">Unknown date</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.python.org/jobs/7933/" target="_blank" class="post-title">
+                                            Senior Software Engineer, Loginsoft
+                                        </a>
+                                        <span class="post-date">Unknown date</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.python.org/jobs/7931/" target="_blank" class="post-title">
+                                            Senior Python Developer, MPS Group LLC
+                                        </a>
+                                        <span class="post-date">Unknown date</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.python.org/jobs/7929/" target="_blank" class="post-title">
+                                            Senior Backend Engineer, Prowler
+                                        </a>
+                                        <span class="post-date">Unknown date</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.python.org/jobs/7928/" target="_blank" class="post-title">
+                                            Software Engineer – Platform &amp; Systems, CrossTerra
+                                        </a>
+                                        <span class="post-date">Unknown date</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.python.org/jobs/7926/" target="_blank" class="post-title">
+                                            Senior Python Developer ONSITE, Foxley Talent
+                                        </a>
+                                        <span class="post-date">Unknown date</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.python.org/jobs/7925/" target="_blank" class="post-title">
+                                            Open Source Software Engineer, Stealth AI Startup
+                                        </a>
+                                        <span class="post-date">Unknown date</span>
+                                    </div>
+                                    
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="feed-item fresh-updates" data-feed-url="https://stackoverflow.blog/feed/">
+                            <div class="feed-header" onclick="toggleFeedPosts('https://stackoverflow.blog/feed/')">
+                                <div class="feed-info">
+                                    <span class="feed-title">
+                                        Stack Overflow Blog
+                                    </span>
+                                    <span class="feed-meta">
+                                        40 posts • July 31, 2025 at 07:40 UTC
+                                    </span>
+                                </div>
+                                <span class="expand-icon">▼</span>
+                            </div>
+                            
+                            <div class="feed-posts" id="feed-posts-https---stackoverflow-blog-feed-">
+                                
+                                
+                                    
+                                    <div class="post-item">
+                                        <a href="https://stackoverflow.blog/2025/07/31/the-innovation-leadership-and-team-agility-inside-u-s-bank-s-cloud-journey/" target="_blank" class="post-title">
+                                            The innovation, leadership, and team agility inside U.S. Bank’s cloud journey
+                                        </a>
+                                        <span class="post-date">July 31, 2025 at 07:40 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://stackoverflow.blog/2025/07/29/developers-remain-willing-but-reluctant-to-use-ai-the-2025-developer-survey-results-are-here/" target="_blank" class="post-title">
+                                            Developers remain willing but reluctant to use AI: The 2025 Developer Survey results are here
+                                        </a>
+                                        <span class="post-date">July 29, 2025 at 17:00 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://stackoverflow.blog/2025/07/29/that-custom-gift-for-your-mom-takes-more-work-than-you-think/" target="_blank" class="post-title">
+                                            That custom gift for your mom takes more work than you think
+                                        </a>
+                                        <span class="post-date">July 29, 2025 at 07:40 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://stackoverflow.blog/2025/07/25/saving-the-world-with-speed-and-at-scale/" target="_blank" class="post-title">
+                                            Saving the world with speed and at scale
+                                        </a>
+                                        <span class="post-date">July 25, 2025 at 07:40 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://stackoverflow.blog/2025/07/23/building-better-platforms-with-continuous-discovery/" target="_blank" class="post-title">
+                                            Building better platforms with continuous discovery
+                                        </a>
+                                        <span class="post-date">July 23, 2025 at 16:00 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://stackoverflow.blog/2025/07/22/ai-has-been-the-wild-west-creating-standards-for-agents-with-sean-falconer/" target="_blank" class="post-title">
+                                            “AI has been the wild west”: Creating standards for agents with Sean Falconer
+                                        </a>
+                                        <span class="post-date">July 22, 2025 at 07:40 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://stackoverflow.blog/2025/07/21/community-products-roadmap-update-july-2025/" target="_blank" class="post-title">
+                                            Community Products roadmap update, July 2025
+                                        </a>
+                                        <span class="post-date">July 21, 2025 at 18:00 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://stackoverflow.blog/2025/07/18/how-to-do-your-job-happier/" target="_blank" class="post-title">
+                                            How to do your job happier
+                                        </a>
+                                        <span class="post-date">July 18, 2025 at 07:40 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://stackoverflow.blog/2025/07/16/the-great-unracking-saying-goodbye-to-the-servers-at-our-physical-datacenter/" target="_blank" class="post-title">
+                                            The Great Unracking: Saying goodbye to the servers at our physical datacenter
+                                        </a>
+                                        <span class="post-date">July 16, 2025 at 14:00 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://stackoverflow.blog/2025/07/14/building-stronger-engineering-teams-with-aligned-autonomy/" target="_blank" class="post-title">
+                                            Building stronger engineering teams with aligned autonomy
+                                        </a>
+                                        <span class="post-date">July 14, 2025 at 16:00 UTC</span>
+                                    </div>
+                                    
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="feed-item fresh-updates" data-feed-url="https://github.blog/feed/">
+                            <div class="feed-header" onclick="toggleFeedPosts('https://github.blog/feed/')">
+                                <div class="feed-info">
+                                    <span class="feed-title">
+                                        GitHub Blog
+                                    </span>
+                                    <span class="feed-meta">
+                                        10 posts • July 30, 2025 at 16:00 UTC
+                                    </span>
+                                </div>
+                                <span class="expand-icon">▼</span>
+                            </div>
+                            
+                            <div class="feed-posts" id="feed-posts-https---github-blog-feed-">
+                                
+                                
+                                    
+                                    <div class="post-item">
+                                        <a href="https://github.blog/ai-and-ml/generative-ai/a-practical-guide-on-how-to-use-the-github-mcp-server/" target="_blank" class="post-title">
+                                            A practical guide on how to use the GitHub MCP server
+                                        </a>
+                                        <span class="post-date">July 30, 2025 at 16:00 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://github.blog/open-source/maintainers/from-first-commits-to-big-ships-tune-into-our-new-open-source-podcast/" target="_blank" class="post-title">
+                                            From first commits to big ships: Tune into our new open source podcast
+                                        </a>
+                                        <span class="post-date">July 29, 2025 at 16:31 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://github.blog/open-source/social-impact/scaling-for-impact-how-github-copilot-supercharges-smallholder-farmers/" target="_blank" class="post-title">
+                                            Scaling for impact: How GitHub Copilot supercharges smallholder farmers
+                                        </a>
+                                        <span class="post-date">July 28, 2025 at 19:53 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://github.blog/ai-and-ml/generative-ai/how-to-build-secure-and-scalable-remote-mcp-servers/" target="_blank" class="post-title">
+                                            How to build secure and scalable remote MCP servers
+                                        </a>
+                                        <span class="post-date">July 25, 2025 at 17:12 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://github.blog/enterprise-software/ci-cd/how-to-streamline-github-api-calls-in-azure-pipelines/" target="_blank" class="post-title">
+                                            How to streamline GitHub API calls in Azure Pipelines
+                                        </a>
+                                        <span class="post-date">July 24, 2025 at 16:00 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://github.blog/ai-and-ml/llms/solving-the-inference-problem-for-open-source-ai-projects-with-github-models/" target="_blank" class="post-title">
+                                            Solving the inference problem for open source AI projects with GitHub Models
+                                        </a>
+                                        <span class="post-date">July 23, 2025 at 16:00 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://github.blog/open-source/maintainers/we-need-a-european-sovereign-tech-fund/" target="_blank" class="post-title">
+                                            We need a European Sovereign Tech Fund
+                                        </a>
+                                        <span class="post-date">July 23, 2025 at 07:01 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://github.blog/ai-and-ml/github-copilot/debugging-ui-with-ai-github-copilot-agent-mode-meets-mcp-servers/" target="_blank" class="post-title">
+                                            Debugging UI with AI: GitHub Copilot agent mode meets MCP servers
+                                        </a>
+                                        <span class="post-date">July 22, 2025 at 21:58 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://github.blog/news-insights/company-news/github-availability-report-june-2025/" target="_blank" class="post-title">
+                                            GitHub Availability Report: June 2025
+                                        </a>
+                                        <span class="post-date">July 16, 2025 at 21:06 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://github.blog/security/vulnerability-research/how-to-catch-github-actions-workflow-injections-before-attackers-do/" target="_blank" class="post-title">
+                                            How to catch GitHub Actions workflow injections before attackers do
+                                        </a>
+                                        <span class="post-date">July 16, 2025 at 16:00 UTC</span>
+                                    </div>
+                                    
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <div class="category-section" data-category="Blogs">
+                    <div class="category-title" onclick="toggleCategory('Blogs')">
+                        <span class="category-name">Blogs</span>
+                        <span class="category-expand-icon">▼</span>
+                    </div>
+                    <div class="feed-list" id="category-Blogs">
+                        
+                        <div class="feed-item fresh-updates" data-feed-url="https://world.hey.com/dhh/feed.atom">
+                            <div class="feed-header" onclick="toggleFeedPosts('https://world.hey.com/dhh/feed.atom')">
+                                <div class="feed-info">
+                                    <span class="feed-title">
+                                        David Heinemeier Hansson
+                                    </span>
+                                    <span class="feed-meta">
+                                        30 posts • July 31, 2025 at 12:11 UTC
+                                    </span>
+                                </div>
+                                <span class="expand-icon">▼</span>
+                            </div>
+                            
+                            <div class="feed-posts" id="feed-posts-https---world-hey-com-dhh-feed-atom">
+                                
+                                
+                                    
+                                    <div class="post-item">
+                                        <a href="https://world.hey.com/dhh/executives-should-be-the-least-busy-people-bb94fb18" target="_blank" class="post-title">
+                                            Executives should be the least busy people
+                                        </a>
+                                        <span class="post-date">July 31, 2025 at 12:11 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://world.hey.com/dhh/the-beauty-of-ideals-b3dccf72" target="_blank" class="post-title">
+                                            The beauty of ideals
+                                        </a>
+                                        <span class="post-date">July 28, 2025 at 10:31 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://world.hey.com/dhh/building-competency-is-better-than-therapy-4622c6b7" target="_blank" class="post-title">
+                                            Building competency is better than therapy
+                                        </a>
+                                        <span class="post-date">July 25, 2025 at 15:16 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://world.hey.com/dhh/you-expect-principles-but-should-wish-for-none-531988ec" target="_blank" class="post-title">
+                                            You expect principles but should wish for none
+                                        </a>
+                                        <span class="post-date">July 24, 2025 at 19:28 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://world.hey.com/dhh/it-s-a-beelink-baby-243fdaf1" target="_blank" class="post-title">
+                                            It&#39;s a Beelink, baby
+                                        </a>
+                                        <span class="post-date">July 23, 2025 at 18:03 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://world.hey.com/dhh/american-hype-6f7afd1b" target="_blank" class="post-title">
+                                            American hype
+                                        </a>
+                                        <span class="post-date">July 17, 2025 at 17:41 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://world.hey.com/dhh/linux-crosses-magic-market-share-threshold-in-us-1f914771" target="_blank" class="post-title">
+                                            Linux crosses magic market share threshold in US
+                                        </a>
+                                        <span class="post-date">July 16, 2025 at 17:31 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://world.hey.com/dhh/the-6-hours-of-lex-888cbf16" target="_blank" class="post-title">
+                                            The 6 Hours of Lex
+                                        </a>
+                                        <span class="post-date">July 14, 2025 at 18:30 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://world.hey.com/dhh/get-in-losers-we-re-moving-to-linux-5e1b93cd" target="_blank" class="post-title">
+                                            Get in losers, we&#39;re moving to Linux!
+                                        </a>
+                                        <span class="post-date">July 03, 2025 at 22:26 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://world.hey.com/dhh/the-parental-dead-end-of-consent-morality-e4e8a8ee" target="_blank" class="post-title">
+                                            The parental dead end of consent morality
+                                        </a>
+                                        <span class="post-date">June 29, 2025 at 19:15 UTC</span>
+                                    </div>
+                                    
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <div class="category-section" data-category="YouTube">
+                    <div class="category-title" onclick="toggleCategory('YouTube')">
+                        <span class="category-name">YouTube</span>
+                        <span class="category-expand-icon">▼</span>
+                    </div>
+                    <div class="feed-list" id="category-YouTube">
+                        
+                        <div class="feed-item" data-feed-url="https://www.youtube.com/feeds/videos.xml?channel_id=UCvQECJukTDE2i6aCoMnS-Vg">
+                            <div class="feed-header" onclick="toggleFeedPosts('https://www.youtube.com/feeds/videos.xml?channel_id=UCvQECJukTDE2i6aCoMnS-Vg')">
+                                <div class="feed-info">
+                                    <span class="feed-title">
+                                        Big Think
+                                    </span>
+                                    <span class="feed-meta">
+                                        15 posts • July 30, 2025 at 13:00 UTC
+                                    </span>
+                                </div>
+                                <span class="expand-icon">▼</span>
+                            </div>
+                            
+                            <div class="feed-posts" id="feed-posts-https---www-youtube-com-feeds-videos-xml?channel_id=UCvQECJukTDE2i6aCoMnS-Vg">
+                                
+                                
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.youtube.com/shorts/1KnTEjxFM0E" target="_blank" class="post-title">
+                                            Why do we all remember the same things differently?
+                                        </a>
+                                        <span class="post-date">July 30, 2025 at 13:00 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.youtube.com/watch?v=_A0JV_4kMXA" target="_blank" class="post-title">
+                                            How Jesus and Socrates taught the same way
+                                        </a>
+                                        <span class="post-date">July 29, 2025 at 13:01 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.youtube.com/watch?v=_CxmzkYPvsg" target="_blank" class="post-title">
+                                            What 85 years of research says is the real key to happiness | Robert Waldinger: Full Interview
+                                        </a>
+                                        <span class="post-date">July 25, 2025 at 13:01 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.youtube.com/watch?v=Ua13CLOgZis" target="_blank" class="post-title">
+                                            Annaka Harris: You don’t exist the way you think you do
+                                        </a>
+                                        <span class="post-date">July 24, 2025 at 13:00 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.youtube.com/watch?v=rdPRpyZrcIs" target="_blank" class="post-title">
+                                            3 doctors explain how to reframe your trauma, anxiety, and internal dialogue
+                                        </a>
+                                        <span class="post-date">July 23, 2025 at 13:01 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.youtube.com/watch?v=ILeD3h2tE34" target="_blank" class="post-title">
+                                            How to tell if your job is limiting your potential | Josh Bersin for Big Think+
+                                        </a>
+                                        <span class="post-date">July 23, 2025 at 12:00 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.youtube.com/watch?v=73NZSy7SFpk" target="_blank" class="post-title">
+                                            Why caring for others shouldn’t always be rational
+                                        </a>
+                                        <span class="post-date">July 22, 2025 at 13:00 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.youtube.com/watch?v=X3vHJiPRLSo" target="_blank" class="post-title">
+                                            The 3-step process to CIA training, revealed | Andrew Bustamante: Full Interview
+                                        </a>
+                                        <span class="post-date">July 18, 2025 at 13:01 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.youtube.com/shorts/OJJWCjAfl_0" target="_blank" class="post-title">
+                                            Will AI friends become the norm?
+                                        </a>
+                                        <span class="post-date">July 17, 2025 at 17:06 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.youtube.com/watch?v=rtuo04T7Xp4" target="_blank" class="post-title">
+                                            The laboratory accident that saved 500 million lives | Derek Thompson
+                                        </a>
+                                        <span class="post-date">July 17, 2025 at 13:01 UTC</span>
+                                    </div>
+                                    
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="feed-item" data-feed-url="https://www.youtube.com/feeds/videos.xml?channel_id=UCsXVk37bltHxD1rDPwtNM8Q">
+                            <div class="feed-header" onclick="toggleFeedPosts('https://www.youtube.com/feeds/videos.xml?channel_id=UCsXVk37bltHxD1rDPwtNM8Q')">
+                                <div class="feed-info">
+                                    <span class="feed-title">
+                                        Kurzgesagt – In a Nutshell
+                                    </span>
+                                    <span class="feed-meta">
+                                        15 posts • July 29, 2025 at 14:00 UTC
+                                    </span>
+                                </div>
+                                <span class="expand-icon">▼</span>
+                            </div>
+                            
+                            <div class="feed-posts" id="feed-posts-https---www-youtube-com-feeds-videos-xml?channel_id=UCsXVk37bltHxD1rDPwtNM8Q">
+                                
+                                
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.youtube.com/watch?v=7wK4peez9zE" target="_blank" class="post-title">
+                                            Let&#39;s Kill You a Billion Times to Make You Immortal
+                                        </a>
+                                        <span class="post-date">July 29, 2025 at 14:00 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.youtube.com/shorts/IZ55YvFE960" target="_blank" class="post-title">
+                                            The 5 Times Life on Earth Almost Ended
+                                        </a>
+                                        <span class="post-date">July 24, 2025 at 14:00 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.youtube.com/shorts/xP2tHAXjZhI" target="_blank" class="post-title">
+                                            How many organs can YOU live without? Turns out: More than we thought.
+                                        </a>
+                                        <span class="post-date">July 17, 2025 at 14:01 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.youtube.com/shorts/rHQeg5EtqDQ" target="_blank" class="post-title">
+                                            Invisible Extinction From Space – Gamma Ray Bursts
+                                        </a>
+                                        <span class="post-date">July 10, 2025 at 14:01 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.youtube.com/shorts/2ukNLhC8N4Y" target="_blank" class="post-title">
+                                            Some Galaxies Move Faster Than the Speed of Light
+                                        </a>
+                                        <span class="post-date">July 10, 2025 at 14:00 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.youtube.com/watch?v=efOW5NUTYB8" target="_blank" class="post-title">
+                                            When Your Body Attacks Itself – Autoimmune
+                                        </a>
+                                        <span class="post-date">July 01, 2025 at 14:00 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.youtube.com/shorts/EJoJzLaIcEc" target="_blank" class="post-title">
+                                            How the Universe Might End
+                                        </a>
+                                        <span class="post-date">June 26, 2025 at 16:14 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.youtube.com/shorts/6TcFvx8ajD4" target="_blank" class="post-title">
+                                            Why Do Planets Rotate in a Disk?
+                                        </a>
+                                        <span class="post-date">June 19, 2025 at 14:00 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.youtube.com/shorts/Ce9kHZQk3MI" target="_blank" class="post-title">
+                                            Test Our PC Game – Star Birds Demo Out Now!
+                                        </a>
+                                        <span class="post-date">June 09, 2025 at 17:00 UTC</span>
+                                    </div>
+                                    
+                                    <div class="post-item">
+                                        <a href="https://www.youtube.com/watch?v=zxq60I5RSW8" target="_blank" class="post-title">
+                                            How Nuclear Flies Protect You from Flesh-Eating Parasites
+                                        </a>
+                                        <span class="post-date">June 03, 2025 at 14:00 UTC</span>
+                                    </div>
+                                    
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>
+            Updated 2025-07-31 12:47:33 UTC<br>
+            <a href="latest_rss.xml">Latest Posts Feed</a> • 
+            <a href="latest_feeds.xml">List of All Feeds</a> • 
+            <a href="rss.opml">Export Feeds (OPML)</a>
+        </p>
+        <p>
+            <small>
+                Made with ❤️ by <a href="https://github.com/pesarkhobeee/lovelyRSS" target="_blank">lovelyRSS</a> v0.2.0
+            </small>
+        </p>
+    </footer>
+
+    <script>
+        // Settings and preferences management
+        const settings = {
+            theme: localStorage.getItem('rss-theme') || 'green',
+            postsCount: parseInt(localStorage.getItem('rss-posts-count')) || 10,
+            showPosts: localStorage.getItem('rss-show-posts') !== 'false',
+            showFeeds: localStorage.getItem('rss-show-feeds') !== 'false'
+        };
+
+        let currentFilter = null;
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeSettings();
+            setupEventListeners();
+            applySettings();
+            restoreCollapsedCategories();
+            markFreshPosts();
+        });
+
+        // Restore collapsed categories from localStorage
+        function restoreCollapsedCategories() {
+            const collapsedCategories = JSON.parse(localStorage.getItem('collapsedCategories') || '[]');
+            collapsedCategories.forEach(categoryName => {
+                const categorySection = document.querySelector(`.category-section[data-category="${categoryName}"]`);
+                if (categorySection) {
+                    categorySection.classList.add('collapsed');
+                }
+            });
+        }
+
+        function markFreshPosts() {
+            // Mark posts from the last 24 hours as fresh
+            const oneDayAgo = Date.now() - (24 * 60 * 60 * 1000);
+            
+            document.querySelectorAll('.entry-time').forEach(timeElement => {
+                const published = timeElement.getAttribute('data-published');
+                if (published) {
+                    const publishedDate = new Date(published);
+                    if (publishedDate.getTime() > oneDayAgo) {
+                        timeElement.classList.add('fresh');
+                        timeElement.title = 'Fresh post (less than 24 hours old)';
+                    }
+                }
+            });
+        }
+
+        function highlightFeed(feedUrl) {
+            // Clear any existing highlights
+            document.querySelectorAll('.feed-item').forEach(item => {
+                item.classList.remove('highlight-feed');
+            });
+            
+            // Find and highlight the target feed
+            const feedElement = document.querySelector(`.feed-item[data-feed-url="${feedUrl}"]`);
+            if (feedElement) {
+                feedElement.classList.add('highlight-feed');
+                
+                // Ensure feeds section is visible
+                const feedsContent = document.getElementById('feeds-content');
+                if (feedsContent.classList.contains('hidden')) {
+                    feedsContent.classList.remove('hidden');
+                    settings.showFeeds = true;
+                    document.getElementById('show-feeds').checked = true;
+                    document.getElementById('feeds-toggle').textContent = 'Hide Feeds';
+                    saveSettings();
+                }
+                
+                // Scroll to the feed if not visible
+                if (!isElementInViewport(feedElement)) {
+                    feedElement.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center' 
+                    });
+                }
+                
+                // Remove highlight after 3 seconds
+                setTimeout(() => {
+                    feedElement.classList.remove('highlight-feed');
+                }, 3000);
+            }
+        }
+
+        function clearPostsFilter() {
+            currentFilter = null;
+            const entries = document.querySelectorAll('.entry-item');
+            const banner = document.getElementById('posts-filter-banner');
+            
+            entries.forEach(entry => {
+                entry.classList.remove('filtered-out');
+            });
+            
+            banner.classList.remove('show');
+            updateVisiblePosts(); // Reapply the posts count setting
+        }
+
+        // Toggle category collapse
+        function toggleCategory(categoryName) {
+            const categorySection = document.querySelector(`.category-section[data-category="${categoryName}"]`);
+            if (categorySection) {
+                categorySection.classList.toggle('collapsed');
+                
+                // Save collapsed state to localStorage
+                const collapsedCategories = JSON.parse(localStorage.getItem('collapsedCategories') || '[]');
+                const isCollapsed = categorySection.classList.contains('collapsed');
+                
+                if (isCollapsed && !collapsedCategories.includes(categoryName)) {
+                    collapsedCategories.push(categoryName);
+                } else if (!isCollapsed) {
+                    const index = collapsedCategories.indexOf(categoryName);
+                    if (index > -1) {
+                        collapsedCategories.splice(index, 1);
+                    }
+                }
+                
+                localStorage.setItem('collapsedCategories', JSON.stringify(collapsedCategories));
+            }
+        }
+
+        function toggleFeedPosts(feedUrl) {
+            const feedElement = document.querySelector(`.feed-item[data-feed-url="${feedUrl}"]`);
+            const isExpanded = feedElement.classList.contains('expanded');
+            
+            // Close all other expanded feeds
+            document.querySelectorAll('.feed-item.expanded').forEach(item => {
+                if (item !== feedElement) {
+                    item.classList.remove('expanded');
+                }
+            });
+            
+            // Toggle current feed
+            feedElement.classList.toggle('expanded');
+        }
+
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+
+        function initializeSettings() {
+            // Set theme options
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.addEventListener('click', () => setTheme(option.dataset.theme));
+                if (option.dataset.theme === settings.theme) {
+                    option.classList.add('active');
+                }
+            });
+
+            // Set posts count
+            document.getElementById('posts-count').value = settings.postsCount;
+            
+            // Set toggles
+            document.getElementById('show-posts').checked = settings.showPosts;
+            document.getElementById('show-feeds').checked = settings.showFeeds;
+        }
+
+        function setupEventListeners() {
+            // Posts count change
+            document.getElementById('posts-count').addEventListener('change', function() {
+                settings.postsCount = parseInt(this.value);
+                saveSettings();
+                updateVisiblePosts();
+            });
+
+            // Toggle changes
+            document.getElementById('show-posts').addEventListener('change', function() {
+                settings.showPosts = this.checked;
+                saveSettings();
+                toggleSectionVisibility('latest-posts', this.checked);
+            });
+
+            document.getElementById('show-feeds').addEventListener('change', function() {
+                settings.showFeeds = this.checked;
+                saveSettings();
+                toggleSectionVisibility('feeds', this.checked);
+            });
+
+            // Close settings when clicking outside
+            document.addEventListener('click', function(e) {
+                const panel = document.getElementById('settings-panel');
+                const toggle = document.querySelector('.settings-toggle');
+                
+                if (!panel.contains(e.target) && !toggle.contains(e.target) && panel.classList.contains('open')) {
+                    toggleSettings();
+                }
+            });
+        }
+
+        function setTheme(theme) {
+            settings.theme = theme;
+            saveSettings();
+            applyTheme();
+            
+            // Update active theme option
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.classList.toggle('active', option.dataset.theme === theme);
+            });
+        }
+
+        function applyTheme() {
+            const { theme } = settings;
+            const body = document.body;
+            
+            // Remove existing theme attributes
+            body.removeAttribute('data-theme');
+            
+            if (theme === 'auto') {
+                // Let CSS media query handle auto theme
+                return;
+            }
+            
+            // Apply specific theme
+            body.setAttribute('data-theme', theme);
+        }
+
+        function applySettings() {
+            applyTheme();
+            updateVisiblePosts();
+            toggleSectionVisibility('latest-posts', settings.showPosts);
+            toggleSectionVisibility('feeds', settings.showFeeds);
+        }
+
+        function updateVisiblePosts() {
+            const entries = document.querySelectorAll('.entry-item');
+            const count = Math.min(settings.postsCount, entries.length);
+            let visibleCount = 0;
+            
+            entries.forEach((entry, index) => {
+                // Don't hide filtered posts, only apply count limit to non-filtered posts
+                if (currentFilter) {
+                    // When filtering, show all posts from the selected feed
+                    const shouldShow = entry.getAttribute('data-feed-url') === currentFilter;
+                    entry.style.display = shouldShow ? 'block' : 'none';
+                    if (shouldShow) visibleCount++;
+                } else {
+                    // Normal count-based hiding
+                    const shouldShow = index < count;
+                    entry.style.display = shouldShow ? 'block' : 'none';
+                    if (shouldShow) visibleCount++;
+                }
+            });
+            
+            // Update counter only if not filtering
+            if (!currentFilter) {
+                document.getElementById('visible-posts-count').textContent = visibleCount;
+            }
+        }
+
+        function toggleSectionVisibility(sectionName, show) {
+            const content = document.getElementById(`${sectionName}-content`);
+            const toggle = document.getElementById(`${sectionName}-toggle`);
+            
+            if (show) {
+                content.classList.remove('hidden');
+                toggle.textContent = sectionName === 'latest-posts' ? 'Hide Posts' : 'Hide Feeds';
+            } else {
+                content.classList.add('hidden');
+                toggle.textContent = sectionName === 'latest-posts' ? 'Show Posts' : 'Show Feeds';
+            }
+        }
+
+        function toggleSection(sectionName) {
+            const content = document.getElementById(`${sectionName}-content`);
+            const toggle = document.getElementById(`${sectionName}-toggle`);
+            const isHidden = content.classList.contains('hidden');
+            
+            if (isHidden) {
+                content.classList.remove('hidden');
+                toggle.textContent = sectionName === 'latest-posts' ? 'Hide Posts' : 'Hide Feeds';
+                
+                // Update settings
+                if (sectionName === 'latest-posts') {
+                    settings.showPosts = true;
+                    document.getElementById('show-posts').checked = true;
+                } else {
+                    settings.showFeeds = true;
+                    document.getElementById('show-feeds').checked = true;
+                }
+            } else {
+                content.classList.add('hidden');
+                toggle.textContent = sectionName === 'latest-posts' ? 'Show Posts' : 'Show Feeds';
+                
+                // Update settings
+                if (sectionName === 'latest-posts') {
+                    settings.showPosts = false;
+                    document.getElementById('show-posts').checked = false;
+                } else {
+                    settings.showFeeds = false;
+                    document.getElementById('show-feeds').checked = false;
+                }
+            }
+            
+            saveSettings();
+        }
+
+        function toggleSettings() {
+            const panel = document.getElementById('settings-panel');
+            panel.classList.toggle('open');
+        }
+
+        function saveSettings() {
+            localStorage.setItem('rss-theme', settings.theme);
+            localStorage.setItem('rss-posts-count', settings.postsCount.toString());
+            localStorage.setItem('rss-show-posts', settings.showPosts.toString());
+            localStorage.setItem('rss-show-feeds', settings.showFeeds.toString());
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Press 'S' to toggle settings
+            if (e.key === 's' || e.key === 'S') {
+                if (!e.target.matches('input, textarea')) {
+                    e.preventDefault();
+                    toggleSettings();
+                }
+            }
+            
+            // Press 'Escape' to close settings
+            if (e.key === 'Escape') {
+                const panel = document.getElementById('settings-panel');
+                if (panel.classList.contains('open')) {
+                    toggleSettings();
+                }
+            }
+        });
+
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

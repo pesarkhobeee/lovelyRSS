@@ -66,11 +66,6 @@ htmlcov/
 coverage.xml
 
 # Generated files (ignored by git)
-latest_rss.xml
-latest_feeds.xml
-latest_posts.json
-index.html
 badge.md
 feeds.opml
 config.json
-static/custom.css
