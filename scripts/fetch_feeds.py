@@ -410,6 +410,11 @@ class RSSHub:
                 feed['has_recent_update'] = False
         
         # Prepare template data
+        site_link = self.config.get("site_link", "")
+        opml_export_url = ""
+        if "github.com" in site_link:
+            opml_export_url = site_link.replace("github.com", "raw.githubusercontent.com") + "/main/feeds.opml"
+
         template_data = {
             'title': self.config["site_title"],
             'description': self.config["site_description"],
@@ -422,6 +427,7 @@ class RSSHub:
             'updated_time': get_readable_timestamp(),
             'update_interval_hours': self.config.get("update_interval_hours", 6),
             'version': self.version,
+            'opml_export_url': opml_export_url,
             'clean_html': clean_html,
             'format_date': format_date,
             'truncate_text': truncate_text,
