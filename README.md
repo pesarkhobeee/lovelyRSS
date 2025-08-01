@@ -80,6 +80,21 @@ Your `lovelyRSS` instance produces several files that make it easy to share what
 
 These files are updated automatically and can be found at `https://your-username.github.io/your-repo-name/`.
 
+## 🔄 Updating Your Fork
+
+One of the goals of `lovelyRSS` is to make it easy to keep your personal reader up-to-date with the latest features. We have designed the workflow to be completely conflict-free, so you can pull in the latest changes without any risk of losing your personal configurations.
+
+Since your `feeds.opml` and `config.json` files are not tracked by git, you can safely fetch the latest changes from the main repository without creating any merge conflicts. Your reader will simply be updated with the newest features, and your feeds will be regenerated on the next scheduled run.
+
+To update your fork, simply run the following commands in your local repository:
+
+```bash
+git fetch upstream
+git merge upstream/main
+```
+
+This will keep your reader current while preserving your unique feed list and settings.
+
 ## 🌟 Community Examples
 
 -   [pesarkhobeeee.github.io/rss](https://pesarkhobeee.github.io/rss/)
