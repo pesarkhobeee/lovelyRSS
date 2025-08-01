@@ -68,25 +68,6 @@ class RSSHub:
             autoescape=True
         )
 
-    def should_run(self) -> bool:
-        """Check if the script should run based on the last run time."""
-        if not os.path.exists(self.last_run_file):
-            return True
-
-        with open(self.last_run_file, 'r', encoding='utf-8') as f:
-            last_run_data = json.load(f)
-        
-        last_run_time = datetime.fromisoformat(last_run_data["last_run"])
-        update_interval = timedelta(hours=self.config.get("update_interval_hours", 6))
-
-        return (datetime.now(timezone.utc) - last_run_time) >= update_interval
-
-    def record_run(self):
-        """Record the current run time."""
-        with open(self.last_run_file, 'w', encoding='utf-8') as f:
-            json.dump({"last_run": get_current_timestamp()}, f, indent=2)
-
-    
     def parse_opml(self) -> List[Dict[str, str]]:
         """
         Parse OPML file and extract RSS feed URLs.
@@ -452,10 +433,6 @@ def main():
     # Initialize RSS hub
     hub = RSSHub()
 
-    if not hub.should_run():
-        print("👋 Skipping run, not enough time has passed since the last run.")
-        sys.exit(0)
-    
     # Process all feeds
     hub.process_feeds()
     
@@ -466,8 +443,6 @@ def main():
     hub.generate_json()
     hub.generate_html()
 
-    hub.record_run()
-    
     print("\n🎉 All files generated successfully!")
     print(f"📊 Summary: {len(hub.feeds_with_updates)} feeds, {len(hub.all_entries)} total entries")
 
