@@ -69,10 +69,12 @@ coverage.xml
 feeds.opml
 config.json
 
-# Generated output files
-latest_feeds.xml
-latest_rss.xml
-latest_posts.json
-index.html
-badge.md
+# State file
 last_run.json
+
+# Generated output files
+index.html
+latest_rss.xml
+latest_feeds.xml
+latest_posts.json
+badge.md
