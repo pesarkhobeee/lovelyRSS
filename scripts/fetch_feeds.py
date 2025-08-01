@@ -311,8 +311,38 @@ class RSSHub:
         ET.indent(tree, space="  ", level=0)
         tree.write(output_file, encoding='utf-8', xml_declaration=True)
         print(f"✅ Generated {output_file} with {len(sorted_feeds)} feeds")
-    
-    
+
+    def generate_json(self):
+        """Generate JSON file with latest entries."""
+        output_file = self.config["output_files"]["json"]
+        max_entries = self.config["max_entries"]["json"]
+
+        # Sort entries by publication date (newest first)
+        sorted_entries = sorted(
+            self.all_entries,
+            key=lambda x: x.get('published_parsed') or (0,),
+            reverse=True
+        )
+        
+        latest_entries = sorted_entries[:max_entries]
+
+        # Create a list of dictionaries
+        json_data = []
+        for entry in latest_entries:
+            json_data.append({
+                'title': safe_get_text(entry, 'title', 'No Title'),
+                'link': safe_get_text(entry, 'link'),
+                'summary': clean_html(safe_get_text(entry, 'summary')),
+                'published': entry.get('published'),
+                'feed_title': entry.get('feed_title', 'Unknown Feed'),
+                'feed_url': entry.get('feed_url', '')
+            })
+
+        # Write to file
+        with open(output_file, 'w', encoding='utf-8') as f:
+            json.dump(json_data, f, indent=2)
+        
+        print(f"✅ Generated {output_file} with {len(latest_entries)} entries")
     
     def generate_html(self):
         """Generate HTML page with feeds and latest entries."""
@@ -427,6 +457,7 @@ def main():
     print("\n📄 Generating output files...")
     hub.generate_latest_rss()
     hub.generate_latest_feeds()
+    hub.generate_json()
     hub.generate_html()
 
     hub.record_run()
