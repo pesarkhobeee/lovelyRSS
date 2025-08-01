@@ -26,7 +26,7 @@ jobs:
         run: uv sync --dev
 
       - name: 🧪 Run tests
-        run: uv run python tests/test_fetch_feeds.py
+        run: make test
 
   update:
     needs: test
