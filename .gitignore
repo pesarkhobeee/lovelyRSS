@@ -64,3 +64,10 @@ logs/
 htmlcov/
 .tox/
 coverage.xml
+
+# Deploy related files
+latest_feeds.xml
+latest_posts.json
+latest_rss.xml
+index.html
+badge.md
