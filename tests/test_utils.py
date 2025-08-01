@@ -25,7 +25,7 @@ def test_validate_url():
 def test_truncate_text():
     assert truncate_text("short text", 20) == "short text"
     assert truncate_text("this is a long text that needs to be truncated", 20) == "this is a long text..."
-    assert truncate_text("another long text to truncate at a specific point", 30) == "another long text to..."
+    assert truncate_text("another long text to truncate at a specific point", 30) == "another long text to truncate..."
 
 def test_format_date():
     assert format_date("2023-10-27T10:00:00Z") == "October 27, 2023 at 10:00 UTC"

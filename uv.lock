@@ -194,12 +194,11 @@ dependencies = [
     { name = "toml" },
 ]
 
-[package.optional-dependencies]
+[package.dev-dependencies]
 dev = [
     { name = "pytest", version = "8.3.5", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
     { name = "pytest", version = "8.4.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.9'" },
     { name = "pytest-mock" },
-    { name = "six" },
 ]
 
 [package.metadata]
@@ -207,17 +206,17 @@ requires-dist = [
     { name = "beautifulsoup4", specifier = ">=4.12.0" },
     { name = "feedparser", specifier = ">=6.0.10" },
     { name = "jinja2", specifier = ">=3.1.0" },
-    { name = "pytest", marker = "extra == 'dev'", specifier = ">=7.4.0" },
-    { name = "pytest-mock", marker = "extra == 'dev'", specifier = ">=3.10.0" },
     { name = "python-dateutil", specifier = ">=2.8.0" },
     { name = "requests", specifier = ">=2.31.0" },
-    { name = "six", marker = "extra == 'dev'", specifier = ">=1.16.0" },
     { name = "toml", specifier = ">=0.10.2" },
 ]
 provides-extras = ["dev"]
 
 [package.metadata.requires-dev]
-dev = []
+dev = [
+    { name = "pytest", specifier = ">=7.4.0" },
+    { name = "pytest-mock", specifier = ">=3.10.0" },
+]
 
 [[package]]
 name = "markupsafe"

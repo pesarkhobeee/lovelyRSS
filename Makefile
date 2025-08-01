@@ -19,7 +19,7 @@ build:
 
 test:
 	@echo "Running tests..."
-	uv run pytest
+	uv run python -m pytest
 
 clean:
 	@echo "Cleaning up generated files..."

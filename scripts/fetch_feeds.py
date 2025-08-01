@@ -51,7 +51,8 @@ class RSSHub:
             print(f"⚠️  {config_file} not found, using config.json.template as a fallback.")
 
         # Load version from pyproject.toml
-        with open("pyproject.toml", "r") as f:
+        pyproject_path = Path(__file__).parent.parent / "pyproject.toml"
+        with open(pyproject_path, "r") as f:
             pyproject = toml.load(f)
             self.version = pyproject["project"]["version"]
 

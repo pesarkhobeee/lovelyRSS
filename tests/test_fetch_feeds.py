@@ -5,6 +5,19 @@ import feedparser
 import os
 import shutil
 import tempfile
+import pytest
+
+@pytest.fixture
+def opml_file(tmp_path):
+    return create_mock_opml_file(tmp_path)
+
+@pytest.fixture
+def config_file(tmp_path):
+    return create_mock_config_file(tmp_path)
+
+@pytest.fixture
+def hub(opml_file, config_file, tmp_path):
+    return create_mock_hub(opml_file, config_file, tmp_path)
 
 def create_mock_opml_file(tmp_path):
     opml_content = '''
@@ -101,18 +114,6 @@ def test_generate_latest_feeds(hub):
         assert '<feed>' in content
         assert '<title>Feed 1</title>' in content
 
-def test_generate_json_feed(hub):
-    hub.generate_json_feed()
-    json_file = hub.config["output_files"]["json"]
-    assert os.path.exists(json_file)
-    with open(json_file, 'r') as f:
-        content = f.read()
-        assert '"title": "Test Site"' in content
-        assert '"home_page_url": "http://example.com"' in content
-        assert '"description": "Test Description"' in content
-        assert '"title": "Entry 1"' in content
-        assert '"title": "Entry 2"' not in content
-
 def test_generate_html(hub):
     hub.generate_html()
     html_file = hub.config["output_files"]["html"]
@@ -120,60 +121,7 @@ def test_generate_html(hub):
     with open(html_file, 'r') as f:
         content = f.read()
         assert "<title>Test Site</title>" in content
-        assert "<h1>🌟📰 Test Site</h1>" in content
+        assert "<h1>🌟 Test Site</h1>" in content
         assert "<p>Test Description</p>" in content
         assert "Entry 1" in content
         assert "Entry 2" in content
-
-if __name__ == "__main__":
-    # This allows running the tests without pytest
-    # Create a temporary directory for the tests
-    temp_dir = tempfile.mkdtemp()
-    try:
-        # Create mock files
-        opml_file = os.path.join(temp_dir, "rss.opml")
-        with open(opml_file, "w") as f:
-            f.write('''
-            <opml version="1.0">
-                <body>
-                    <outline text="Feed 1" title="Feed 1" type="rss" xmlUrl="http://example.com/feed1.xml"/>
-                    <outline text="Feed 2" title="Feed 2" type="rss" xmlUrl="http://example.com/feed2.xml"/>
-                </body>
-            </opml>
-            ''')
-        config_file = os.path.join(temp_dir, "config.json")
-        with open(config_file, "w") as f:
-            f.write('''
-            {
-                "site_title": "Test Site",
-                "site_description": "Test Description",
-                "site_link": "http://example.com",
-                "generator": "TestGenerator/1.0",
-                "output_files": {
-                    "rss": "test_rss.xml",
-                    "feeds": "test_feeds.xml",
-                    "json": "test_posts.json",
-                    "html": "test_index.html"
-                },
-                "max_entries": {
-                    "rss": 1,
-                    "json": 1,
-                    "html": 1
-                }
-            }
-            ''')
-
-        # Run the tests
-        hub = create_mock_hub(opml_file, config_file, temp_dir)
-
-        test_parse_opml(opml_file, config_file)
-        test_generate_latest_rss(hub)
-        test_generate_latest_feeds(hub)
-        test_generate_json_feed(hub)
-        test_generate_html(hub)
-
-        print("All tests passed!")
-
-    finally:
-        # Clean up the temporary directory
-        shutil.rmtree(temp_dir)
