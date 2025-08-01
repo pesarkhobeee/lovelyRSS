@@ -65,8 +65,14 @@ htmlcov/
 .tox/
 coverage.xml
 
-# Deploy related files
+# User-specific configuration
+feeds.opml
+config.json
+
+# Generated output files
 latest_feeds.xml
 latest_rss.xml
+latest_posts.json
 index.html
 badge.md
+last_run.json
