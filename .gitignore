@@ -64,8 +64,3 @@ logs/
 htmlcov/
 .tox/
 coverage.xml
-
-# Generated files (ignored by git)
-
-feeds.opml
-config.json
