@@ -999,6 +999,16 @@
             <h3>⚙️ Settings</h3>
             <button class="close-settings" onclick="toggleSettings()">×</button>
         </div>
+        <div class="setting-group">
+            <label class="setting-label">🗂️ Categories as Tabs</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="categories-as-tabs">
+                <span class="slider"></span>
+            </label>
+            <small style="color: var(--muted-color); margin-top: 5px; display: block;">
+                Show categories as horizontal tabs instead of a vertical list
+            </small>
+        </div>
         
         <div class="setting-group">
             <label class="setting-label">🎨 Theme</label>
@@ -1113,51 +1123,96 @@
                     Hide Feeds
                 </button>
             </div>
-            
             <div class="section-content" id="feeds-content">
-                {% for category, feeds in categories.items() %}
-                <div class="category-section" data-category="{{ category }}">
-                    <div class="category-title" onclick="toggleCategory('{{ category }}')">
-                        <span class="category-name">{{ category }}</span>
-                        <span class="category-expand-icon">▼</span>
-                    </div>
-                    <div class="feed-list" id="category-{{ category | replace(' ', '-') | replace('/', '-') | replace(':', '-') }}">
-                        {% for feed in feeds %}
-                        <div class="feed-item{% if feed.has_recent_update %} fresh-updates{% endif %}" data-feed-url="{{ feed.url }}">
-                            <div class="feed-header" onclick="toggleFeedPosts('{{ feed.url }}')">
-                                <div class="feed-info">
-                                    <span class="feed-title">
-                                        {{ feed.title or 'Unknown Feed' }}
-                                    </span>
-                                    <span class="feed-meta">
-                                        {{ feed.entry_count }} posts • {{ format_date(feed.latest_post_date or feed.updated) }}
-                                    </span>
-                                </div>
-                                <span class="expand-icon">▼</span>
-                            </div>
-                            
-                            <div class="feed-posts" id="feed-posts-{{ feed.url | replace('/', '-') | replace(':', '-') | replace('.', '-') }}">
-                                {% set feed_entries = entries_by_feed.get(feed.url, []) %}
-                                {% if feed_entries %}
-                                    {% for entry in feed_entries %}
-                                    <div class="post-item">
-                                        <a href="{{ entry.link or '#' }}" target="_blank" class="post-title">
-                                            {{ entry.title or 'No Title' }}
-                                        </a>
-                                        <span class="post-date">{{ format_date(entry.published) }}</span>
-                                    </div>
-                                    {% endfor %}
-                                {% else %}
-                                <div class="post-item">
-                                    <span class="post-title">No recent posts</span>
-                                </div>
-                                {% endif %}
-                            </div>
-                        </div>
+                <div id="categories-tabs-container" style="display:none;">
+                    <div class="categories-tabs">
+                        {% for category in categories.keys() %}
+                        <button class="category-tab" data-category-tab="{{ category }}">{{ category }}</button>
                         {% endfor %}
                     </div>
+                    {% for category, feeds in categories.items() %}
+                    <div class="category-tab-panel" data-category-panel="{{ category }}" style="display:none;">
+                        <div class="feed-list" id="category-{{ category | replace(' ', '-') | replace('/', '-') | replace(':', '-') }}">
+                            {% for feed in feeds %}
+                            <div class="feed-item{% if feed.has_recent_update %} fresh-updates{% endif %}" data-feed-url="{{ feed.url }}">
+                                <div class="feed-header" onclick="toggleFeedPosts('{{ feed.url }}')">
+                                    <div class="feed-info">
+                                        <span class="feed-title">
+                                            {{ feed.title or 'Unknown Feed' }}
+                                        </span>
+                                        <span class="feed-meta">
+                                            {{ feed.entry_count }} posts • {{ format_date(feed.latest_post_date or feed.updated) }}
+                                        </span>
+                                    </div>
+                                    <span class="expand-icon">▼</span>
+                                </div>
+                                <div class="feed-posts" id="feed-posts-{{ feed.url | replace('/', '-') | replace(':', '-') | replace('.', '-') }}">
+                                    {% set feed_entries = entries_by_feed.get(feed.url, []) %}
+                                    {% if feed_entries %}
+                                        {% for entry in feed_entries %}
+                                        <div class="post-item">
+                                            <a href="{{ entry.link or '#' }}" target="_blank" class="post-title">
+                                                {{ entry.title or 'No Title' }}
+                                            </a>
+                                            <span class="post-date">{{ format_date(entry.published) }}</span>
+                                        </div>
+                                        {% endfor %}
+                                    {% else %}
+                                    <div class="post-item">
+                                        <span class="post-title">No recent posts</span>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
+                <div id="categories-list-container">
+                    {% for category, feeds in categories.items() %}
+                    <div class="category-section" data-category="{{ category }}">
+                        <div class="category-title" onclick="toggleCategory('{{ category }}')">
+                            <span class="category-name">{{ category }}</span>
+                            <span class="category-expand-icon">▼</span>
+                        </div>
+                        <div class="feed-list" id="category-{{ category | replace(' ', '-') | replace('/', '-') | replace(':', '-') }}">
+                            {% for feed in feeds %}
+                            <div class="feed-item{% if feed.has_recent_update %} fresh-updates{% endif %}" data-feed-url="{{ feed.url }}">
+                                <div class="feed-header" onclick="toggleFeedPosts('{{ feed.url }}')">
+                                    <div class="feed-info">
+                                        <span class="feed-title">
+                                            {{ feed.title or 'Unknown Feed' }}
+                                        </span>
+                                        <span class="feed-meta">
+                                            {{ feed.entry_count }} posts • {{ format_date(feed.latest_post_date or feed.updated) }}
+                                        </span>
+                                    </div>
+                                    <span class="expand-icon">▼</span>
+                                </div>
+                                <div class="feed-posts" id="feed-posts-{{ feed.url | replace('/', '-') | replace(':', '-') | replace('.', '-') }}">
+                                    {% set feed_entries = entries_by_feed.get(feed.url, []) %}
+                                    {% if feed_entries %}
+                                        {% for entry in feed_entries %}
+                                        <div class="post-item">
+                                            <a href="{{ entry.link or '#' }}" target="_blank" class="post-title">
+                                                {{ entry.title or 'No Title' }}
+                                            </a>
+                                            <span class="post-date">{{ format_date(entry.published) }}</span>
+                                        </div>
+                                        {% endfor %}
+                                    {% else %}
+                                    <div class="post-item">
+                                        <span class="post-title">No recent posts</span>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
         </section>
     </main>
@@ -1182,7 +1237,8 @@
             theme: localStorage.getItem('rss-theme') || 'green',
             postsCount: parseInt(localStorage.getItem('rss-posts-count')) || 10,
             showPosts: localStorage.getItem('rss-show-posts') !== 'false',
-            showFeeds: localStorage.getItem('rss-show-feeds') !== 'false'
+            showFeeds: localStorage.getItem('rss-show-feeds') !== 'false',
+            categoriesAsTabs: localStorage.getItem('rss-categories-as-tabs') === 'true'
         };
 
         let currentFilter = null;
@@ -1331,13 +1387,20 @@
 
             // Set posts count
             document.getElementById('posts-count').value = settings.postsCount;
-            
+
             // Set toggles
             document.getElementById('show-posts').checked = settings.showPosts;
             document.getElementById('show-feeds').checked = settings.showFeeds;
+            document.getElementById('categories-as-tabs').checked = settings.categoriesAsTabs;
         }
 
         function setupEventListeners() {
+            // Categories as tabs toggle
+            document.getElementById('categories-as-tabs').addEventListener('change', function() {
+                settings.categoriesAsTabs = this.checked;
+                saveSettings();
+                location.reload(); // Force full page reload for immediate effect
+            });
             // Posts count change
             document.getElementById('posts-count').addEventListener('change', function() {
                 settings.postsCount = parseInt(this.value);
@@ -1397,6 +1460,39 @@
         }
 
         function applySettings() {
+            applyCategoriesView();
+        function applyCategoriesView() {
+            const tabsContainer = document.getElementById('categories-tabs-container');
+            const listContainer = document.getElementById('categories-list-container');
+            if (settings.categoriesAsTabs) {
+                tabsContainer.style.display = '';
+                listContainer.style.display = 'none';
+                // Activate first tab by default if none active
+                const tabs = document.querySelectorAll('.category-tab');
+                let activeTab = document.querySelector('.category-tab.active');
+                if (!activeTab && tabs.length > 0) {
+                    tabs[0].classList.add('active');
+                    showCategoryTabPanel(tabs[0].dataset.categoryTab);
+                }
+                // Add event listeners
+                tabs.forEach(tab => {
+                    tab.onclick = function() {
+                        document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                        tab.classList.add('active');
+                        showCategoryTabPanel(tab.dataset.categoryTab);
+                    };
+                });
+            } else {
+                tabsContainer.style.display = 'none';
+                listContainer.style.display = '';
+            }
+        }
+
+        function showCategoryTabPanel(category) {
+            document.querySelectorAll('.category-tab-panel').forEach(panel => {
+                panel.style.display = (panel.dataset.categoryPanel === category) ? '' : 'none';
+            });
+        }
             applyTheme();
             updateVisiblePosts();
             toggleSectionVisibility('latest-posts', settings.showPosts);
@@ -1482,6 +1578,7 @@
         }
 
         function saveSettings() {
+            localStorage.setItem('rss-categories-as-tabs', settings.categoriesAsTabs.toString());
             localStorage.setItem('rss-theme', settings.theme);
             localStorage.setItem('rss-posts-count', settings.postsCount.toString());
             localStorage.setItem('rss-show-posts', settings.showPosts.toString());

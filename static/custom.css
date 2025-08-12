@@ -1,1 +1,33 @@
+/* Category Tabs */
+.categories-tabs {
+	display: flex;
+	gap: 10px;
+	margin-bottom: 20px;
+	flex-wrap: wrap;
+}
+.category-tab {
+	background: var(--card-bg);
+	border: 1.5px solid var(--border-color);
+	border-radius: 8px 8px 0 0;
+	padding: 10px 22px;
+	font-weight: 600;
+	color: var(--accent-color);
+	cursor: pointer;
+	transition: background 0.2s, color 0.2s, border 0.2s;
+	outline: none;
+	font-size: 1rem;
+	margin-bottom: -1.5px;
+}
+.category-tab.active {
+	background: var(--accent-color);
+	color: #fff;
+	border-bottom: 2.5px solid var(--accent-color);
+	z-index: 2;
+}
+.category-tab:hover {
+	background: rgba(var(--accent-rgb), 0.08);
+}
+.category-tab-panel {
+	animation: fadeIn 0.3s;
+}
 /* Add your custom styles here. */
