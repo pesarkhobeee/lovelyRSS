@@ -4,6 +4,9 @@
   "site_link": "https://github.com",
   "generator": "lovelyRSS/1.0",
   "update_interval_hours": 6,
+  "ui_settings": {
+    "horizontal_menu": true
+  },
   "output_files": {
     "rss": "latest_rss.xml",
     "feeds": "latest_feeds.xml",
