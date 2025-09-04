@@ -1089,7 +1089,7 @@
             <div class="setting-group">
                 <label class="setting-label">👁️ Show Latest Posts</label>
                 <label class="toggle-switch">
-                    <input type="checkbox" id="show-posts" checked />
+                    <input type="checkbox" id="show-posts" />
                     <span class="slider"></span>
                 </label>
             </div>
@@ -1406,7 +1406,7 @@
             const settings = {
                 theme: localStorage.getItem('rss-theme') || 'green',
                 postsCount: parseInt(localStorage.getItem('rss-posts-count')) || 10,
-                showPosts: localStorage.getItem('rss-show-posts') !== 'false',
+                showPosts: localStorage.getItem('rss-show-posts') === 'true',
                 showFeeds: localStorage.getItem('rss-show-feeds') !== 'false',
                 categoriesAsTabs: localStorage.getItem('rss-categories-as-tabs') !== null ?
                     localStorage.getItem('rss-categories-as-tabs') === 'true' :
@@ -1704,13 +1704,16 @@
             }
 
             function toggleSectionVisibility(sectionName, show) {
+                const section = document.getElementById(`${sectionName}-section`);
                 const content = document.getElementById(`${sectionName}-content`);
                 const toggle = document.getElementById(`${sectionName}-toggle`);
 
                 if (show) {
+                    section.style.display = '';
                     content.classList.remove('hidden');
                     toggle.textContent = sectionName === 'latest-posts' ? 'Hide Posts' : 'Hide Feeds';
                 } else {
+                    section.style.display = 'none';
                     content.classList.add('hidden');
                     toggle.textContent = sectionName === 'latest-posts' ? 'Show Posts' : 'Show Feeds';
                 }
