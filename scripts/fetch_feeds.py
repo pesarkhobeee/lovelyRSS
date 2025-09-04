@@ -261,7 +261,7 @@ class RSSHub:
         print(f"✅ Generated {output_file} with {len(latest_entries)} entries")
 
     def generate_latest_feeds(self):
-        """Generate XML file with feeds sorted by recent updates."""
+        """Generate RSS 2.0 XML file with feeds sorted by recent updates."""
         output_file = self.config["output_files"]["feeds"]
 
         # Sort feeds by latest post date (more reliable than feed updated field)
@@ -271,27 +271,53 @@ class RSSHub:
             reverse=True
         )
 
-        # Create feeds XML
-        feeds_xml = ET.Element('feeds')
-        feeds_xml.set('updated', get_current_timestamp())
-        feeds_xml.set('count', str(len(sorted_feeds)))
+        # Create RSS 2.0 XML structure
+        rss_root = ET.Element('rss')
+        rss_root.set('version', '2.0')
+        rss_root.set('xmlns:atom', 'http://www.w3.org/2005/Atom')
 
+        channel = ET.SubElement(rss_root, 'channel')
+
+        # Channel metadata
+        ET.SubElement(channel, 'title').text = 'LovelyRSS - Subscribed Feeds'
+        ET.SubElement(channel, 'description').text = f'List of {len(sorted_feeds)} RSS feeds subscribed to in LovelyRSS, sorted by latest updates'
+        ET.SubElement(channel, 'link').text = 'https://github.com/pesarkhobeee/lovelyRSS'
+        ET.SubElement(channel, 'lastBuildDate').text = get_current_timestamp()
+        ET.SubElement(channel, 'generator').text = 'LovelyRSS'
+        ET.SubElement(channel, 'language').text = 'en'
+
+        # Add atom:link for self-reference
+        atom_link = ET.SubElement(channel, 'atom:link')
+        atom_link.set('href', output_file.split('/')[-1])
+        atom_link.set('rel', 'self')
+        atom_link.set('type', 'application/rss+xml')
+
+        # Add each feed as an RSS item
         for feed in sorted_feeds:
-            feed_elem = ET.SubElement(feeds_xml, 'feed')
-            ET.SubElement(feed_elem, 'title').text = feed.get('title', 'Unknown Feed')
-            ET.SubElement(feed_elem, 'url').text = feed.get('url', '')
-            ET.SubElement(feed_elem, 'link').text = feed.get('link', '')
-            ET.SubElement(feed_elem, 'description').text = feed.get('description', '')
-            ET.SubElement(feed_elem, 'updated').text = feed.get('updated', '')
-            ET.SubElement(feed_elem, 'entry_count').text = str(feed.get('entry_count', 0))
-            ET.SubElement(feed_elem, 'category').text = feed.get('category', '')
-            ET.SubElement(feed_elem, 'language').text = feed.get('language', 'en')
+            item = ET.SubElement(channel, 'item')
+
+            # Required RSS item elements
+            ET.SubElement(item, 'title').text = feed.get('title', 'Unknown Feed')
+            ET.SubElement(item, 'link').text = feed.get('link', '')
+            ET.SubElement(item, 'description').text = (
+                f"RSS Feed: {feed.get('description', 'No description')} | "
+                f"Category: {feed.get('category', 'Uncategorized')} | "
+                f"Posts: {feed.get('entry_count', 0)} | "
+                f"Language: {feed.get('language', 'en')}"
+            )
+
+            # Optional elements
+            ET.SubElement(item, 'pubDate').text = feed.get('updated', '')
+            ET.SubElement(item, 'guid').text = feed.get('url', '')
+
+            # Custom elements for feed metadata
+            ET.SubElement(item, 'category').text = feed.get('category', 'Uncategorized')
 
         # Write to file
-        tree = ET.ElementTree(feeds_xml)
+        tree = ET.ElementTree(rss_root)
         ET.indent(tree, space="  ", level=0)
         tree.write(output_file, encoding='utf-8', xml_declaration=True)
-        print(f"✅ Generated {output_file} with {len(sorted_feeds)} feeds")
+        print(f"✅ Generated RSS 2.0 {output_file} with {len(sorted_feeds)} feeds")
 
     def generate_json(self):
         """Generate JSON file with latest entries."""
