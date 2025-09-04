@@ -1,33 +1,65 @@
-/* Category Tabs */
+/* Category Tabs - Minimal Design */
 .categories-tabs {
-	display: flex;
-	gap: 10px;
-	margin-bottom: 20px;
-	flex-wrap: wrap;
+    display: flex;
+    gap: 0;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border-color);
 }
 .category-tab {
-	background: var(--card-bg);
-	border: 1.5px solid var(--border-color);
-	border-radius: 8px 8px 0 0;
-	padding: 10px 22px;
-	font-weight: 600;
-	color: var(--accent-color);
-	cursor: pointer;
-	transition: background 0.2s, color 0.2s, border 0.2s;
-	outline: none;
-	font-size: 1rem;
-	margin-bottom: -1.5px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 6px 12px;
+    font-weight: 400;
+    color: var(--muted-color);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    outline: none;
+    font-size: 0.8rem;
+    position: relative;
+    white-space: nowrap;
 }
 .category-tab.active {
-	background: var(--accent-color);
-	color: #fff;
-	border-bottom: 2.5px solid var(--accent-color);
-	z-index: 2;
+    background: transparent;
+    color: var(--accent-color);
+    border-bottom: 2px solid var(--accent-color);
+    font-weight: 500;
 }
 .category-tab:hover {
-	background: rgba(var(--accent-rgb), 0.08);
+    color: var(--text-color);
+    background: rgba(var(--accent-rgb), 0.05);
+}
+.category-tab.active:hover {
+    color: var(--accent-color);
+    background: rgba(var(--accent-rgb), 0.08);
 }
 .category-tab-panel {
-	animation: fadeIn 0.3s;
+    animation: fadeIn 0.2s;
+    margin-top: 8px;
 }
+/* Mobile responsiveness for tabs */
+@media (max-width: 768px) {
+    .categories-tabs {
+        gap: 0;
+        margin-bottom: 6px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    .categories-tabs::-webkit-scrollbar {
+        display: none;
+    }
+    .category-tab {
+        padding: 8px 10px;
+        font-size: 0.75rem;
+        flex-shrink: 0;
+        min-width: max-content;
+    }
+    .category-tab-panel {
+        margin-top: 6px;
+    }
+}
+
 /* Add your custom styles here. */
