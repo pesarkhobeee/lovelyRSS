@@ -756,6 +756,18 @@
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .feed-favicon {
+                width: 16px;
+                height: 16px;
+                border-radius: 3px;
+                flex-shrink: 0;
+                object-fit: cover;
+                background: var(--border-color);
             }
 
             .feed-title a {
@@ -766,6 +778,21 @@
 
             .feed-title a:hover {
                 color: var(--accent-color);
+            }
+
+            .entry-source {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            .entry-favicon {
+                width: 14px;
+                height: 14px;
+                border-radius: 2px;
+                flex-shrink: 0;
+                object-fit: cover;
+                background: var(--border-color);
             }
 
             .feed-meta {
@@ -1177,7 +1204,15 @@
                                     onclick="highlightFeed('{{ entry.feed_url }}')"
                                     title="Click to highlight this feed in the feeds section"
                                 >
-                                    {{ entry.feed_title or 'Unknown Feed' }}
+                                    {% if entry.feed_favicon_url %}
+                                    <img
+                                        src="{{ entry.feed_favicon_url }}"
+                                        alt="favicon"
+                                        class="entry-favicon"
+                                        onerror="this.style.display='none'"
+                                    />
+                                    {% endif %} {{ entry.feed_title or 'Unknown
+                                    Feed' }}
                                 </span>
                                 <span
                                     class="entry-time"
@@ -1250,8 +1285,15 @@
                                     >
                                         <div class="feed-info">
                                             <span class="feed-title">
-                                                {{ feed.title or 'Unknown Feed'
-                                                }}
+                                                {% if feed.favicon_url %}
+                                                <img
+                                                    src="{{ feed.favicon_url }}"
+                                                    alt="favicon"
+                                                    class="feed-favicon"
+                                                    onerror="this.style.display='none'"
+                                                />
+                                                {% endif %} {{ feed.title or
+                                                'Unknown Feed' }}
                                             </span>
                                             <span class="feed-meta">
                                                 {{ feed.entry_count }} posts •
@@ -1330,8 +1372,15 @@
                                     >
                                         <div class="feed-info">
                                             <span class="feed-title">
-                                                {{ feed.title or 'Unknown Feed'
-                                                }}
+                                                {% if feed.favicon_url %}
+                                                <img
+                                                    src="{{ feed.favicon_url }}"
+                                                    alt="favicon"
+                                                    class="feed-favicon"
+                                                    onerror="this.style.display='none'"
+                                                />
+                                                {% endif %} {{ feed.title or
+                                                'Unknown Feed' }}
                                             </span>
                                             <span class="feed-meta">
                                                 {{ feed.entry_count }} posts •

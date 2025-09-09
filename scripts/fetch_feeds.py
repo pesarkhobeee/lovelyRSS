@@ -19,6 +19,7 @@ from utils import (
     fetch_with_retry,
     format_date,
     get_current_timestamp,
+    get_favicon_url,
     get_readable_timestamp,
     safe_get_text,
     truncate_text,
@@ -156,12 +157,17 @@ class RSSHub:
             parsed_feed = self.fetch_feed(feed_info)
 
             if parsed_feed and parsed_feed.entries:
+                # Get favicon URL first
+                feed_link = safe_get_text(parsed_feed.feed, 'link')
+                favicon_url = get_favicon_url(feed_info['url'], feed_link)
+
                 # Process entries
                 for entry in parsed_feed.entries:
                     # Add feed metadata to each entry
                     entry['feed_title'] = feed_info['title']
                     entry['feed_url'] = feed_info['url']
                     entry['feed_category'] = feed_info.get('category', '')
+                    entry['feed_favicon_url'] = favicon_url
 
                 self.all_entries.extend(parsed_feed.entries)
 
@@ -186,7 +192,7 @@ class RSSHub:
                     'title': feed_info['title'],
                     'url': feed_info['url'],
                     'category': feed_info.get('category', ''),
-                    'link': safe_get_text(parsed_feed.feed, 'link'),
+                    'link': feed_link,
                     'description': safe_get_text(parsed_feed.feed, 'description'),
                     'updated': safe_get_text(parsed_feed.feed, 'updated'),
                     'updated_parsed': parsed_feed.feed.get('updated_parsed'),
@@ -194,6 +200,7 @@ class RSSHub:
                     'latest_post_parsed': latest_entry_parsed,  # Parsed version for sorting
                     'entry_count': len(parsed_feed.entries),
                     'language': safe_get_text(parsed_feed.feed, 'language', 'en'),
+                    'favicon_url': favicon_url,  # Add favicon URL
                 }
                 self.feeds_with_updates.append(feed_meta)
 
