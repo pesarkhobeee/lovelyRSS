@@ -11,6 +11,8 @@ from urllib.parse import urljoin, urlparse
 import requests
 from bs4 import BeautifulSoup
 
+import os
+
 
 def clean_html(text: str) -> str:
     """
@@ -299,7 +301,7 @@ def is_github_profile_feed(feed_url: str) -> bool:
     Returns:
         True if it's a GitHub profile feed
     """
-    return "github.com" in feed_url and (".atom" in feed_url or "/commits/" in feed_url)
+    return "github.com" in feed_url
 
 
 def is_youtube_feed(feed_url: str) -> bool:
@@ -326,22 +328,15 @@ def extract_github_username(feed_url: str) -> Optional[str]:
         Username or None if not found
     """
     try:
-        # Common GitHub feed patterns:
-        # https://github.com/username.atom
-        # https://github.com/username/repo/commits/branch.atom
-        if ".atom" in feed_url:
-            if "/commits/" in feed_url:
-                # Extract from repo feed
-                match = re.search(r'github\.com/([^/]+)/', feed_url)
-            else:
-                # Extract from user feed
-                match = re.search(r'github\.com/([^/.]+)\.atom', feed_url)
-
-            if match:
-                return match.group(1)
+        print(f"Extracting GitHub username from {feed_url}")
+        match = re.search(r'github\.com\/([^\/]+)\/?.*$', feed_url)
+        if match:
+            print(match.group(1))
+        return match.group(1) if match else None
     except Exception:
+        print(f"Error extracting GitHub username from {feed_url}")
         pass
-
+    os.exit(1)
     return None
 
 
