@@ -51,12 +51,12 @@
     <!-- GitHub Profiles -->
     <outline text="GitHub Profiles" title="GitHub Profiles">
       <outline text="Linus Torvalds" title="Linus Torvalds" type="rss"
-               xmlUrl="https://github.com/torvalds.atom"
+               xmlUrl="https://github.com/torvalds"
                htmlUrl="https://github.com/torvalds"
                category="GitHub"/>
 
       <outline text="Fabrice Bellard" title="Fabrice Bellard" type="rss"
-               xmlUrl="https://github.com/bellard.atom"
+               xmlUrl="https://github.com/bellard"
                htmlUrl="https://github.com/bellard"
                category="GitHub"/>
     </outline>
