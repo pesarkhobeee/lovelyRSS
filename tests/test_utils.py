@@ -6,6 +6,10 @@ from scripts.utils import (
     format_date,
     get_domain,
     sanitize_filename,
+    get_favicon_url,
+    is_github_profile_feed,
+    extract_github_username,
+    is_youtube_feed,
 )
 
 def test_clean_html():
@@ -48,3 +52,42 @@ def test_sanitize_filename():
     assert sanitize_filename('file<with<less<than') == "file_with_less_than"
     assert sanitize_filename('file>with>greater>than') == "file_with_greater_than"
     assert sanitize_filename('file|with|pipes') == "file_with_pipes"
+
+def test_is_github_profile_feed():
+    assert is_github_profile_feed("https://github.com/torvalds.atom") == True
+    assert is_github_profile_feed("https://github.com/user/repo/commits/main.atom") == True
+    assert is_github_profile_feed("https://github.blog/feed/") == False
+    assert is_github_profile_feed("https://example.com/feed.atom") == False
+
+def test_extract_github_username():
+    assert extract_github_username("https://github.com/torvalds.atom") == "torvalds"
+    assert extract_github_username("https://github.com/user/repo/commits/main.atom") == "user"
+    assert extract_github_username("https://github.blog/feed/") == None
+    assert extract_github_username("https://example.com/feed.atom") == None
+
+def test_is_youtube_feed():
+    assert is_youtube_feed("https://www.youtube.com/feeds/videos.xml?channel_id=UCsXVk37bltHxD1rDPwtNM8Q") == True
+    assert is_youtube_feed("https://www.youtube.com/feeds/videos.xml?user=username") == True
+    assert is_youtube_feed("https://youtube.com/feed") == False
+    assert is_youtube_feed("https://example.com/feed.xml") == False
+
+def test_get_favicon_url_github_profiles():
+    # Test GitHub profile feeds get the user's profile image
+    favicon_url = get_favicon_url("https://github.com/torvalds.atom", "https://github.com/torvalds")
+    assert favicon_url == "https://github.com/torvalds.png?size=50"
+
+    favicon_url = get_favicon_url("https://github.com/user/repo/commits/main.atom", "https://github.com/user/repo")
+    assert favicon_url == "https://github.com/user.png?size=50"
+
+def test_get_favicon_url_youtube():
+    # Test YouTube feeds get YouTube favicon
+    favicon_url = get_favicon_url("https://www.youtube.com/feeds/videos.xml?channel_id=UCsXVk37bltHxD1rDPwtNM8Q", "https://www.youtube.com/channel/UCsXVk37bltHxD1rDPwtNM8Q")
+    assert favicon_url == "https://www.youtube.com/favicon.ico"
+
+def test_get_favicon_url_special_domains():
+    # Test special domain handling
+    favicon_url = get_favicon_url("https://stackoverflow.blog/feed/", "https://stackoverflow.blog/")
+    assert favicon_url == "https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico"
+
+    favicon_url = get_favicon_url("https://hnrss.org/frontpage", "https://news.ycombinator.com/")
+    assert favicon_url == "https://news.ycombinator.com/favicon.ico"

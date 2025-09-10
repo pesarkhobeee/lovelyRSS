@@ -1,1 +1,288 @@
+/* Category Tabs - Minimal Design */
+.categories-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border-color);
+}
+.category-tab {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 6px 12px;
+    font-weight: 400;
+    color: var(--muted-color);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    outline: none;
+    font-size: 0.8rem;
+    position: relative;
+    white-space: nowrap;
+}
+.category-tab.active {
+    background: transparent;
+    color: var(--accent-color);
+    border-bottom: 2px solid var(--accent-color);
+    font-weight: 500;
+}
+.category-tab:hover {
+    color: var(--text-color);
+    background: rgba(var(--accent-rgb), 0.05);
+}
+.category-tab.active:hover {
+    color: var(--accent-color);
+    background: rgba(var(--accent-rgb), 0.08);
+}
+.category-tab-panel {
+    animation: fadeIn 0.2s;
+    margin-top: 8px;
+}
+/* Mobile responsiveness for tabs */
+@media (max-width: 768px) {
+    .categories-tabs {
+        gap: 0;
+        margin-bottom: 6px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    .categories-tabs::-webkit-scrollbar {
+        display: none;
+    }
+    .category-tab {
+        padding: 8px 10px;
+        font-size: 0.75rem;
+        flex-shrink: 0;
+        min-width: max-content;
+    }
+    .category-tab-panel {
+        margin-top: 6px;
+    }
+
+    /* Adjust minimum height for mobile */
+    main {
+        min-height: 50vh; /* Reduce minimum height on mobile for better UX */
+    }
+
+    .footer {
+        margin-top: 30px !important; /* Reduce top margin on mobile */
+    }
+}
+
+/* Minimum height layout to prevent footer jumping */
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    min-height: 60vh; /* Ensure main content takes up at least 60% of viewport */
+}
+
+.footer {
+    margin-top: auto !important;
+}
+
+/* Zen Typography for Distraction-Free Reading */
+
+/* Import Inter font for excellent readability */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:wght@300;400;700&display=swap");
+
+/* Root typography variables */
+:root {
+    --reading-font:
+        "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui,
+        sans-serif;
+    --serif-font: "Merriweather", Georgia, "Times New Roman", serif;
+    --base-font-size: 16px;
+    --reading-font-size: 17px;
+    --title-font-size: 19px;
+    --small-font-size: 14px;
+    --micro-font-size: 12px;
+    --reading-line-height: 1.7;
+    --title-line-height: 1.5;
+    --compact-line-height: 1.4;
+}
+
+/* Enhanced body typography */
+body {
+    font-family: var(--reading-font) !important;
+    font-size: var(--base-font-size) !important;
+    line-height: var(--reading-line-height) !important;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeReadability;
+}
+
+/* Article/Entry typography for optimal reading */
+.entry-title {
+    font-family: var(--serif-font) !important;
+    font-size: var(--title-font-size) !important;
+    font-weight: 400 !important;
+    line-height: var(--title-line-height) !important;
+    margin-bottom: 14px !important;
+    letter-spacing: -0.01em;
+}
+
+.entry-title a {
+    color: var(--text-color) !important;
+    text-decoration: none !important;
+    transition: color 0.2s ease;
+}
+
+.entry-title a:hover {
+    color: var(--accent-color) !important;
+}
+
+/* Meta information - subtle and unobtrusive */
+.entry-meta {
+    font-size: var(--small-font-size) !important;
+    line-height: var(--compact-line-height) !important;
+    color: var(--muted-color) !important;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+}
+
+.entry-source,
+.entry-time {
+    font-size: var(--small-font-size) !important;
+    font-weight: 400 !important;
+}
+
+/* Reading content - optimized for long-form reading */
+.entry-summary {
+    font-family: var(--serif-font) !important;
+    font-size: var(--reading-font-size) !important;
+    line-height: var(--reading-line-height) !important;
+    color: var(--text-color) !important;
+    margin-top: 16px !important;
+    font-weight: 300;
+    letter-spacing: 0.002em;
+}
+
+/* Section headings */
+.section h2 {
+    font-family: var(--reading-font) !important;
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    line-height: 1.3 !important;
+    letter-spacing: -0.02em;
+}
+
+/* Feed titles in feed list */
+.feed-title {
+    font-family: var(--reading-font) !important;
+    font-size: var(--base-font-size) !important;
+    font-weight: 500 !important;
+    line-height: var(--compact-line-height) !important;
+    letter-spacing: -0.005em;
+}
+
+.feed-meta {
+    font-size: var(--small-font-size) !important;
+    color: var(--muted-color) !important;
+    font-weight: 400 !important;
+}
+
+/* Post titles in feed posts */
+.post-title,
+.feed-post-title {
+    font-family: var(--serif-font) !important;
+    font-size: var(--base-font-size) !important;
+    font-weight: 400 !important;
+    line-height: var(--compact-line-height) !important;
+    letter-spacing: -0.005em;
+}
+
+/* Category tags - subtle and clean */
+.entry-category {
+    font-size: var(--micro-font-size) !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+/* Timestamps */
+.entry-time,
+.post-date,
+.feed-post-date {
+    font-size: var(--micro-font-size) !important;
+    font-weight: 400 !important;
+    color: var(--muted-color) !important;
+    letter-spacing: 0.01em;
+}
+
+/* Header typography */
+.header h1 {
+    font-family: var(--reading-font) !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.03em;
+}
+
+.header p {
+    font-size: var(--reading-font-size) !important;
+    line-height: var(--reading-line-height) !important;
+    font-weight: 300;
+}
+
+/* Stats typography */
+.stat-number {
+    font-family: var(--reading-font) !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.02em;
+}
+
+.stat-label {
+    font-size: var(--small-font-size) !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.01em;
+}
+
+/* Footer typography */
+.footer {
+    font-size: var(--small-font-size) !important;
+    line-height: var(--reading-line-height) !important;
+    font-weight: 400;
+}
+
+/* Mobile typography adjustments */
+@media (max-width: 768px) {
+    :root {
+        --base-font-size: 16px;
+        --reading-font-size: 17px;
+        --title-font-size: 18px;
+        --small-font-size: 14px;
+        --micro-font-size: 12px;
+        --reading-line-height: 1.6;
+    }
+
+    .entry-title {
+        font-size: var(--title-font-size) !important;
+        margin-bottom: 12px !important;
+    }
+
+    .entry-summary {
+        font-size: var(--reading-font-size) !important;
+        margin-top: 14px !important;
+    }
+}
+
+/* Focus states for accessibility */
+.entry-title a:focus,
+.feed-title a:focus,
+.post-title:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
 /* Add your custom styles here. */

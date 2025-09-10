@@ -11,65 +11,78 @@
   <body>
     <!-- Technology & Programming -->
     <outline text="Technology" title="Technology">
-      <outline text="Hacker News" title="Hacker News" type="rss" 
-               xmlUrl="https://hnrss.org/frontpage" 
+      <outline text="Hacker News" title="Hacker News" type="rss"
+               xmlUrl="https://hnrss.org/frontpage"
                htmlUrl="https://news.ycombinator.com/"
                category="Technology"/>
-      
-      <outline text="GitHub Blog" title="GitHub Blog" type="rss" 
-               xmlUrl="https://github.blog/feed/" 
+
+      <outline text="GitHub Blog" title="GitHub Blog" type="rss"
+               xmlUrl="https://github.blog/feed/"
                htmlUrl="https://github.blog/"
                category="Technology"/>
-      
-      <outline text="Stack Overflow Blog" title="Stack Overflow Blog" type="rss" 
-               xmlUrl="https://stackoverflow.blog/feed/" 
+
+      <outline text="Stack Overflow Blog" title="Stack Overflow Blog" type="rss"
+               xmlUrl="https://stackoverflow.blog/feed/"
                htmlUrl="https://stackoverflow.blog/"
                category="Technology"/>
-      
-      <outline text="Python.org Jobs" title="Python.org Jobs" type="rss" 
-               xmlUrl="https://www.python.org/jobs/feed/rss/" 
+
+      <outline text="Python.org Jobs" title="Python.org Jobs" type="rss"
+               xmlUrl="https://www.python.org/jobs/feed/rss/"
                htmlUrl="https://www.python.org/jobs/"
                category="Technology"/>
     </outline>
 
     <!-- News & Current Events -->
     <outline text="News" title="News">
-      <outline text="BBC Technology" title="BBC Technology" type="rss" 
-               xmlUrl="http://feeds.bbci.co.uk/news/technology/rss.xml" 
+      <outline text="BBC Technology" title="BBC Technology" type="rss"
+               xmlUrl="http://feeds.bbci.co.uk/news/technology/rss.xml"
                htmlUrl="https://www.bbc.com/news/technology"
                category="News"/>
     </outline>
 
     <!-- Blogs & Personal -->
     <outline text="Blogs" title="Blogs">
-      <outline text="David Heinemeier Hansson" title="David Heinemeier Hansson" type="rss" 
-               xmlUrl="https://world.hey.com/dhh/feed.atom" 
+      <outline text="David Heinemeier Hansson" title="David Heinemeier Hansson" type="rss"
+               xmlUrl="https://world.hey.com/dhh/feed.atom"
                htmlUrl="https://world.hey.com/dhh/"
                category="Blogs"/>
     </outline>
 
+    <!-- GitHub Profiles -->
+    <outline text="GitHub Profiles" title="GitHub Profiles">
+      <outline text="Linus Torvalds" title="Linus Torvalds" type="rss"
+               xmlUrl="https://github.com/torvalds.atom"
+               htmlUrl="https://github.com/torvalds"
+               category="GitHub"/>
+
+      <outline text="Fabrice Bellard" title="Fabrice Bellard" type="rss"
+               xmlUrl="https://github.com/bellard.atom"
+               htmlUrl="https://github.com/bellard"
+               category="GitHub"/>
+    </outline>
+
     <!-- Youtube Channels -->
     <outline text="YouTube" title="YouTube">
-      <outline text="Kurzgesagt – In a Nutshell" title="Kurzgesagt – In a Nutshell" type="rss" 
+      <outline text="Kurzgesagt – In a Nutshell" title="Kurzgesagt – In a Nutshell" type="rss"
                xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCsXVk37bltHxD1rDPwtNM8Q"
                 htmlUrl="https://www.youtube.com/@kurzgesagt"
                 category="YouTube"/>
-      <outline text="Big Think" title="Big Think" type="rss" 
+      <outline text="Big Think" title="Big Think" type="rss"
                xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCvQECJukTDE2i6aCoMnS-Vg"
                 htmlUrl="https://www.youtube.com/@bigthink"
                 category="YouTube"/>
     </outline>
 
-    <!-- 
+    <!--
     Add your own feeds here! Follow this format:
-    
-    <outline text="Feed Display Name" 
-             title="Feed Title" 
-             type="rss" 
-             xmlUrl="https://example.com/feed.xml" 
+
+    <outline text="Feed Display Name"
+             title="Feed Title"
+             type="rss"
+             xmlUrl="https://example.com/feed.xml"
              htmlUrl="https://example.com/"
              category="Category Name"/>
-    
+
     Categories help organize your feeds in the web interface.
     Common categories: Technology, News, Blogs, Science, Entertainment, etc.
     -->
