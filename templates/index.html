@@ -1281,7 +1281,7 @@
                                 >
                                     <div
                                         class="feed-header"
-                                        onclick="toggleFeedPosts('{{ feed.url }}')"
+                                        onclick="toggleFeedPosts(this.parentElement.getAttribute('data-feed-url'))"
                                     >
                                         <div class="feed-info">
                                             <span class="feed-title">
@@ -1368,7 +1368,7 @@
                                 >
                                     <div
                                         class="feed-header"
-                                        onclick="toggleFeedPosts('{{ feed.url }}')"
+                                        onclick="toggleFeedPosts(this.parentElement.getAttribute('data-feed-url'))"
                                     >
                                         <div class="feed-info">
                                             <span class="feed-title">
@@ -1513,7 +1513,13 @@
                 });
 
                 // Find and highlight the target feed
-                const feedElement = document.querySelector(`.feed-item[data-feed-url="${feedUrl}"]`);
+                let feedElement = null;
+                document.querySelectorAll('.feed-item').forEach(item => {
+                    if (item.getAttribute('data-feed-url') === feedUrl) {
+                        feedElement = item;
+                    }
+                });
+
                 if (feedElement) {
                     feedElement.classList.add('highlight-feed');
 
@@ -1579,7 +1585,19 @@
             }
 
             function toggleFeedPosts(feedUrl) {
-                const feedElement = document.querySelector(`.feed-item[data-feed-url="${feedUrl}"]`);
+                // Find feed element by matching data attribute directly
+                let feedElement = null;
+                document.querySelectorAll('.feed-item').forEach(item => {
+                    if (item.getAttribute('data-feed-url') === feedUrl) {
+                        feedElement = item;
+                    }
+                });
+
+                if (!feedElement) {
+                    console.error('Feed element not found for URL:', feedUrl);
+                    return;
+                }
+
                 const isExpanded = feedElement.classList.contains('expanded');
 
                 // Close all other expanded feeds
