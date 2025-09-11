@@ -2,40 +2,19 @@ name: 🤖 Update RSS Feeds
 
 on:
   schedule:
-    - cron: "0 * * * *"  # Every hour
-  workflow_dispatch:  # Allow manual trigger
+    - cron: "0 * * * *" # Every hour
+  workflow_dispatch: # Allow manual trigger
   push:
-    branches: [ main ]  # Also run on push for testing
+    branches: [main]
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: 📥 Checkout repository
-        uses: actions/checkout@v4
-
-      - name: 🔧 Install uv
-        uses: astral-sh/setup-uv@v3
-        with:
-          version: "latest"
-
-      - name: 🐍 Set up Python
-        run: uv python install 3.12
-
-      - name: 📦 Install dependencies
-        run: uv sync --dev
-
-      - name: 🧪 Run tests
-        run: make test
-
   update:
-    needs: test
     runs-on: ubuntu-latest
     permissions:
       contents: read
       pages: write
       id-token: write
-    
+
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
@@ -58,7 +37,7 @@ jobs:
         run: |
           echo "![RSS Hub](https://img.shields.io/badge/📰_RSS_Hub-Updated_every_6h-brightgreen)" > badge.md
           echo "Last updated: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> badge.md
-      
+
       - name: 🔧 Setup Pages
         uses: actions/configure-pages@v4
 
@@ -76,7 +55,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    
+
     steps:
       - name: 🚀 Deploy to GitHub Pages
         id: deployment

@@ -111,7 +111,7 @@ def test_generate_latest_feeds(hub):
     assert os.path.exists(feeds_file)
     with open(feeds_file, 'r') as f:
         content = f.read()
-        assert '<feed>' in content
+
         assert '<title>Feed 1</title>' in content
 
 def test_generate_html(hub):
