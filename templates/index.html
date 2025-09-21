@@ -1277,6 +1277,7 @@
                                 {% for feed in feeds %}
                                 <div
                                     class="feed-item{% if feed.has_recent_update %} fresh-updates{% endif %}"
+                                    onclick="this.classList.toggle('expanded')"
                                     data-feed-url="{{ feed.url }}"
                                 >
                                     <div
