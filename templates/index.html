@@ -478,6 +478,12 @@
             .entry-time {
                 color: var(--muted-color);
                 font-size: 0.85rem;
+                cursor: help;
+                transition: color 0.2s ease;
+            }
+
+            .entry-time:hover {
+                color: var(--text-color);
             }
 
             .entry-time.fresh {
@@ -682,6 +688,12 @@
                 font-size: 0.8rem;
                 color: var(--muted-color);
                 white-space: nowrap;
+                cursor: help;
+                transition: color 0.2s ease;
+            }
+
+            .post-date:hover {
+                color: var(--text-color);
             }
             .feed-activity {
                 width: 60px;
@@ -1217,8 +1229,9 @@
                                 <span
                                     class="entry-time"
                                     data-published="{{ entry.published or '' }}"
+                                    title="{{ format_date(entry.published) }}"
                                 >
-                                    {{ format_date(entry.published) }}
+                                    {{ format_relative_time(entry.published) }}
                                 </span>
                                 {% if entry.feed_category %}
                                 <span class="entry-category"
@@ -1321,8 +1334,12 @@
                                             >
                                                 {{ entry.title or 'No Title' }}
                                             </a>
-                                            <span class="post-date"
-                                                >{{ format_date(entry.published)
+                                            <span
+                                                class="post-date"
+                                                data-published="{{ entry.published or '' }}"
+                                                title="{{ format_date(entry.published) }}"
+                                                >{{
+                                                format_relative_time(entry.published)
                                                 }}</span
                                             >
                                         </div>
@@ -1408,8 +1425,12 @@
                                             >
                                                 {{ entry.title or 'No Title' }}
                                             </a>
-                                            <span class="post-date"
-                                                >{{ format_date(entry.published)
+                                            <span
+                                                class="post-date"
+                                                data-published="{{ entry.published or '' }}"
+                                                title="{{ format_date(entry.published) }}"
+                                                >{{
+                                                format_relative_time(entry.published)
                                                 }}</span
                                             >
                                         </div>
@@ -1866,6 +1887,55 @@
                     }
                 });
             });
+
+            // Function to format relative time from ISO date string
+            function formatRelativeTime(dateStr) {
+                if (!dateStr) return "Unknown time";
+
+                try {
+                    const now = new Date();
+                    const date = new Date(dateStr);
+                    const diffInSeconds = Math.floor((now - date) / 1000);
+
+                    if (diffInSeconds < 60) {
+                        return "Just now";
+                    } else if (diffInSeconds < 3600) {
+                        const minutes = Math.floor(diffInSeconds / 60);
+                        return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
+                    } else if (diffInSeconds < 86400) {
+                        const hours = Math.floor(diffInSeconds / 3600);
+                        return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+                    } else if (diffInSeconds < 2592000) {
+                        const days = Math.floor(diffInSeconds / 86400);
+                        return `${days} day${days !== 1 ? 's' : ''} ago`;
+                    } else if (diffInSeconds < 31536000) {
+                        const months = Math.floor(diffInSeconds / 2592000);
+                        return `${months} month${months !== 1 ? 's' : ''} ago`;
+                    } else {
+                        const years = Math.floor(diffInSeconds / 31536000);
+                        return `${years} year${years !== 1 ? 's' : ''} ago`;
+                    }
+                } catch (e) {
+                    return dateStr;
+                }
+            }
+
+            // Function to update all relative times
+            function updateRelativeTimes() {
+                const timeElements = document.querySelectorAll('.entry-time[data-published], .post-date[data-published]');
+                timeElements.forEach(element => {
+                    const publishedDate = element.getAttribute('data-published');
+                    if (publishedDate) {
+                        element.textContent = formatRelativeTime(publishedDate);
+                    }
+                });
+            }
+
+            // Update relative times every minute
+            setInterval(updateRelativeTimes, 60000);
+
+            // Initial update on page load
+            updateRelativeTimes();
         </script>
     </body>
 </html>

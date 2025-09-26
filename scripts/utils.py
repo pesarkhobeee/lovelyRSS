@@ -7,6 +7,7 @@ import html
 from datetime import datetime, timezone
 from typing import Dict, List, Optional, Union
 from urllib.parse import urljoin, urlparse
+import time
 
 import requests
 from bs4 import BeautifulSoup
@@ -88,6 +89,61 @@ def format_date(date_str: Optional[str]) -> str:
         }
         dt = parser.parse(date_str, tzinfos=tzinfos)
         return dt.strftime("%B %d, %Y at %H:%M UTC")
+    except Exception:
+        return date_str
+
+
+def format_relative_time(date_str: Optional[str]) -> str:
+    """
+    Format date string as relative time (e.g., "2 hours ago", "3 days ago").
+
+    Args:
+        date_str: Date string from feed
+
+    Returns:
+        Relative time string
+    """
+    if not date_str:
+        return "Unknown time"
+
+    try:
+        # Try to parse the date string
+        from dateutil import parser
+        # Define timezone mappings for common abbreviations
+        tzinfos = {
+            'UT': timezone.utc,
+            'UTC': timezone.utc,
+            'GMT': timezone.utc,
+        }
+        dt = parser.parse(date_str, tzinfos=tzinfos)
+
+        # Calculate time difference
+        now = datetime.now(timezone.utc)
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+
+        time_diff = now - dt
+        total_seconds = int(time_diff.total_seconds())
+
+        # Return relative time
+        if total_seconds < 60:
+            return "Just now"
+        elif total_seconds < 3600:  # Less than 1 hour
+            minutes = total_seconds // 60
+            return f"{minutes} minute{'s' if minutes != 1 else ''} ago"
+        elif total_seconds < 86400:  # Less than 1 day
+            hours = total_seconds // 3600
+            return f"{hours} hour{'s' if hours != 1 else ''} ago"
+        elif total_seconds < 2592000:  # Less than 30 days
+            days = total_seconds // 86400
+            return f"{days} day{'s' if days != 1 else ''} ago"
+        elif total_seconds < 31536000:  # Less than 1 year
+            months = total_seconds // 2592000
+            return f"{months} month{'s' if months != 1 else ''} ago"
+        else:
+            years = total_seconds // 31536000
+            return f"{years} year{'s' if years != 1 else ''} ago"
+
     except Exception:
         return date_str
 

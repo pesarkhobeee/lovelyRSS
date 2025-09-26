@@ -18,6 +18,7 @@ from utils import (
     clean_html,
     fetch_with_retry,
     format_date,
+    format_relative_time,
     get_current_timestamp,
     get_favicon_url,
     get_readable_timestamp,
@@ -445,6 +446,7 @@ class RSSHub:
             'ui_settings': self.config.get("ui_settings", {"horizontal_menu": True}),
             'clean_html': clean_html,
             'format_date': format_date,
+            'format_relative_time': format_relative_time,
             'truncate_text': truncate_text,
         }
 
