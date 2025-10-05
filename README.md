@@ -88,7 +88,6 @@ Your `lovelyRSS` instance produces several files that make it easy to share what
 
 -   **`index.html`**: The main, shareable webpage that displays your feeds and the latest posts.
 -   **`latest_rss.xml`**: A merged RSS feed of the latest posts from all your subscriptions. This is perfect for friends who want to follow your reading list in their own RSS reader.
--   **`latest_posts.json`**: A JSON file containing the latest posts, ideal for developers who want to use your data in other applications.
 -   **`latest_feeds.xml`**: An XML file listing all the feeds you subscribe to, sorted by the most recently updated.
 
 These files are updated automatically and can be found at `https://your-username.github.io/your-repo-name/`.

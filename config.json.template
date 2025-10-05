@@ -10,12 +10,10 @@
   "output_files": {
     "rss": "latest_rss.xml",
     "feeds": "latest_feeds.xml",
-    "json": "latest_posts.json",
     "html": "index.html"
   },
   "max_entries": {
     "rss": 50,
-    "json": 50,
     "html": 30
   }
 }
